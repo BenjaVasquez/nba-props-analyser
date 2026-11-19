@@ -2,7 +2,7 @@ import { TEAMS, logoHTML } from "./teams.js";
 import { dataUrl } from "./config.js";
 import { indexInjuries, injuryFor, injuryLabel, rosterSectionHTML, playerPanelHTML } from "./players.js";
 import { mountPropView, unmountPropView, setStat, presetLine } from "./propview.js";
-import { parlaysHTML, myLegs, findLeg } from "./parlayview.js";
+import { parlaysHTML, dayParlaysHTML, myLegs, findLeg } from "./parlayview.js";
 
 const DATA_URL = dataUrl("fixture.json");
 const REFRESH_MS = 10 * 60 * 1000;     // vuelve a leer los datos cada 10 min
@@ -29,6 +29,7 @@ const state = {
   teamCache: new Map(),// abreviatura -> datos de data/players/XXX.json
   playerId: null,      // jugador abierto en la columna derecha
   query: "",           // búsqueda en la columna de plantillas
+  dayView: null,       // fecha (YYYY-MM-DD) cuando se muestran los parlays del día
 };
 
 /* ================= Utilidades de fecha ================= */
@@ -169,7 +170,8 @@ function renderList({ keepScroll = false } = {}) {
   for (const [day, gs] of groups) {
     html += `<section class="day" data-day="${day}">
       <div class="day-head">${longDay(day)} ${day === today ? `<span class="tag-today">HOY</span>` : ""}
-        <span class="cnt">${gs.length} ${gs.length === 1 ? "partido" : "partidos"}</span></div>
+        <span class="cnt">${gs.length} ${gs.length === 1 ? "partido" : "partidos"}</span>
+        <button type="button" class="dh-parlay" data-dayparlay="${day}" title="Parlays de esta jornada">🎯</button></div>
       ${gs.map(gameCard).join("")}
     </section>`;
   }
@@ -238,6 +240,7 @@ function renderTeamStrip() {
 
 /* ================= Render: partido seleccionado ================= */
 function renderSelection() {
+  if (state.dayView) { renderDayView(); return; }
   const g = state.byId.get(state.selectedId);
   const box = $("#matchup");
   if (!g) {
@@ -314,13 +317,51 @@ function injuriesCardHTML(g) {
   return `<div class="card"><h3>Bajas y dudas</h3><div class="bajas">${col(g.away)}${col(g.home)}</div></div>`;
 }
 
+/* ================= Parlays del día ================= */
+function dayGames(day) {
+  return state.games.filter((g) => g.day === day && g.home !== "TBD" && g.away !== "TBD");
+}
+
+function selectDay(day, { fromHash = false } = {}) {
+  state.dayView = day;
+  state.selectedId = null;
+  state.playerId = null;
+  myLegs.clear();
+  unmountPropView();
+  document.querySelectorAll(".game.selected").forEach((b) => b.classList.remove("selected"));
+  if (!fromHash) { try { history.replaceState(null, "", `#dia-${day}`); } catch { location.hash = `dia-${day}`; } }
+  renderRoster();
+  renderSelection();
+  const teams = [...new Set(dayGames(day).flatMap((g) => [g.away, g.home]))];
+  Promise.all(teams.map((t) => loadTeam(t))).then(() => { if (state.dayView === day) renderSelection(); });
+  $(".col-analysis").scrollTop = 0;
+  if (!fromHash && window.matchMedia("(max-width: 900px)").matches) $(".col-analysis").scrollIntoView({ behavior: "smooth" });
+}
+
+function renderDayView() {
+  const day = state.dayView;
+  const games = dayGames(day);
+  const box = $("#matchup");
+  const items = games.map((g) => ({
+    game: g, isFinal: gameStatus(g) === "final",
+    teams: { [g.away]: teamData(g.away), [g.home]: teamData(g.home) },
+  }));
+  const loading = items.some((it) => !it.teams[it.game.away] || !it.teams[it.game.home]);
+  const label = longDay(day);
+  box.innerHTML = `
+    <div class="day-hero"><div class="big">🎯 ${label.charAt(0).toUpperCase() + label.slice(1)}</div>
+      <div class="sub">${games.length ? `${games.length} partidos · ${games.map((g) => `${g.away}@${g.home}`).join(" · ")}` : "No hay partidos este día."}</div></div>
+    ${games.length ? dayParlaysHTML({ dayLabel: label, items, injIdx: state.injIdx, loading }, state.model) : ""}`;
+}
+
 function setHash() {
   const h = `#g${state.selectedId}${state.playerId ? `-p${state.playerId}` : ""}`;
   try { history.replaceState(null, "", h); } catch { location.hash = h.slice(1); }
 }
 
 function selectGame(id, { fromHash = false, playerId = null } = {}) {
-  const changed = id !== state.selectedId;
+  const changed = id !== state.selectedId || !!state.dayView;
+  state.dayView = null;
   state.selectedId = id;
   state.playerId = playerId;
   if (changed) { state.query = ""; $("#rosterSearch").value = ""; myLegs.clear(); }
@@ -425,8 +466,14 @@ function bindEvents() {
     })
   );
 
+  $("#btnDayParlays").addEventListener("click", () => selectDay(state.activeDay || todayKey()));
+  $("#calList").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-dayparlay]");
+    if (b) { e.stopPropagation(); selectDay(b.dataset.dayparlay); }
+  }, true);
   window.addEventListener("hashchange", () => {
-    const { id, pid } = parseHash();
+    const { id, pid, day } = parseHash();
+    if (day && day !== state.dayView) { selectDay(day, { fromHash: true }); return; }
     if (id && state.byId.has(id) && (id !== state.selectedId || pid !== state.playerId)) selectGame(id, { fromHash: true, playerId: pid });
   });
 
@@ -462,10 +509,13 @@ function bindEvents() {
       if (l) {
         presetLine(l.player.id, l.stat, l.t - 0.5);
         document.querySelectorAll("#propTabs button").forEach((x) => x.classList.toggle("on", x.dataset.stat === l.stat));
-        selectPlayer(l.player.id);
+        if (state.dayView || state.selectedId !== l.gameId) selectGame(l.gameId, { playerId: l.player.id });
+        else selectPlayer(l.player.id);
       }
       return;
     }
+    const gameBtn = e.target.closest("[data-game]");
+    if (gameBtn) { selectGame(+gameBtn.dataset.game); return; }
     if (e.target.closest("[data-clear]")) { myLegs.clear(); renderSelection(); return; }
     if (e.target.closest('[data-action="back"]')) {
       state.playerId = null;
@@ -479,7 +529,8 @@ function bindEvents() {
     try {
       await loadData(); renderMeta(); renderTeamStrip(); renderList({ keepScroll: true });
       const g = state.byId.get(state.selectedId);
-      if (g) await Promise.all([g.away, g.home].map((t) => loadTeam(t, { force: true })));
+      const ts = state.dayView ? dayGames(state.dayView).flatMap((x) => [x.away, x.home]) : g ? [g.away, g.home] : [];
+      await Promise.all([...new Set(ts)].map((t) => loadTeam(t, { force: true })));
       renderRoster(); renderSelection();
     }
     catch (err) { console.warn("No se pudo refrescar", err); }
@@ -497,8 +548,10 @@ function fillTeamFilter() {
 }
 
 function parseHash() {
+  const d = location.hash.match(/^#dia-(\d{4}-\d\d-\d\d)$/);
+  if (d) return { id: 0, pid: null, day: d[1] };
   const m = location.hash.match(/^#g(\d+)(?:-p(\d+))?$/);
-  return { id: m ? +m[1] : 0, pid: m && m[2] ? m[2] : null };
+  return { id: m ? +m[1] : 0, pid: m && m[2] ? m[2] : null, day: null };
 }
 
 /* ================= Inicio ================= */
@@ -517,7 +570,8 @@ async function init() {
   scrollToDay(todayKey());
 
   // partido inicial: el del hash, o el primero pendiente de hoy en adelante
-  const { id: hashId, pid } = parseHash();
+  const { id: hashId, pid, day: hashDay } = parseHash();
+  if (hashDay) { selectDay(hashDay, { fromHash: true }); return; }
   const fromHash = state.byId.get(hashId);
   const first = fromHash ||
     state.games.find((g) => g.day >= todayKey() && gameStatus(g) !== "final") || state.games.at(-1);

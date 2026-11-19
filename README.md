@@ -57,13 +57,17 @@ pip install openpyxl
 python scripts/build_fixture.py "nba-2026-UTC.xlsx" data/fixture.json
 ```
 
-## Parlays sugeridos (al tocar un partido)
+## Parlays sugeridos (modelo v2)
 
-- `js/parlay.js` busca, para cada jugador disponible del partido, la línea "X+" más alta
-  (10+, 15+, 20+ pts; 4+, 6+ reb; etc.) que se cumple con alta frecuencia. La probabilidad
-  mezcla temporada (40%), últimos 10 (30%), últimos 5 (15%) y local/visita (15%), suavizada
-  y calibrada con los resultados reales.
-- Arma parlays de 2, 3 y 4 patas (una por jugador) y uno mezclando ambos equipos.
-- `scripts/backtest.mjs` prueba el modelo con los partidos ya jugados (usando solo la info
-  previa a cada partido) y escribe `data/model.json`. Lo corre solo `update_data.py`.
-- En partidos ya jugados la web muestra si cada pata/parlay se cumplió.
+- `js/parlay.js`: para cada jugador disponible y cada prop calcula la probabilidad de cada
+  línea alternativa "X+" (10+, 15+, 20+ pts; 4+, 6+ reb; etc.).
+  Prob = 85% proyección (minutos esperados 0,3·L5 + 0,3·L10 + 0,4·temporada × producción por
+  minuto, con distribución normal según la variabilidad del jugador) + 15% historial
+  (temporada, L10, L5, local/visita). Elegido probando contra partidos ya jugados:
+  defensa del rival, back-to-back y diferencia de nivel no mejoraron y se dejaron fuera.
+- Por partido: Doble, Triple, Cuádruple, Ambos equipos y "Valor" (líneas en o sobre el
+  promedio del jugador, 62–76%).
+- Botón "🎯 Parlays del día": una pata de cada partido distinto de la jornada (2, 3 y 4 patas).
+- `scripts/backtest.mjs` prueba todo con los partidos ya jugados (solo con info previa a cada
+  partido) y escribe `data/model.json`; la web muestra ese "acierto real". Lo corre
+  `update_data.py` en cada actualización.
