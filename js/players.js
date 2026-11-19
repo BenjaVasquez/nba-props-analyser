@@ -120,9 +120,10 @@ export function playerPanelHTML(p, inj, game) {
       </div>
     </div>
     <div class="tiles">${tiles}</div>
+    <div class="pp" id="propView"></div>
     <div class="card"><h3>Últimos partidos</h3>${games.length
       ? `<div class="tbl-wrap"><table class="log"><thead><tr><th>Fecha</th><th>Rival</th><th>Res</th><th>MIN</th><th>PTS</th><th>REB</th><th>AST</th><th>3PM</th><th>ROB</th><th>TAP</th></tr></thead><tbody>${rows}</tbody></table></div>`
       : `<div class="muted">Todavía no juega esta temporada.</div>`}</div>
-    <p class="note">Siguiente paso: línea de la prop, % de acierto (últimos 5/10/20 y temporada) y gráfico por partido.</p>
+    <p class="note">Over = supera la línea · Push = igual a la línea (no cuenta en el %). La línea que pongas queda guardada para ese jugador y prop en este navegador.</p>
   </div>`;
 }
