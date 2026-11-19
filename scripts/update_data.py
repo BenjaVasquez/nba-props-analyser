@@ -58,21 +58,67 @@ def team_abbr(team):
 
 
 # ---------------------------------------------------------------- HTTP
-def fetch_json(url, tries=4):
-    req = urllib.request.Request(url, headers={
-        "User-Agent": "Mozilla/5.0 (nba-props-analyser data bot)",
-        "Accept": "application/json",
-    })
-    for i in range(tries):
-        try:
-            with urllib.request.urlopen(req, timeout=30) as r:
-                return json.loads(r.read().decode("utf-8"))
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
-            if i == tries - 1:
-                raise
-            wait = 2 ** i
-            print(f"  reintento en {wait}s ({e}) -> {url}")
-            time.sleep(wait)
+# ESPN rechaza (403) las consultas que no parecen de un navegador. Usamos cabeceras
+# de navegador normal y, si un servidor de ESPN falla, probamos el alternativo.
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/131.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) "
+    "Version/17.5 Safari/605.1.15",
+]
+ESPN_HOSTS = ["https://site.api.espn.com", "https://site.web.api.espn.com"]
+_working = None          # (host, user-agent) que funcionó la última vez
+STATS = {"ok": 0, "fail": 0}
+
+
+class FetchError(Exception):
+    pass
+
+
+def _profiles():
+    combos = [(h, ua) for h in ESPN_HOSTS for ua in USER_AGENTS]
+    if _working in combos:
+        combos.remove(_working)
+        combos.insert(0, _working)
+    return combos
+
+
+def fetch_json(url, tries=3):
+    """Descarga JSON de ESPN probando servidor/cabeceras alternativos ante un 403."""
+    global _working
+    path = url
+    for h in ESPN_HOSTS:
+        if url.startswith(h):
+            path = url[len(h):]
+    last = None
+    for host, ua in _profiles():
+        full = host + path
+        req = urllib.request.Request(full, headers={
+            "User-Agent": ua,
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Referer": "https://www.espn.com/",
+            "Origin": "https://www.espn.com",
+        })
+        for i in range(tries):
+            try:
+                with urllib.request.urlopen(req, timeout=30) as r:
+                    data = json.loads(r.read().decode("utf-8"))
+                if _working != (host, ua):
+                    print(f"  ESPN responde OK vía {host} ({ua[:40]}…)")
+                    _working = (host, ua)
+                STATS["ok"] += 1
+                return data
+            except urllib.error.HTTPError as e:
+                last = f"HTTP {e.code} en {full}"
+                if e.code in (403, 404):
+                    break                    # este perfil no sirve: probar el siguiente
+                time.sleep(2 ** i)           # 429 / 5xx: esperar y reintentar
+            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
+                last = f"{e} en {full}"
+                time.sleep(2 ** i)
+    STATS["fail"] += 1
+    raise FetchError(last)
 
 
 # Se puede reemplazar en las pruebas por una función que lea archivos locales
@@ -359,37 +405,64 @@ def main():
     start = SEASON_START
     if cache.get("last_scan"):
         start = max(SEASON_START, date.fromisoformat(cache["last_scan"]) - timedelta(days=2))
-    day, new_box, matched = start, 0, 0
+    day, new_box, matched, missing, gap = start, 0, 0, 0, False
+    last_ok = cache.get("last_scan")
     print(f"Revisando partidos del {start} al {today_et}…")
     while day <= today_et:
-        sb = GET(f"{ESPN}/scoreboard?dates={day.strftime('%Y%m%d')}")
+        try:
+            sb = GET(f"{ESPN}/scoreboard?dates={day.strftime('%Y%m%d')}")
+        except Exception as e:
+            print(f"  ERROR calendario {day}: {e}. Se retoma desde aquí en la próxima pasada.")
+            break
+        day_complete = True
         for raw in sb.get("events", []):
             ev = parse_event(raw)
             if ev.get("season_type") not in (2, 6, None):  # 2 = temporada regular, 6 = Copa NBA
                 continue
             matched += update_fixture(fixture, ev)
             if ev["completed"] and (ev["id"] not in events or not events[ev["id"]].get("lines")):
-                summary = GET(f"{ESPN}/summary?event={ev['id']}")
+                try:
+                    summary = GET(f"{ESPN}/summary?event={ev['id']}")
+                except Exception as e:
+                    print(f"  ERROR box score {ev['id']}: {e} (se reintenta la próxima vez)")
+                    day_complete = False
+                    missing += 1
+                    continue
                 ev["lines"] = parse_boxscore(summary)
                 ev.pop("completed", None)
                 ev.pop("season_type", None)
                 events[ev["id"]] = ev
                 new_box += 1
                 time.sleep(0.15)
+        if not day_complete:
+            gap = True
+        elif not gap:                 # solo avanzamos mientras no haya días pendientes
+            last_ok = day.isoformat()
         day += timedelta(days=1)
         time.sleep(0.1)
-    cache["last_scan"] = today_et.isoformat()
-    print(f"  {new_box} box scores nuevos · {len(events)} en total · {matched} partidos cruzados con el calendario")
+    cache["last_scan"] = last_ok
+    print(f"  {new_box} box scores nuevos · {len(events)} en total · {matched} partidos cruzados"
+          f"{f' · {missing} pendientes' if missing else ''}")
+
+    if STATS["ok"] == 0:
+        sys.exit("ESPN rechazó TODAS las consultas desde este servidor (ver errores arriba). No se guardó nada.")
 
     # 2) Plantillas actuales
     rosters = {}
     for tid, abbr in ESPN_TEAMS.items():
-        rosters[abbr] = parse_roster(GET(f"{ESPN}/teams/{tid}/roster"), abbr)
+        try:
+            rosters[abbr] = parse_roster(GET(f"{ESPN}/teams/{tid}/roster"), abbr)
+        except Exception as e:
+            print(f"  ERROR plantilla {abbr}: {e} (se mantiene la anterior)")
         time.sleep(0.1)
-    print(f"  plantillas: {sum(len(v) for v in rosters.values())} jugadores")
+    print(f"  plantillas: {len(rosters)}/30 equipos · {sum(len(v) for v in rosters.values())} jugadores")
 
     # 3) Lesionados
-    injuries = parse_injuries(GET(f"{ESPN}/injuries"))
+    try:
+        injuries = parse_injuries(GET(f"{ESPN}/injuries"))
+    except Exception as e:
+        print(f"  ERROR lesionados: {e} (se mantiene el archivo anterior)")
+        injuries = read_json(DATA / "injuries.json", {})
     # si la plantilla marca a alguien como lesionado y no está en el reporte, lo sumamos
     for plist in rosters.values():
         for p in plist:
@@ -402,6 +475,9 @@ def main():
                     "comment": None, "date": None,
                 }
     print(f"  lesionados: {len(injuries)}")
+
+    if STATS["ok"] == 0:
+        sys.exit("ESPN rechazó TODAS las consultas desde este servidor. No se guardó nada nuevo.")
 
     # 4) Un archivo por equipo con bio, promedios y partidos de la temporada
     logs = build_game_logs(events)
@@ -427,7 +503,7 @@ def main():
         "updated": stamp, "season": fixture.get("season"), "games_played": played,
         "boxscores": len(events), "injured": len(injuries),
     })
-    print(f"Listo · {played} partidos con resultado · {stamp}")
+    print(f"Listo · {played} partidos con resultado · {stamp} · consultas OK {STATS['ok']}, fallidas {STATS['fail']}")
 
 
 if __name__ == "__main__":
