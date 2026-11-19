@@ -4,6 +4,7 @@ import { indexInjuries, injuryFor, injuryLabel, rosterSectionHTML, playerPanelHT
 import { mountPropView, unmountPropView, setStat, presetLine } from "./propview.js";
 import { parlaysHTML, dayParlaysHTML, myLegs, findLeg } from "./parlayview.js";
 import { live, startLive } from "./live.js";
+import { trackingHTML } from "./trackview.js";
 
 const DATA_URL = dataUrl("fixture.json");
 const REFRESH_MS = 10 * 60 * 1000;     // vuelve a leer los datos cada 10 min
@@ -29,6 +30,7 @@ const state = {
   stats: {},
   injIdx: null,        // lesionados indexados por id y nombre
   model: null,         // rendimiento del modelo de parlays (data/model.json)
+  tracking: null,      // registro real de picks (data/tracking.json)
   teamCache: new Map(),// abreviatura -> datos de data/players/XXX.json
   playerId: null,      // jugador abierto en la columna derecha
   query: "",           // búsqueda en la columna de plantillas
@@ -59,6 +61,9 @@ async function loadData() {
     fetch(dataUrl("injuries.json"), { cache: "no-cache" }).catch(() => null),
     fetch(dataUrl("model.json"), { cache: "no-cache" }).catch(() => null),
   ]);
+  fetch(dataUrl("tracking.json"), { cache: "no-cache" })
+    .then((r) => (r.ok ? r.json() : null)).catch(() => null)
+    .then((t) => { state.tracking = t; if (state.dayView === "registro") renderSelection(); });
   try { state.model = modelRes && modelRes.ok ? await modelRes.json() : null; } catch { state.model = null; }
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const json = await res.json();
@@ -260,6 +265,7 @@ function renderTeamStrip() {
 
 /* ================= Render: partido seleccionado ================= */
 function renderSelection() {
+  if (state.dayView === "registro") { unmountPropView(); $("#matchup").innerHTML = trackingHTML(state.tracking); return; }
   if (state.dayView) { renderDayView(); return; }
   const g = state.byId.get(state.selectedId);
   const box = $("#matchup");
@@ -346,6 +352,19 @@ function injuriesCardHTML(g) {
 /* ================= Parlays del día ================= */
 function dayGames(day) {
   return state.games.filter((g) => g.day === day && g.home !== "TBD" && g.away !== "TBD");
+}
+
+function selectTracking({ fromHash = false } = {}) {
+  state.dayView = "registro";
+  state.selectedId = null;
+  state.playerId = null;
+  myLegs.clear();
+  document.querySelectorAll(".game.selected").forEach((b) => b.classList.remove("selected"));
+  if (!fromHash) { try { history.replaceState(null, "", "#registro"); } catch { location.hash = "registro"; } }
+  renderRoster();
+  renderSelection();
+  $(".col-analysis").scrollTop = 0;
+  if (!fromHash && window.matchMedia("(max-width: 900px)").matches) $(".col-analysis").scrollIntoView({ behavior: "smooth" });
 }
 
 function selectDay(day, { fromHash = false } = {}) {
@@ -500,7 +519,9 @@ function bindEvents() {
     const b = e.target.closest("[data-dayparlay]");
     if (b) { e.stopPropagation(); selectDay(b.dataset.dayparlay); }
   }, true);
+  $("#btnTracking").addEventListener("click", () => selectTracking());
   window.addEventListener("hashchange", () => {
+    if (location.hash === "#registro") { if (state.dayView !== "registro") selectTracking({ fromHash: true }); return; }
     const { id, pid, day } = parseHash();
     if (day && day !== state.dayView) { selectDay(day, { fromHash: true }); return; }
     if (id && state.byId.has(id) && (id !== state.selectedId || pid !== state.playerId)) selectGame(id, { fromHash: true, playerId: pid });
@@ -601,6 +622,7 @@ async function init() {
 
   // partido inicial: el del hash, o el primero pendiente de hoy en adelante
   const { id: hashId, pid, day: hashDay } = parseHash();
+  if (location.hash === "#registro") { selectTracking({ fromHash: true }); return; }
   if (hashDay) { selectDay(hashDay, { fromHash: true }); return; }
   const fromHash = state.byId.get(hashId);
   const first = fromHash ||

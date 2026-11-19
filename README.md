@@ -90,3 +90,11 @@ el score por cuartos en el partido, y cuánto lleva cada jugador en las patas de
 - El robot corre 8 veces al día (ver `.github/workflows/update-data.yml`).
 - Si una actualización falla, abre un aviso ("issue") en GitHub, que te llega por correo,
   y lo cierra solo cuando vuelve a funcionar. La web marca ⚠ si los datos tienen más de 14 h.
+
+## Registro de picks (prueba real)
+
+`scripts/picks.mjs` (lo corre el robot) guarda en `data/picks/AAAA-MM-DD.json` los parlays
+y mejores patas que la web recomienda para cada partido **antes** de que empiece (se
+re-guardan hasta el inicio con los lesionados al día; los parlays del día se fijan al
+empezar el primer partido). Cuando hay box score, los marca ganados/perdidos/nulos y
+resume todo en `data/tracking.json`, que la web muestra en **📈 Registro**.

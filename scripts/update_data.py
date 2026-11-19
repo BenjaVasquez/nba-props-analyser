@@ -515,6 +515,15 @@ def main():
     except Exception as e:
         print(f"  (rendimiento del modelo omitido: {e})")
 
+    # 6) Registro real de picks: guarda los de los próximos partidos y evalúa los terminados
+    try:
+        import subprocess
+        r = subprocess.run(["node", str(ROOT / "scripts" / "picks.mjs")],
+                           capture_output=True, text=True, timeout=600, cwd=ROOT)
+        print((r.stdout or r.stderr).strip())
+    except Exception as e:
+        print(f"  (registro de picks omitido: {e})")
+
 
 if __name__ == "__main__":
     main()
