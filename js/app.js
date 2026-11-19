@@ -3,6 +3,7 @@ import { dataUrl } from "./config.js";
 import { indexInjuries, injuryFor, injuryLabel, rosterSectionHTML, playerPanelHTML } from "./players.js";
 import { mountPropView, unmountPropView, setStat, presetLine } from "./propview.js";
 import { parlaysHTML, dayParlaysHTML, myLegs, findLeg } from "./parlayview.js";
+import { live, startLive } from "./live.js";
 
 const DATA_URL = dataUrl("fixture.json");
 const REFRESH_MS = 10 * 60 * 1000;     // vuelve a leer los datos cada 10 min
@@ -11,6 +12,8 @@ const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone; // zona horaria del
 // Las jornadas se agrupan por fecha NBA (hora de EE.UU. Este), como en las casas de apuestas:
 // así un partido de las 00:30 en Chile sigue apareciendo en la jornada del día anterior.
 const SLATE_TZ = "America/New_York";
+const STALE_MS = 14 * 60 * 60 * 1000; // si los datos tienen más de esto, se avisa
+let liveCtl = null;
 
 const $ = (s, el = document) => el.querySelector(s);
 
@@ -67,11 +70,23 @@ async function loadData() {
     .sort((a, b) => a.start - b.start || a.id - b.id);
   state.games.forEach((g) => (g.day = dayKey(g.start)));
   state.byId = new Map(state.games.map((g) => [g.id, g]));
+  applyLive();
+}
+
+// Resultados que llegan del marcador en vivo antes que el robot los guarde
+function applyLive() {
+  for (const g of state.games) {
+    const L = live.games.get(g.id);
+    if (L?.state === "post" && g.hs == null && Number.isFinite(L.hs)) { g.hs = L.hs; g.as = L.as; g.fromLive = true; }
+  }
   state.stats = buildStats(state.games);
 }
 
 function gameStatus(g, now = Date.now()) {
   if (g.hs != null && g.as != null) return "final";
+  const L = live.games.get(g.id);
+  if (L?.state === "in") return "live";
+  if (L?.state === "pre") return "upcoming";
   const t = g.start.getTime();
   if (now < t) return "upcoming";
   if (now < t + GAME_LENGTH_MS) return "live";
@@ -136,7 +151,12 @@ function gameCard(g) {
     </div>`;
 
   let mid;
-  if (final) {
+  const L = live.games.get(g.id);
+  if (st === "live" && L?.state === "in") {
+    const aLead = L.as > L.hs, hLead = L.hs > L.as;
+    mid = `<div class="score live-score"><span class="${aLead ? "" : "l"}">${L.as}</span><span class="sep">–</span><span class="${hLead ? "" : "l"}">${L.hs}</span></div>
+           <div class="state live">${L.detail || "EN JUEGO"}</div>`;
+  } else if (final) {
     mid = `<div class="score"><span class="${awayWon ? "" : "l"}">${g.as}</span><span class="sep">–</span><span class="${homeWon ? "" : "l"}">${g.hs}</span></div>
            <div class="state">FINAL</div>`;
   } else {
@@ -281,8 +301,14 @@ function renderSelection() {
   const h2h = state.games.filter((x) => x.hs != null && x.id !== g.id &&
     ((x.home === g.home && x.away === g.away) || (x.home === g.away && x.away === g.home)));
 
-  const mid = st === "final"
-    ? `<div class="big">${g.as} – ${g.hs}</div><div class="sub">Final</div>`
+  const L = live.games.get(g.id);
+  const lineTbl = L?.lines?.home?.length ? `<table class="linescore"><tr><th></th>${L.lines.home.map((_, i) => `<th>${i < 4 ? `Q${i + 1}` : `OT${i - 3}`}</th>`).join("")}<th>T</th></tr>
+      <tr><td>${g.away}</td>${L.lines.away.map((v) => `<td>${v}</td>`).join("")}<td><b>${L.as}</b></td></tr>
+      <tr><td>${g.home}</td>${L.lines.home.map((v) => `<td>${v}</td>`).join("")}<td><b>${L.hs}</b></td></tr></table>` : "";
+  const mid = st === "live" && L?.state === "in"
+    ? `<div class="big live-big">${L.as} – ${L.hs}</div><div class="sub live-tag">● ${L.detail || "En vivo"}</div>${lineTbl}`
+    : st === "final"
+    ? `<div class="big">${g.as} – ${g.hs}</div><div class="sub">Final</div>${lineTbl}`
     : `<div class="big">${timeFmt.format(g.start)}</div><div class="sub">${longDay(g.day)}</div>`;
 
   box.innerHTML = `
@@ -361,6 +387,7 @@ function setHash() {
 
 function selectGame(id, { fromHash = false, playerId = null } = {}) {
   const changed = id !== state.selectedId || !!state.dayView;
+  if (changed && live.games.get(id)?.state === "in") setTimeout(() => liveCtl?.now(), 0); // trae su box score ya
   state.dayView = null;
   state.selectedId = id;
   state.playerId = playerId;
@@ -431,7 +458,9 @@ function renderMeta() {
     ? state.updated.toLocaleString("es-CL", { timeZone: TZ, day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })
     : "—";
   const played = state.games.filter((g) => g.hs != null).length;
-  $("#meta").innerHTML = `Temporada 2026-27 · <b>${played}</b>/${state.games.length} jugados · Datos: <b>${upd}</b><span class="tz"><br>Jornadas por fecha NBA (EE.UU.) · horarios en tu zona: ${TZ.replace("_", " ")}</span>`;
+  const stale = state.updated && Date.now() - state.updated > STALE_MS;
+  const nLive = [...live.games.values()].filter((x) => x.state === "in").length;
+  $("#meta").innerHTML = `${nLive ? `<span class="live-pill">● ${nLive} en vivo</span> ` : ""}Temporada 2026-27 · <b>${played}</b>/${state.games.length} jugados · Datos: <b class="${stale ? "stale" : ""}" title="${stale ? "La actualización automática no ha corrido en más de 14 horas: revisa GitHub → Actions" : ""}">${stale ? "⚠ " : ""}${upd}</b><span class="tz"><br>Jornadas por fecha NBA (EE.UU.) · horarios en tu zona: ${TZ.replace("_", " ")}</span>`;
 }
 
 /* ================= Eventos ================= */
@@ -528,6 +557,7 @@ function bindEvents() {
   const refresh = async () => {
     try {
       await loadData(); renderMeta(); renderTeamStrip(); renderList({ keepScroll: true });
+      liveCtl?.now();
       const g = state.byId.get(state.selectedId);
       const ts = state.dayView ? dayGames(state.dayView).flatMap((x) => [x.away, x.home]) : g ? [g.away, g.home] : [];
       await Promise.all([...new Set(ts)].map((t) => loadTeam(t, { force: true })));
@@ -578,7 +608,25 @@ async function init() {
   if (first) selectGame(first.id, { fromHash: !!fromHash, playerId: fromHash ? pid : null });
 }
 
-init();
+function startLiveScores() {
+  liveCtl = startLive({
+    getGames: () => state.games,
+    getWatched: () => state.selectedId,
+    onUpdate: (ids) => {
+      applyLive();
+      renderMeta();
+      renderList({ keepScroll: true });
+      // no redibujamos la ficha del jugador (cerraría el gráfico que estás mirando)
+      if (!state.playerId && (state.dayView || ids.includes(state.selectedId))) {
+        const sc = $(".col-analysis").scrollTop;
+        renderSelection();
+        $(".col-analysis").scrollTop = sc;
+      }
+    },
+  });
+}
+
+init().then(startLiveScores);
 
 // App instalable (Android/iPhone/PC): registra el service worker
 if ("serviceWorker" in navigator && location.protocol === "https:") {

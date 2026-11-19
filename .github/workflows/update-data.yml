@@ -2,13 +2,16 @@ name: Actualizar datos NBA
 
 on:
   schedule:
-    # Horas en UTC. Chile (UTC-3): 06:20, 12:20, 15:20, 18:20 y 20:20.
-    # La primera trae resultados y box scores de la noche; las demás refrescan lesionados.
-    - cron: "20 9,15,18,21,23 * * *"
+    # Horas en UTC. Chile verano (UTC-3): 06:20, 12:20, 15:20, 18:20, 20:20, 21:20, 22:20 y 23:20.
+    # (Desde abril, con horario de invierno en Chile, todo queda 1 hora antes.)
+    # 06:20 trae resultados y box scores; las de la tarde/noche refrescan lesionados
+    # y plantillas justo antes de los partidos (bajas de último minuto).
+    - cron: "20 0,1,2,9,15,18,21,23 * * *"
   workflow_dispatch: {}   # botón "Run workflow" para correrlo a mano
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: update-data
@@ -19,11 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
 
       - name: Descargar y procesar datos
         run: python scripts/update_data.py
@@ -38,4 +45,36 @@ jobs:
             exit 0
           fi
           git commit -m "Datos NBA $(date -u +'%Y-%m-%d %H:%M') UTC"
-          git push
+          # si alguien subió cambios mientras corría, nos ponemos al día y reintentamos
+          for i in 1 2 3; do
+            git pull --rebase --quiet origin main && git push && exit 0
+            sleep $((i * 10))
+          done
+          exit 1
+
+      # Aviso por correo: abre un "issue" en GitHub si falla (GitHub te notifica)
+      - name: Avisar si falló
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="⚠ Falló la actualización automática de datos NBA"
+          URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          N=$(gh issue list --state open --search "in:title $TITLE" --json number --jq '.[0].number')
+          if [ -n "$N" ]; then
+            gh issue comment "$N" --body "Volvió a fallar: $URL"
+          else
+            gh issue create --title "$TITLE" --body "La actualización de las $(date -u +'%H:%M') UTC falló. Detalle: $URL
+
+          La web sigue funcionando con los últimos datos. Este aviso se cierra solo cuando una actualización vuelve a funcionar."
+          fi
+
+      - name: Cerrar el aviso cuando vuelve a funcionar
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="⚠ Falló la actualización automática de datos NBA"
+          for N in $(gh issue list --state open --search "in:title $TITLE" --json number --jq '.[].number'); do
+            gh issue close "$N" --comment "Resuelto: la actualización volvió a funcionar."
+          done

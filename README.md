@@ -77,3 +77,16 @@ python scripts/build_fixture.py "nba-2026-UTC.xlsx" data/fixture.json
 `manifest.webmanifest`, `sw.js` e `icons/` hacen que la web se pueda instalar:
 en Android abre la web en Chrome → menú ⋮ → **Instalar app** (o "Agregar a pantalla principal").
 Sin conexión muestra la última copia descargada. Si cambias `sw.js`, sube `VERSION`.
+
+## Marcador en vivo
+
+`js/live.js` consulta el marcador de ESPN directo desde el navegador cada 30 s solo
+mientras hay partidos en juego (90 s si están por empezar, 5 min si no hay nada cerca)
+y se detiene con la app en segundo plano. Muestra score, cuarto y reloj en el calendario,
+el score por cuartos en el partido, y cuánto lleva cada jugador en las patas de los parlays.
+
+## Mantenimiento automático
+
+- El robot corre 8 veces al día (ver `.github/workflows/update-data.yml`).
+- Si una actualización falla, abre un aviso ("issue") en GitHub, que te llega por correo,
+  y lo cierra solo cuando vuelve a funcionar. La web marca ⚠ si los datos tienen más de 14 h.

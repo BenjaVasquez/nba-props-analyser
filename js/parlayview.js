@@ -2,6 +2,7 @@
 import { STATS } from "./propchart.js";
 import { avatarHTML } from "./players.js";
 import { buildLegs, suggestParlays, suggestDayParlays, combine } from "./parlay.js";
+import { live, liveStat } from "./live.js";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const pc = (p) => `${Math.round(p * 100)}%`;
@@ -17,10 +18,18 @@ export const myLegs = new Set();
 
 export function computeParlays(ctx) {
   const { game, teams, injIdx, isFinal } = ctx;
-  const key = `${teams[game.away]?.updated}|${teams[game.home]?.updated}|${injIdx?.count}|${isFinal}`;
+  const L = live.games.get(game.id);
+  const liveDone = L?.state === "post" && live.box.has(L.espnId);
+  const key = `${teams[game.away]?.updated}|${teams[game.home]?.updated}|${injIdx?.count}|${isFinal}|${liveDone}`;
   const hit = cache.get(game.id);
   if (hit?.key === key) return hit;
   const res = buildLegs({ teams, game, injIdx, cutoffDay: game.day, isFinal });
+  // partido recién terminado (aún sin datos del robot): el resultado sale del marcador en vivo
+  if (liveDone) {
+    for (const l of [...res.legs, ...res.value]) {
+      if (l.actual == null) l.actual = liveStat(game.id, l.player.id, STATS[l.stat].get);
+    }
+  }
   const out = { key, ...res, parlays: suggestParlays(res) };
   for (const l of [...res.legs, ...res.value]) known.set(l.id, l);
   cache.set(game.id, out);
@@ -28,7 +37,13 @@ export function computeParlays(ctx) {
 }
 
 function resultTag(l) {
-  if (l.actual === undefined) return "";
+  if (l.actual === undefined) {
+    // en juego: cuánto lleva
+    const v = live.games.get(l.gameId)?.state === "in" ? liveStat(l.gameId, l.player.id, STATS[l.stat].get) : null;
+    if (v == null) return "";
+    return v >= l.t ? `<span class="rs win" title="Ya la cumplió: lleva ${v}">✓ ${v}</span>`
+                    : `<span class="rs live" title="En vivo: lleva ${v} de ${l.t}">⏱ ${v}/${l.t}</span>`;
+  }
   if (l.actual === null) return `<span class="rs void" title="No jugó">NJ</span>`;
   return l.actual >= l.t ? `<span class="rs win" title="Hizo ${l.actual}">✓ ${l.actual}</span>`
                          : `<span class="rs lose" title="Hizo ${l.actual}">✗ ${l.actual}</span>`;
@@ -75,6 +90,7 @@ export function parlaysHTML(ctx, model) {
   const per = new Map(), list = [];
   for (const l of legs) { const c = per.get(l.player.id) || 0; if (c < 2) { per.set(l.player.id, c + 1); list.push(l); } }
   const top = list.slice(0, 16);
+  const showRes = ctx.isFinal || live.games.get(game.id)?.state === "in";
   for (const id of [...myLegs]) if (!legs.some((l) => l.id === id)) myLegs.delete(id);
 
   const rows = top.map((l) => `<tr class="${l.doubt ? "doubt" : ""}${myLegs.has(l.id) ? " picked" : ""}">
@@ -85,7 +101,7 @@ export function parlaysHTML(ctx, model) {
       <td>${frac(l.season)}</td><td>${frac(l.l10)}</td><td>${frac(l.l5)}</td>
       <td>${frac(l.venue)}</td><td>${l.vsOpp ? frac(l.vsOpp) : "—"}</td>
       <td class="prob">${pc(l.prob)}</td><td>${odds(l.prob)}</td>
-      ${ctx.isFinal ? `<td>${resultTag(l)}</td>` : ""}
+      ${showRes ? `<td>${resultTag(l)}</td>` : ""}
     </tr>`).join("");
 
   const venueHdr = "Loc/Vis";
@@ -107,7 +123,7 @@ export function parlaysHTML(ctx, model) {
   <div class="card">
     <h3>Mejores props del partido</h3>
     <div class="tbl-wrap"><table class="props-tbl">
-      <thead><tr><th></th><th>Jugador</th><th>Prop</th><th>Temp</th><th>L10</th><th>L5</th><th>${venueHdr}</th><th>vs rival</th><th>Prob.</th><th>Cuota justa</th>${ctx.isFinal ? "<th>Real</th>" : ""}</tr></thead>
+      <thead><tr><th></th><th>Jugador</th><th>Prop</th><th>Temp</th><th>L10</th><th>L5</th><th>${venueHdr}</th><th>vs rival</th><th>Prob.</th><th>Cuota justa</th>${showRes ? `<th>${ctx.isFinal ? "Real" : "En vivo"}</th>` : ""}</tr></thead>
       <tbody>${rows}</tbody></table></div>
     <div class="builder ${picked.length ? "" : "empty"}">
       ${picked.length
@@ -131,7 +147,7 @@ export function dayParlaysHTML(ctx, model) {
   const { tops, parlays } = suggestDayParlays(perGame);
   tops.forEach((l) => (l.showOpp = true));
   parlays.forEach((p) => p.legs.forEach((l) => (l.showOpp = true)));
-  const finals = items.filter((i) => i.isFinal).length;
+  const finals = items.filter((i) => i.isFinal || live.games.get(i.game.id)?.state === "in").length;
 
   // mejor pata de cada partido + segunda opción
   const rows = perGame.map((pg, i) => {
