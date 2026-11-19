@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NBA Props Analyser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">NBA <span>PROPS</span> ANALYSER</div>
+    <div class="meta" id="meta">Cargando datos…</div>
+  </header>
+
+  <main class="layout">
+    <!-- ============ COLUMNA 1: CALENDARIO ============ -->
+    <aside class="col col-calendar" aria-label="Calendario de partidos">
+      <div class="cal-toolbar">
+        <div class="cal-title-row">
+          <h2>Calendario</h2>
+          <button class="btn-today" id="btnToday" type="button">Hoy</button>
+        </div>
+
+        <div class="week">
+          <button class="week-nav" id="weekPrev" type="button" aria-label="Semana anterior">‹</button>
+          <div class="week-days" id="weekDays"></div>
+          <button class="week-nav" id="weekNext" type="button" aria-label="Semana siguiente">›</button>
+        </div>
+
+        <div class="filters">
+          <select id="teamFilter" aria-label="Filtrar por equipo">
+            <option value="ALL">Todos los equipos</option>
+          </select>
+          <div class="seg" role="tablist" aria-label="Estado">
+            <button type="button" data-status="all" class="on">Todos</button>
+            <button type="button" data-status="upcoming">Próximos</button>
+            <button type="button" data-status="final">Finales</button>
+          </div>
+        </div>
+        <div class="team-strip" id="teamStrip" hidden></div>
+      </div>
+
+      <div class="cal-list" id="calList" tabindex="-1">
+        <div class="empty">Cargando calendario…</div>
+      </div>
+    </aside>
+
+    <!-- ============ COLUMNA 2: PLANTILLAS (próximo paso) ============ -->
+    <section class="col col-roster" aria-label="Plantillas">
+      <div class="roster-top">
+        <input class="search" id="rosterSearch" type="search" placeholder="Buscar jugador…" autocomplete="off">
+        <div class="roster-head" id="rosterHead"></div>
+      </div>
+      <div class="roster-list" id="rosterList"></div>
+    </section>
+
+    <!-- ============ COLUMNA 3: ANÁLISIS ============ -->
+    <section class="col col-analysis" aria-label="Análisis">
+      <div class="props" aria-label="Tipo de prop">
+        <button class="on" disabled>Points</button><button disabled>Assists</button><button disabled>Rebounds</button>
+        <button disabled>Threes</button><button disabled>Pts+Ast</button><button disabled>Pts+Reb</button>
+        <button disabled>Reb+Ast</button><button disabled>Pts+Reb+Ast</button><button disabled>Steals</button>
+        <button disabled>Blocks</button><button disabled>Double-Double</button><button disabled>Triple-Double</button>
+      </div>
+      <div id="matchup"></div>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

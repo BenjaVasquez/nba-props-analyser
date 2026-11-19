@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+  # Si un commit solo cambia datos (data/) o el robot (.github/), Netlify NO vuelve a
+  # publicar: cada publicación gasta 15 de los 300 créditos mensuales del plan gratis.
+  # La web lee los datos directo desde GitHub, así que igual se ven al día.
+  # (en la primera publicación ambas referencias son iguales y se publica siempre)
+  ignore = "[ \"$CACHED_COMMIT_REF\" != \"$COMMIT_REF\" ] && git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)data' ':(exclude).github'"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
