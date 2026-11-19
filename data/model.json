@@ -1,65 +1,111 @@
 {
- "updated": "2026-11-19T04:26:54Z",
+ "updated": "2026-11-19T05:27:23Z",
+ "model": "v2",
  "from": "2026-11-01",
  "games": 131,
+ "days": 17,
  "legs": [
   {
-   "range": "85%+",
-   "n": 210,
-   "real": 87.1,
-   "est": 85.6
+   "range": "90%+",
+   "n": 16,
+   "real": 100,
+   "est": 90.7
+  },
+  {
+   "range": "85-90%",
+   "n": 446,
+   "real": 86.8,
+   "est": 86.9
   },
   {
    "range": "80-85%",
-   "n": 600,
-   "real": 82.5,
-   "est": 82.6
+   "n": 534,
+   "real": 85.4,
+   "est": 82.7
   },
   {
-   "range": "75-80%",
-   "n": 323,
-   "real": 72.4,
-   "est": 77.6
+   "range": "76-80%",
+   "n": 260,
+   "real": 78.8,
+   "est": 78.1
   },
   {
-   "range": "70-75%",
-   "n": 243,
-   "real": 70.4,
-   "est": 72.7
+   "range": "70-76%",
+   "n": 256,
+   "real": 73,
+   "est": 73
+  },
+  {
+   "range": "Valor 62-76%",
+   "n": 143,
+   "real": 65,
+   "est": 63.7
   }
  ],
  "parlays": [
   {
    "name": "Doble seguro",
-   "win": 80,
-   "lose": 40,
-   "void": 11,
-   "real": 66.7,
-   "est": 71.4
+   "win": 78,
+   "lose": 25,
+   "void": 28,
+   "real": 75.7,
+   "est": 77
   },
   {
    "name": "Triple",
-   "win": 63,
-   "lose": 51,
-   "void": 17,
-   "real": 55.3,
-   "est": 59.9
+   "win": 60,
+   "lose": 39,
+   "void": 32,
+   "real": 60.6,
+   "est": 66.4
   },
   {
    "name": "Cuádruple",
-   "win": 44,
-   "lose": 63,
-   "void": 24,
-   "real": 41.1,
-   "est": 49.9
+   "win": 54,
+   "lose": 43,
+   "void": 34,
+   "real": 55.7,
+   "est": 56.6
+  },
+  {
+   "name": "Valor",
+   "win": 20,
+   "lose": 26,
+   "void": 4,
+   "real": 43.5,
+   "est": 40.7
   },
   {
    "name": "Ambos equipos",
-   "win": 17,
-   "lose": 22,
-   "void": 2,
-   "real": 43.6,
-   "est": 58.6
+   "win": 10,
+   "lose": 4,
+   "void": 7,
+   "real": 71.4,
+   "est": 65.8
+  },
+  {
+   "name": "Día 2 patas",
+   "win": 12,
+   "lose": 2,
+   "void": 3,
+   "real": 85.7,
+   "est": 81.1
+  },
+  {
+   "name": "Día 3 patas",
+   "win": 10,
+   "lose": 2,
+   "void": 4,
+   "real": 83.3,
+   "est": 72.3
+  },
+  {
+   "name": "Día 4 patas",
+   "win": 8,
+   "lose": 3,
+   "void": 5,
+   "real": 72.7,
+   "est": 64.1
   }
  ]
 }
