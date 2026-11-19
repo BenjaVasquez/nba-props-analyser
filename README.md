@@ -71,3 +71,9 @@ python scripts/build_fixture.py "nba-2026-UTC.xlsx" data/fixture.json
 - `scripts/backtest.mjs` prueba todo con los partidos ya jugados (solo con info previa a cada
   partido) y escribe `data/model.json`; la web muestra ese "acierto real". Lo corre
   `update_data.py` en cada actualización.
+
+## App en el celular (PWA)
+
+`manifest.webmanifest`, `sw.js` e `icons/` hacen que la web se pueda instalar:
+en Android abre la web en Chrome → menú ⋮ → **Instalar app** (o "Agregar a pantalla principal").
+Sin conexión muestra la última copia descargada. Si cambias `sw.js`, sube `VERSION`.

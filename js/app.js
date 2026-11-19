@@ -579,3 +579,8 @@ async function init() {
 }
 
 init();
+
+// App instalable (Android/iPhone/PC): registra el service worker
+if ("serviceWorker" in navigator && location.protocol === "https:") {
+  window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
+}
