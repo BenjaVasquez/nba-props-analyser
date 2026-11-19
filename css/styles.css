@@ -588,3 +588,40 @@ button:disabled { cursor: default; }
 .linescore td { padding: 1px 6px; color: var(--muted-2); text-align: center; }
 .linescore td:first-child { text-align: left; font-weight: 700; color: var(--text); }
 .rs.live { background: rgba(249, 115, 22, .15); color: var(--live); }
+
+/* ====================================================================
+   REGISTRO DE PICKS
+   ==================================================================== */
+.top-right { display: flex; align-items: center; gap: 14px; }
+.btn-track {
+  flex: none; background: rgba(59, 130, 246, .12); color: #93c5fd; border: 1px solid rgba(59, 130, 246, .4);
+  border-radius: 8px; padding: 6px 12px; font-size: 12.5px; font-weight: 700;
+}
+.btn-track:hover { background: rgba(59, 130, 246, .22); }
+.track-tbl td.tl { text-align: left; font-weight: 700; }
+.track-tbl th:first-child { text-align: left; }
+.track-tbl td.w { color: var(--win); font-weight: 700; }
+.track-tbl td.l { color: var(--loss); font-weight: 700; }
+.track-tbl td.big-n { font-family: var(--cond); font-size: 18px; font-weight: 700; }
+.track-tbl td.good { color: var(--win); }
+.track-tbl td.mid { color: var(--gold); }
+.track-tbl td.bad { color: var(--loss); }
+.tk-day { padding: 10px 0; border-top: 1px solid var(--line); }
+.tk-day:first-of-type { border-top: 0; }
+.tk-h { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 6px; }
+.tk-h span { color: var(--muted); }
+.tk-list { display: flex; flex-wrap: wrap; gap: 5px; }
+.tk { font-size: 11px; font-weight: 700; border-radius: 6px; padding: 3px 7px; }
+.tk small { font-weight: 500; opacity: .75; }
+.tk.win { background: rgba(34, 197, 94, .14); color: var(--win); }
+.tk.lose { background: rgba(239, 68, 68, .14); color: #f87171; }
+.tk.void { background: var(--line); color: var(--muted-2); }
+@media (max-width: 900px) {
+  .top-right { gap: 8px; }
+  .btn-track { padding: 5px 9px; font-size: 11.5px; }
+}
+@media (max-width: 480px) {
+  .topbar { gap: 8px; }
+  .brand { font-size: 17px; line-height: 1.05; }
+  .meta { font-size: 10px; }
+}
