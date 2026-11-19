@@ -1,0 +1,65 @@
+{
+ "updated": "2026-11-19T04:26:54Z",
+ "from": "2026-11-01",
+ "games": 131,
+ "legs": [
+  {
+   "range": "85%+",
+   "n": 210,
+   "real": 87.1,
+   "est": 85.6
+  },
+  {
+   "range": "80-85%",
+   "n": 600,
+   "real": 82.5,
+   "est": 82.6
+  },
+  {
+   "range": "75-80%",
+   "n": 323,
+   "real": 72.4,
+   "est": 77.6
+  },
+  {
+   "range": "70-75%",
+   "n": 243,
+   "real": 70.4,
+   "est": 72.7
+  }
+ ],
+ "parlays": [
+  {
+   "name": "Doble seguro",
+   "win": 80,
+   "lose": 40,
+   "void": 11,
+   "real": 66.7,
+   "est": 71.4
+  },
+  {
+   "name": "Triple",
+   "win": 63,
+   "lose": 51,
+   "void": 17,
+   "real": 55.3,
+   "est": 59.9
+  },
+  {
+   "name": "Cuádruple",
+   "win": 44,
+   "lose": 63,
+   "void": 24,
+   "real": 41.1,
+   "est": 49.9
+  },
+  {
+   "name": "Ambos equipos",
+   "win": 17,
+   "lose": 22,
+   "void": 2,
+   "real": 43.6,
+   "est": 58.6
+  }
+ ]
+}

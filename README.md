@@ -56,3 +56,14 @@ python -m http.server 8000         # y abre http://localhost:8000
 pip install openpyxl
 python scripts/build_fixture.py "nba-2026-UTC.xlsx" data/fixture.json
 ```
+
+## Parlays sugeridos (al tocar un partido)
+
+- `js/parlay.js` busca, para cada jugador disponible del partido, la línea "X+" más alta
+  (10+, 15+, 20+ pts; 4+, 6+ reb; etc.) que se cumple con alta frecuencia. La probabilidad
+  mezcla temporada (40%), últimos 10 (30%), últimos 5 (15%) y local/visita (15%), suavizada
+  y calibrada con los resultados reales.
+- Arma parlays de 2, 3 y 4 patas (una por jugador) y uno mezclando ambos equipos.
+- `scripts/backtest.mjs` prueba el modelo con los partidos ya jugados (usando solo la info
+  previa a cada partido) y escribe `data/model.json`. Lo corre solo `update_data.py`.
+- En partidos ya jugados la web muestra si cada pata/parlay se cumplió.

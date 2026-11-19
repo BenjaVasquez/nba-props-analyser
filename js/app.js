@@ -1,7 +1,8 @@
 import { TEAMS, logoHTML } from "./teams.js";
 import { dataUrl } from "./config.js";
 import { indexInjuries, injuryFor, injuryLabel, rosterSectionHTML, playerPanelHTML } from "./players.js";
-import { mountPropView, unmountPropView, setStat } from "./propview.js";
+import { mountPropView, unmountPropView, setStat, presetLine } from "./propview.js";
+import { parlaysHTML, myLegs, findLeg } from "./parlayview.js";
 
 const DATA_URL = dataUrl("fixture.json");
 const REFRESH_MS = 10 * 60 * 1000;     // vuelve a leer los datos cada 10 min
@@ -24,6 +25,7 @@ const state = {
   activeDay: null,     // día visible arriba en la lista
   stats: {},
   injIdx: null,        // lesionados indexados por id y nombre
+  model: null,         // rendimiento del modelo de parlays (data/model.json)
   teamCache: new Map(),// abreviatura -> datos de data/players/XXX.json
   playerId: null,      // jugador abierto en la columna derecha
   query: "",           // búsqueda en la columna de plantillas
@@ -48,10 +50,12 @@ const shortDow = (k) => keyToDate(k).toLocaleDateString("es-CL", { timeZone: "UT
 
 /* ================= Datos ================= */
 async function loadData() {
-  const [res, injRes] = await Promise.all([
+  const [res, injRes, modelRes] = await Promise.all([
     fetch(DATA_URL, { cache: "no-cache" }),
     fetch(dataUrl("injuries.json"), { cache: "no-cache" }).catch(() => null),
+    fetch(dataUrl("model.json"), { cache: "no-cache" }).catch(() => null),
   ]);
+  try { state.model = modelRes && modelRes.ok ? await modelRes.json() : null; } catch { state.model = null; }
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const json = await res.json();
   try { state.injIdx = indexInjuries(injRes && injRes.ok ? await injRes.json() : {}); }
@@ -284,6 +288,10 @@ function renderSelection() {
       <div class="mu-mid">${mid}<div class="sub">${g.venue || ""}</div></div>
       <div class="mu-team">${logoHTML(g.home, 72)}<div class="nm">${TEAMS[g.home].short}</div><div class="rc">Local · ${rec(g.home)}</div></div>
     </div>
+    ${parlaysHTML({
+      game: g, isFinal: st === "final", injIdx: state.injIdx,
+      teams: { [g.away]: teamData(g.away), [g.home]: teamData(g.home) },
+    }, state.model)}
     <div class="card"><h3>Comparativa de temporada</h3><table class="cmp">${rows.join("")}</table></div>
     <div class="card"><h3>Enfrentamientos esta temporada</h3>${
       h2h.length
@@ -315,7 +323,7 @@ function selectGame(id, { fromHash = false, playerId = null } = {}) {
   const changed = id !== state.selectedId;
   state.selectedId = id;
   state.playerId = playerId;
-  if (changed) { state.query = ""; $("#rosterSearch").value = ""; }
+  if (changed) { state.query = ""; $("#rosterSearch").value = ""; myLegs.clear(); }
   document.querySelectorAll(".game.selected").forEach((b) => b.classList.remove("selected"));
   document.querySelector(`.game[data-id="${id}"]`)?.classList.add("selected");
   if (!fromHash) setHash();
@@ -325,7 +333,7 @@ function selectGame(id, { fromHash = false, playerId = null } = {}) {
   if (g) [g.away, g.home].forEach((t) => loadTeam(t).then(() => {
     if (state.selectedId !== id) return;
     renderRoster();
-    if (state.playerId) renderSelection();
+    renderSelection();
   }));
   if (changed) $("#rosterList").scrollTop = 0;
 }
@@ -433,6 +441,14 @@ function bindEvents() {
     if (sec) $("#rosterList").scrollTo({ top: sec.offsetTop, behavior: "smooth" });
   });
   $("#rosterSearch").addEventListener("input", (e) => { state.query = e.target.value; renderRoster(); });
+  $("#matchup").addEventListener("change", (e) => {
+    const cb = e.target.closest("[data-pick]");
+    if (!cb) return;
+    cb.checked ? myLegs.add(cb.dataset.pick) : myLegs.delete(cb.dataset.pick);
+    const sc = $(".col-analysis").scrollTop;
+    renderSelection();
+    $(".col-analysis").scrollTop = sc;
+  });
   $("#propTabs").addEventListener("click", (e) => {
     const b = e.target.closest("[data-stat]");
     if (!b) return;
@@ -440,6 +456,17 @@ function bindEvents() {
     setStat(b.dataset.stat);
   });
   $("#matchup").addEventListener("click", (e) => {
+    const legBtn = e.target.closest("[data-leg]");
+    if (legBtn) {
+      const l = findLeg(legBtn.dataset.leg);
+      if (l) {
+        presetLine(l.player.id, l.stat, l.t - 0.5);
+        document.querySelectorAll("#propTabs button").forEach((x) => x.classList.toggle("on", x.dataset.stat === l.stat));
+        selectPlayer(l.player.id);
+      }
+      return;
+    }
+    if (e.target.closest("[data-clear]")) { myLegs.clear(); renderSelection(); return; }
     if (e.target.closest('[data-action="back"]')) {
       state.playerId = null;
       document.querySelectorAll(".pl.sel").forEach((b) => b.classList.remove("sel"));
