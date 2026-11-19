@@ -22,6 +22,13 @@ export function unmountPropView() {
   current = null;
 }
 
+// Abre el gráfico ya posicionado en una prop y línea (desde los parlays)
+export function presetLine(pid, stat, line) {
+  if (!STATS[stat]) return;
+  view.stat = stat;
+  saveLine(pid, stat, line);
+}
+
 export function setStat(stat) {
   if (!STATS[stat]) return;
   view.stat = stat;

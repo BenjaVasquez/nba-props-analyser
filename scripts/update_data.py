@@ -505,6 +505,16 @@ def main():
     })
     print(f"Listo · {played} partidos con resultado · {stamp} · consultas OK {STATS['ok']}, fallidas {STATS['fail']}")
 
+    # 5) Rendimiento del modelo de parlays con los partidos ya jugados (usa Node,
+    #    que viene instalado en GitHub Actions). Si no hay Node, se omite.
+    try:
+        import subprocess
+        r = subprocess.run(["node", str(ROOT / "scripts" / "backtest.mjs")],
+                           capture_output=True, text=True, timeout=600, cwd=ROOT)
+        print((r.stdout or r.stderr).strip())
+    except Exception as e:
+        print(f"  (rendimiento del modelo omitido: {e})")
+
 
 if __name__ == "__main__":
     main()
