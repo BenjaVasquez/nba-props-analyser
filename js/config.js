@@ -4,7 +4,7 @@
 // Repositorio público de GitHub donde el robot diario guarda los datos.
 // Formato "usuario/repositorio", por ejemplo "benja/nba-props-analyser".
 // Mientras esté vacío, la web lee la carpeta data/ que viene con la página.
-export const GITHUB_REPO = "";
+export const GITHUB_REPO = "BenjaVasquez/nba-props-analyser";
 export const GITHUB_BRANCH = "main";
 
 // Los datos se leen directo desde GitHub (raw) para que las actualizaciones
