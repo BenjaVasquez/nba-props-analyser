@@ -1,6 +1,7 @@
 import { TEAMS, logoHTML } from "./teams.js";
 import { dataUrl } from "./config.js";
 import { indexInjuries, injuryFor, injuryLabel, rosterSectionHTML, playerPanelHTML } from "./players.js";
+import { mountPropView, unmountPropView, setStat } from "./propview.js";
 
 const DATA_URL = dataUrl("fixture.json");
 const REFRESH_MS = 10 * 60 * 1000;     // vuelve a leer los datos cada 10 min
@@ -241,8 +242,14 @@ function renderSelection() {
   }
   if (state.playerId) {
     const p = findPlayer(state.playerId);
-    if (p) { box.innerHTML = playerPanelHTML(p, injuryFor(p, state.injIdx), g); return; }
+    if (p) {
+      box.innerHTML = playerPanelHTML(p, injuryFor(p, state.injIdx), g);
+      const opp = p.team === g.home ? g.away : p.team === g.away ? g.home : null;
+      mountPropView(box.querySelector("#propView"), p, opp && opp !== "TBD" ? opp : null);
+      return;
+    }
   }
+  unmountPropView();
 
   const st = gameStatus(g);
   const A = state.stats[g.away], H = state.stats[g.home];
@@ -426,6 +433,12 @@ function bindEvents() {
     if (sec) $("#rosterList").scrollTo({ top: sec.offsetTop, behavior: "smooth" });
   });
   $("#rosterSearch").addEventListener("input", (e) => { state.query = e.target.value; renderRoster(); });
+  $("#propTabs").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-stat]");
+    if (!b) return;
+    document.querySelectorAll("#propTabs button").forEach((x) => x.classList.toggle("on", x === b));
+    setStat(b.dataset.stat);
+  });
   $("#matchup").addEventListener("click", (e) => {
     if (e.target.closest('[data-action="back"]')) {
       state.playerId = null;

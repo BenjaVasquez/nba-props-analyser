@@ -59,11 +59,13 @@
 
     <!-- ============ COLUMNA 3: ANÁLISIS ============ -->
     <section class="col col-analysis" aria-label="Análisis">
-      <div class="props" aria-label="Tipo de prop">
-        <button class="on" disabled>Points</button><button disabled>Assists</button><button disabled>Rebounds</button>
-        <button disabled>Threes</button><button disabled>Pts+Ast</button><button disabled>Pts+Reb</button>
-        <button disabled>Reb+Ast</button><button disabled>Pts+Reb+Ast</button><button disabled>Steals</button>
-        <button disabled>Blocks</button><button disabled>Double-Double</button><button disabled>Triple-Double</button>
+      <div class="props" id="propTabs" aria-label="Tipo de prop">
+        <button type="button" data-stat="pts" class="on">Points</button><button type="button" data-stat="ast">Assists</button>
+        <button type="button" data-stat="reb">Rebounds</button><button type="button" data-stat="tpm">Threes</button>
+        <button type="button" data-stat="pts_ast">Pts+Ast</button><button type="button" data-stat="pts_reb">Pts+Reb</button>
+        <button type="button" data-stat="reb_ast">Reb+Ast</button><button type="button" data-stat="pra">Pts+Reb+Ast</button>
+        <button type="button" data-stat="stl">Steals</button><button type="button" data-stat="blk">Blocks</button>
+        <button type="button" data-stat="dd2">Double-Double</button><button type="button" data-stat="dd3">Triple-Double</button>
       </div>
       <div id="matchup"></div>
     </section>
