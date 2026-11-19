@@ -1,8 +1,8 @@
 {
- "updated": "2026-11-19T05:27:23Z",
+ "updated": "2026-11-19T06:00:26Z",
  "model": "v2",
  "from": "2026-11-01",
- "games": 131,
+ "games": 134,
  "days": 17,
  "legs": [
   {
@@ -13,67 +13,67 @@
   },
   {
    "range": "85-90%",
-   "n": 446,
+   "n": 456,
    "real": 86.8,
    "est": 86.9
   },
   {
    "range": "80-85%",
-   "n": 534,
-   "real": 85.4,
+   "n": 543,
+   "real": 85.3,
    "est": 82.7
   },
   {
    "range": "76-80%",
-   "n": 260,
-   "real": 78.8,
+   "n": 267,
+   "real": 78.7,
    "est": 78.1
   },
   {
    "range": "70-76%",
-   "n": 256,
-   "real": 73,
+   "n": 268,
+   "real": 72.4,
    "est": 73
   },
   {
    "range": "Valor 62-76%",
-   "n": 143,
-   "real": 65,
-   "est": 63.7
+   "n": 149,
+   "real": 63.8,
+   "est": 63.6
   }
  ],
  "parlays": [
   {
    "name": "Doble seguro",
-   "win": 78,
+   "win": 80,
    "lose": 25,
-   "void": 28,
-   "real": 75.7,
+   "void": 29,
+   "real": 76.2,
    "est": 77
   },
   {
    "name": "Triple",
-   "win": 60,
+   "win": 62,
    "lose": 39,
-   "void": 32,
-   "real": 60.6,
-   "est": 66.4
+   "void": 33,
+   "real": 61.4,
+   "est": 66.3
   },
   {
    "name": "Cuádruple",
-   "win": 54,
-   "lose": 43,
+   "win": 56,
+   "lose": 44,
    "void": 34,
-   "real": 55.7,
+   "real": 56,
    "est": 56.6
   },
   {
    "name": "Valor",
    "win": 20,
-   "lose": 26,
+   "lose": 28,
    "void": 4,
-   "real": 43.5,
-   "est": 40.7
+   "real": 41.7,
+   "est": 40.6
   },
   {
    "name": "Ambos equipos",
