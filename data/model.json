@@ -1,111 +1,76 @@
 {
- "updated": "2026-11-20T00:42:31Z",
- "model": "v2",
+ "updated": "2026-11-20T03:13:37Z",
+ "model": "v3",
  "from": "2026-11-01",
  "games": 134,
  "days": 17,
+ "note": "Jugadores que no jugaron se excluyen (en vivo los filtra el reporte de lesionados).",
  "legs": [
   {
    "range": "90%+",
-   "n": 16,
-   "real": 100,
-   "est": 90.7
+   "n": 5934,
+   "real": 94.1,
+   "est": 92.9
   },
   {
    "range": "85-90%",
-   "n": 456,
-   "real": 86.8,
-   "est": 86.9
+   "n": 8046,
+   "real": 88.6,
+   "est": 87.8
   },
   {
    "range": "80-85%",
-   "n": 543,
-   "real": 85.3,
-   "est": 82.7
+   "n": 8700,
+   "real": 83.6,
+   "est": 82.6
   },
   {
-   "range": "76-80%",
-   "n": 267,
-   "real": 78.7,
-   "est": 78.1
-  },
-  {
-   "range": "70-76%",
-   "n": 268,
-   "real": 72.4,
-   "est": 73
-  },
-  {
-   "range": "Valor 62-76%",
-   "n": 149,
-   "real": 63.8,
-   "est": 63.6
+   "range": "78-80%",
+   "n": 4287,
+   "real": 79.1,
+   "est": 79
   }
  ],
  "parlays": [
   {
-   "name": "Doble seguro",
-   "win": 80,
-   "lose": 25,
-   "void": 29,
-   "real": 76.2,
-   "est": 77
-  },
-  {
-   "name": "Triple",
-   "win": 62,
-   "lose": 39,
-   "void": 33,
-   "real": 61.4,
-   "est": 66.3
-  },
-  {
-   "name": "Cuádruple",
-   "win": 56,
-   "lose": 44,
-   "void": 34,
-   "real": 56,
-   "est": 56.6
-  },
-  {
-   "name": "Valor",
-   "win": 20,
-   "lose": 28,
-   "void": 4,
-   "real": 41.7,
-   "est": 40.6
-  },
-  {
-   "name": "Ambos equipos",
-   "win": 10,
-   "lose": 4,
-   "void": 7,
-   "real": 71.4,
-   "est": 65.8
-  },
-  {
-   "name": "Día 2 patas",
-   "win": 12,
-   "lose": 2,
-   "void": 3,
-   "real": 85.7,
-   "est": 81.1
-  },
-  {
-   "name": "Día 3 patas",
-   "win": 10,
-   "lose": 2,
-   "void": 4,
+   "name": "Día · 2 patas",
+   "win": 25,
+   "lose": 5,
+   "void": 0,
    "real": 83.3,
-   "est": 72.3
+   "est": 75.4
   },
   {
-   "name": "Día 4 patas",
-   "win": 8,
-   "lose": 3,
-   "void": 5,
-   "real": 72.7,
-   "est": 64.1
+   "name": "Día · 3 patas",
+   "win": 107,
+   "lose": 33,
+   "void": 0,
+   "real": 76.4,
+   "est": 68.4
+  },
+  {
+   "name": "Partido · 2 patas",
+   "win": 709,
+   "lose": 173,
+   "void": 0,
+   "real": 80.4,
+   "est": 74.3
+  },
+  {
+   "name": "Partido · 3 patas",
+   "win": 639,
+   "lose": 272,
+   "void": 0,
+   "real": 70.1,
+   "est": 64.7
+  },
+  {
+   "name": "Partido · 4 patas",
+   "win": 140,
+   "lose": 51,
+   "void": 0,
+   "real": 73.3,
+   "est": 61.2
   }
  ]
 }
