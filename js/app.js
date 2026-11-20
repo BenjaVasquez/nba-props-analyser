@@ -403,7 +403,10 @@ function betsCtx() {
     setFormLegs: (legs) => (state.formLegs = legs),
     liveBoxGame: () => {
       const day = dayGames(firstLiveDay()).filter((g) => g.home !== "TBD");
-      if (!day.some((g) => g.id === state.liveBoxGame)) {
+      const cur = live.games.get(state.liveBoxGame)?.state;
+      const someIn = day.some((g) => live.games.get(g.id)?.state === "in");
+      // si no lo elegiste tú, se cambia solo a un partido en juego
+      if (!day.some((g) => g.id === state.liveBoxGame) || (!state.liveBoxPicked && cur !== "in" && someIn)) {
         // por defecto: el primer partido en juego; si no hay, el último terminado
         state.liveBoxGame = (day.find((g) => live.games.get(g.id)?.state === "in") || day.find((g) => gameStatus(g) === "live")
           || [...day].reverse().find((g) => gameStatus(g) === "final"))?.id ?? null;
@@ -668,7 +671,7 @@ function bindEvents() {
     const bt = t.closest("[data-boxtab]");
     if (bt) { state.boxTab = bt.dataset.boxtab; rerenderKeepScroll(); return; }
     const lb = t.closest("[data-livebox]");
-    if (lb) { state.liveBoxGame = +lb.dataset.livebox; state.boxTab = "away"; rerenderKeepScroll(); liveCtl?.now(); return; }
+    if (lb) { state.liveBoxGame = +lb.dataset.livebox; state.liveBoxPicked = true; state.boxTab = "away"; rerenderKeepScroll(); liveCtl?.now(); return; }
     const follow = t.closest("[data-follow]");
     if (follow) {
       const on = Bets.toggleFollowGenerated(follow.dataset.follow, betsCtx());
