@@ -2,11 +2,12 @@ name: Actualizar datos NBA
 
 on:
   schedule:
-    # Horas en UTC. Chile verano (UTC-3): 06:20, 12:20, 15:20, 18:20, 20:20, 21:20, 22:20 y 23:20.
-    # (Desde abril, con horario de invierno en Chile, todo queda 1 hora antes.)
-    # 06:20 trae resultados y box scores; las de la tarde/noche refrescan lesionados
-    # y plantillas justo antes de los partidos (bajas de último minuto).
-    - cron: "20 0,1,2,9,15,18,21,23 * * *"
+    # Cada hora (minuto 17) y, en horario de partidos, también al minuto 47.
+    # GitHub a veces se salta ejecuciones programadas cuando está cargado: con más
+    # horarios, una ejecución perdida no deja los datos atrasados.
+    # Horas en UTC: 22–03 UTC = 19:00–00:00 en Chile (verano).
+    - cron: "17 * * * *"
+    - cron: "47 0,1,2,3,22,23 * * *"
   workflow_dispatch: {}   # botón "Run workflow" para correrlo a mano
 
 permissions:

@@ -1,11 +1,13 @@
-// Prueba del modelo de parlays con partidos ya jugados: para cada partido usa solo
-// la información anterior a ese día y revisa si las patas/parlays se cumplieron.
-// Escribe data/model.json, que la web muestra como "acierto real del modelo".
+// Prueba del modelo (v3) con partidos ya jugados: para cada partido usa solo la
+// información anterior a ese día, genera los mismos parlays que muestra la web
+// (15 por partido y 10 del día) y revisa si se cumplieron.
+// Escribe data/model.json, que la web muestra como "Prueba: X%".
 // Uso: node scripts/backtest.mjs   (lo corre solo scripts/update_data.py)
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { buildLegs, suggestParlays, suggestDayParlays, bestPerPlayer } from "../js/parlay.js";
+import { buildCandidates, generateParlays } from "../js/engine.js";
+import { GAME_OPTS, DAY_OPTS } from "../js/parlayview.js";
 import { indexInjuries } from "../js/players.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -20,44 +22,45 @@ for (const f of fs.readdirSync(path.join(D, "players"))) {
 const noInj = indexInjuries({});
 const etDay = (iso) => new Date(iso).toLocaleDateString("en-CA", { timeZone: "America/New_York" });
 
-const BUCKETS = [[0.90, "90%+"], [0.85, "85-90%"], [0.80, "80-85%"], [0.76, "76-80%"], [0.70, "70-76%"], [0, "Valor 62-76%"]];
+const BUCKETS = [[0.90, "90%+"], [0.85, "85-90%"], [0.80, "80-85%"], [0, "78-80%"]];
 const legs = Object.fromEntries(BUCKETS.map(([, k]) => [k, { hit: 0, n: 0, est: 0 }]));
 const parlays = {};
-const addLeg = (k, l) => { legs[k].n++; legs[k].est += l.prob; legs[k].hit += l.actual >= l.t ? 1 : 0; };
-const addParlay = (p) => {
-  const r = (parlays[p.name] ||= { win: 0, lose: 0, void: 0, est: 0, n: 0 });
+const add = (name, p) => {
+  const r = (parlays[name] ||= { win: 0, lose: 0, void: 0, est: 0, n: 0 });
   r[p.result]++; r.est += p.prob; r.n++;
 };
 let games = 0;
-const byDay = {};
+const byDay = new Map();
 
 for (const g of fx.games) {
   if (g.hs == null || g.home === "TBD" || g.away === "TBD") continue;
   const day = etDay(g.date);
   if (day < FROM) continue;
   games++;
-  const res = buildLegs({ teams, game: g, injIdx: noInj, cutoffDay: day, isFinal: true });
-  for (const l of bestPerPlayer(res.legs, { allowDoubt: true })) {
-    if (l.actual === null) continue; // no jugó
-    addLeg(BUCKETS.find(([min]) => l.prob >= min)[1], l);
+  // jugadores que no jugaron fuera (en la web real los descarta el reporte de lesionados)
+  const cand = buildCandidates({ teams, game: { ...g, day }, injIdx: noInj, cutoffDay: day, isFinal: true })
+    .filter((l) => l.actual !== null);
+  for (const l of cand) {
+    if (l.prob > 0.95) continue;
+    const k = BUCKETS.find(([min]) => l.prob >= min)[1];
+    legs[k].n++; legs[k].est += l.prob; legs[k].hit += l.actual > l.line ? 1 : 0;
   }
-  for (const l of bestPerPlayer(res.value, { allowDoubt: true })) if (l.actual !== null) addLeg("Valor 62-76%", l);
-  for (const p of suggestParlays(res)) addParlay(p);
-  (byDay[day] ||= []).push(res);
+  for (const p of generateParlays(cand, GAME_OPTS)) add(`Partido · ${p.legs.length} patas`, p);
+  (byDay.get(day) || byDay.set(day, []).get(day)).push(...cand);
 }
-let days = 0;
-for (const list of Object.values(byDay)) { days++; for (const p of suggestDayParlays(list).parlays) addParlay(p); }
+for (const [, pool] of byDay) for (const p of generateParlays(pool, DAY_OPTS)) add(`Día · ${p.legs.length} patas`, p);
 
 const pct = (a, b) => (b ? Math.round((1000 * a) / b) / 10 : null);
 const out = {
   updated: new Date().toISOString().slice(0, 19) + "Z",
-  model: "v2", from: FROM, games, days,
+  model: "v3", from: FROM, games, days: byDay.size,
+  note: "Jugadores que no jugaron se excluyen (en vivo los filtra el reporte de lesionados).",
   legs: BUCKETS.map(([, k]) => ({ range: k, n: legs[k].n, real: pct(legs[k].hit, legs[k].n), est: pct(legs[k].est, legs[k].n) })),
-  parlays: Object.entries(parlays).map(([name, r]) => ({
+  parlays: Object.entries(parlays).sort().map(([name, r]) => ({
     name, win: r.win, lose: r.lose, void: r.void, real: pct(r.win, r.win + r.lose), est: pct(r.est, r.n),
   })),
 };
 fs.writeFileSync(path.join(D, "model.json"), JSON.stringify(out, null, 1) + "\n");
-console.log(`Backtest: ${games} partidos, ${days} días`);
+console.log(`Backtest v3: ${games} partidos, ${byDay.size} días`);
 for (const l of out.legs) console.log(`  patas ${l.range}: real ${l.real}% (est ${l.est}%) n=${l.n}`);
-for (const p of out.parlays) console.log(`  ${p.name}: ganó ${p.real}% (${p.win}/${p.win + p.lose}, est ${p.est}%) nulos ${p.void}`);
+for (const p of out.parlays) console.log(`  ${p.name}: ${p.real}% (${p.win}/${p.win + p.lose}, est ${p.est}%)`);

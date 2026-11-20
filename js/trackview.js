@@ -14,7 +14,8 @@ export function trackingHTML(t) {
       <p class="muted">El registro empezó ${t?.since ? `el ${fecha(t.since)}` : "hoy"}. El robot guarda los picks de cada jornada antes de los partidos
       y los primeros resultados aparecen la mañana siguiente (actualización de las 06:20).</p></div>`;
   }
-  const order = ["Doble seguro", "Triple", "Cuádruple", "Ambos equipos", "Valor", "Día 2 patas", "Día 3 patas", "Día 4 patas"];
+  const order = ["Partido · 2 patas", "Partido · 3 patas", "Partido · 4 patas", "Día · 2 patas", "Día · 3 patas",
+    "Doble seguro", "Triple", "Cuádruple", "Ambos equipos", "Valor", "Día 2 patas", "Día 3 patas", "Día 4 patas"];
   const parlays = [...t.parlays].sort((a, b) => (order.indexOf(a.name) + 99) % 99 - (order.indexOf(b.name) + 99) % 99);
   const rows = parlays.map((p) => {
     const dec = p.win + p.lose;

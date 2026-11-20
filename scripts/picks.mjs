@@ -13,7 +13,8 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { buildLegs, suggestParlays, suggestDayParlays, bestPerPlayer } from "../js/parlay.js";
+import { buildCandidates, generateParlays } from "../js/engine.js";
+import { GAME_OPTS, DAY_OPTS } from "../js/parlayview.js";
 import { indexInjuries } from "../js/players.js";
 import { STATS } from "../js/propchart.js";
 
@@ -31,11 +32,15 @@ const fx = read(path.join(D, "fixture.json"), { games: [] });
 const injIdx = indexInjuries(read(path.join(D, "injuries.json"), {}));
 const teams = {};
 const playerById = new Map();
+const teamDates = {}; // equipo -> fechas con box score (para saber si un jugador no jugó)
 for (const f of fs.readdirSync(path.join(D, "players"))) {
   const t = read(path.join(D, "players", f), null);
   if (!t) continue;
   teams[f.replace(".json", "")] = t;
-  for (const p of t.players) playerById.set(String(p.id), p);
+  for (const p of t.players) {
+    playerById.set(String(p.id), p);
+    for (const g of p.games || []) (teamDates[g.team] ||= new Set()).add(g.date);
+  }
 }
 fs.mkdirSync(PICKS, { recursive: true });
 
@@ -46,9 +51,9 @@ const games = fx.games
 // ---------- 1) congelar picks de los partidos que aún no empiezan ----------
 const legOut = (l) => ({
   pid: String(l.player.id), name: l.player.name, team: l.team, opp: l.opp,
-  stat: l.stat, t: l.t, prob: Math.round(l.prob * 1000) / 1000, proj: Math.round(l.proj * 10) / 10,
+  stat: l.stat, line: l.line, side: l.side, prob: Math.round(l.prob * 1000) / 1000, proj: Math.round(l.proj * 10) / 10,
 });
-const parlayOut = (p) => ({ name: p.name, kind: p.kind, prob: Math.round(p.prob * 1000) / 1000, legs: p.legs.map(legOut) });
+const parlayOut = (p, kind) => ({ name: `${kind} · ${p.legs.length} patas`, kind, prob: Math.round(p.prob * 1000) / 1000, legs: p.legs.map(legOut) });
 
 const upcomingDays = [...new Set(games.filter((g) => g.start > now).map((g) => g.day))].sort().slice(0, 2);
 let frozen = 0;
@@ -56,22 +61,22 @@ for (const day of upcomingDays) {
   const file = path.join(PICKS, `${day}.json`);
   const rec = read(file, { day, created: stamp, games: {}, day_parlays: null });
   const slate = games.filter((g) => g.day === day);
-  const perGame = [];
+  const dayPool = [];
   for (const g of slate) {
-    const res = buildLegs({ teams, game: g, injIdx, cutoffDay: day, isFinal: false });
-    perGame.push(res);
+    const cand = buildCandidates({ teams, game: g, injIdx, cutoffDay: day, isFinal: false });
+    dayPool.push(...cand);
     if (g.start <= now) continue; // ya empezó: lo guardado queda fijo
+    const seen = new Set();
     rec.games[g.id] = {
-      id: g.id, matchup: `${g.away} @ ${g.home}`, start: g.date, saved: stamp,
-      parlays: suggestParlays(res).map(parlayOut),
-      legs: bestPerPlayer(res.legs).slice(0, TOP_LEGS).map(legOut),
+      id: g.id, matchup: `${g.away} @ ${g.home}`, start: g.date, saved: stamp, model: "v3",
+      parlays: generateParlays(cand, GAME_OPTS).map((p) => parlayOut(p, "Partido")),
+      legs: cand.filter((l) => !l.doubt && l.prob <= 0.93 && !seen.has(l.player.id) && seen.add(l.player.id)).slice(0, TOP_LEGS).map(legOut),
     };
     frozen++;
   }
   const firstStart = Math.min(...slate.map((g) => +g.start));
   if (firstStart > +now) {
-    const { parlays } = suggestDayParlays(perGame);
-    rec.day_parlays = { saved: stamp, parlays: parlays.map(parlayOut) };
+    rec.day_parlays = { saved: stamp, model: "v3", parlays: generateParlays(dayPool, DAY_OPTS).map((p) => parlayOut(p, "Día")) };
   }
   rec.updated = stamp;
   fs.writeFileSync(file, JSON.stringify(rec) + "\n");
@@ -82,10 +87,12 @@ const gameById = new Map(games.map((g) => [g.id, g]));
 function evalLeg(l, day) {
   const p = playerById.get(l.pid);
   const g = p?.games?.find((x) => x.date === day);
-  if (!g) return null;                       // aún sin datos de ese partido
+  if (!g) return teamDates[l.team]?.has(day) ? { ...l, actual: null, result: "void" } : null; // no jugó / aún sin datos
   if (!(g.min > 0)) return { ...l, actual: null, result: "void" };
   const v = STATS[l.stat].get(g);
-  return { ...l, actual: v, result: v >= l.t ? "win" : "lose" };
+  const line = l.line ?? l.t - 0.5;                 // registros v2 usaban "t" (X+)
+  const won = l.side === "under" ? v < line : v > line;
+  return { ...l, actual: v, result: won ? "win" : "lose" };
 }
 function evalParlay(p, day) {
   const legs = p.legs.map((l) => evalLeg(l, day));

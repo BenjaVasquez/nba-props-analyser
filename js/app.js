@@ -3,6 +3,7 @@ import { dataUrl } from "./config.js";
 import { indexInjuries, injuryFor, injuryLabel, rosterSectionHTML, playerPanelHTML } from "./players.js";
 import { mountPropView, unmountPropView, setStat, presetLine } from "./propview.js";
 import { parlaysHTML, dayParlaysHTML, myLegs, findLeg } from "./parlayview.js";
+import * as Bets from "./bets.js";
 import { live, startLive } from "./live.js";
 import { trackingHTML } from "./trackview.js";
 
@@ -266,6 +267,8 @@ function renderTeamStrip() {
 /* ================= Render: partido seleccionado ================= */
 function renderSelection() {
   if (state.dayView === "registro") { unmountPropView(); $("#matchup").innerHTML = trackingHTML(state.tracking); return; }
+  if (state.dayView === "envivo") { unmountPropView(); $("#matchup").innerHTML = Bets.liveViewHTML(betsCtx()); return; }
+  if (state.dayView === "apuestas") { unmountPropView(); $("#matchup").innerHTML = Bets.betsViewHTML(betsCtx()); return; }
   if (state.dayView) { renderDayView(); return; }
   const g = state.byId.get(state.selectedId);
   const box = $("#matchup");
@@ -326,7 +329,7 @@ function renderSelection() {
     ${parlaysHTML({
       game: g, isFinal: st === "final", injIdx: state.injIdx,
       teams: { [g.away]: teamData(g.away), [g.home]: teamData(g.home) },
-    }, state.model)}
+    }, state.model, Bets.followedSet())}
     <div class="card"><h3>Comparativa de temporada</h3><table class="cmp">${rows.join("")}</table></div>
     <div class="card"><h3>Enfrentamientos esta temporada</h3>${
       h2h.length
@@ -352,6 +355,62 @@ function injuriesCardHTML(g) {
 /* ================= Parlays del día ================= */
 function dayGames(day) {
   return state.games.filter((g) => g.day === day && g.home !== "TBD" && g.away !== "TBD");
+}
+
+// Contexto que necesitan "Mis apuestas" y "En vivo"
+const firstSlateDay = () => {
+  const t = todayKey();
+  // primera jornada con algún partido que aún no empieza
+  return state.games.find((g) => g.day >= t && g.home !== "TBD" && gameStatus(g) === "upcoming")?.day
+      || state.games.find((g) => g.day >= t && g.home !== "TBD")?.day || t;
+};
+function betsCtx() {
+  return {
+    byId: (id) => state.byId.get(+id),
+    status: gameStatus,
+    teamData,
+    loadTeam: (t) => loadTeam(t).then(() => { if (["apuestas", "envivo"].includes(state.dayView) && !isTyping()) rerenderKeepScroll(); }),
+    injIdx: state.injIdx,
+    timeFmt: (g) => timeFmt.format(g.start),
+    dayShort: (g) => `${shortDow(g.day)} ${+g.day.slice(8)}`,
+    dayLong: (d) => longDay(d),
+    games: () => state.games,
+    upcoming: () => {
+      const t = todayKey();
+      return state.games.filter((g) => g.day >= t && g.home !== "TBD" && g.away !== "TBD" && gameStatus(g) !== "final").slice(0, 25);
+    },
+    genDay: firstSlateDay,
+    liveDay: () => {
+      const t = todayKey();
+      return dayGames(t).length ? t : firstSlateDay();
+    },
+    setFormLegs: (legs) => (state.formLegs = legs),
+  };
+}
+const isTyping = () => !!document.activeElement?.closest?.("#matchup input[type=text], #matchup input[type=number]");
+function rerenderKeepScroll() {
+  const sc = $(".col-analysis").scrollTop;
+  renderSelection();
+  $(".col-analysis").scrollTop = sc;
+}
+
+function selectView(name, { fromHash = false } = {}) {
+  state.dayView = name;
+  state.selectedId = null;
+  state.playerId = null;
+  myLegs.clear();
+  unmountPropView();
+  document.querySelectorAll(".game.selected").forEach((b) => b.classList.remove("selected"));
+  if (!fromHash) { try { history.replaceState(null, "", `#${name}`); } catch { location.hash = name; } }
+  renderRoster();
+  renderSelection();
+  // equipos de las apuestas guardadas (para evaluar resultados) y del día en vivo
+  const teams = new Set(Bets.allBets().flatMap((b) => b.legs.map((l) => l.team)));
+  if (name === "envivo") dayGames(betsCtx().liveDay()).forEach((g) => { teams.add(g.away); teams.add(g.home); });
+  Promise.all([...teams].map((t) => loadTeam(t))).then(() => { if (state.dayView === name && !isTyping()) rerenderKeepScroll(); });
+  if (name === "envivo") liveCtl?.now();
+  $(".col-analysis").scrollTop = 0;
+  if (!fromHash && window.matchMedia("(max-width: 900px)").matches) $(".col-analysis").scrollIntoView({ behavior: "smooth" });
 }
 
 function selectTracking({ fromHash = false } = {}) {
@@ -396,7 +455,7 @@ function renderDayView() {
   box.innerHTML = `
     <div class="day-hero"><div class="big">🎯 ${label.charAt(0).toUpperCase() + label.slice(1)}</div>
       <div class="sub">${games.length ? `${games.length} partidos · ${games.map((g) => `${g.away}@${g.home}`).join(" · ")}` : "No hay partidos este día."}</div></div>
-    ${games.length ? dayParlaysHTML({ dayLabel: label, items, injIdx: state.injIdx, loading }, state.model) : ""}`;
+    ${games.length ? dayParlaysHTML({ dayLabel: label, items, injIdx: state.injIdx, loading }, state.model, Bets.followedSet()) : ""}`;
 }
 
 function setHash() {
@@ -520,8 +579,12 @@ function bindEvents() {
     if (b) { e.stopPropagation(); selectDay(b.dataset.dayparlay); }
   }, true);
   $("#btnTracking").addEventListener("click", () => selectTracking());
+  $("#btnLive").addEventListener("click", () => selectView("envivo"));
+  $("#btnBets").addEventListener("click", () => selectView("apuestas"));
   window.addEventListener("hashchange", () => {
     if (location.hash === "#registro") { if (state.dayView !== "registro") selectTracking({ fromHash: true }); return; }
+    const v = location.hash.slice(1);
+    if (v === "envivo" || v === "apuestas") { if (state.dayView !== v) selectView(v, { fromHash: true }); return; }
     const { id, pid, day } = parseHash();
     if (day && day !== state.dayView) { selectDay(day, { fromHash: true }); return; }
     if (id && state.byId.has(id) && (id !== state.selectedId || pid !== state.playerId)) selectGame(id, { fromHash: true, playerId: pid });
@@ -538,7 +601,17 @@ function bindEvents() {
     if (sec) $("#rosterList").scrollTo({ top: sec.offsetTop, behavior: "smooth" });
   });
   $("#rosterSearch").addEventListener("input", (e) => { state.query = e.target.value; renderRoster(); });
+  // Mis apuestas: formulario y filtros
+  $("#matchup").addEventListener("input", (e) => {
+    const el = e.target;
+    if (el.matches("input[type=text], input[type=number]")) Bets.onFormInput(el); // sin redibujar mientras escribes
+  });
   $("#matchup").addEventListener("change", (e) => {
+    const el = e.target;
+    if (el.closest("[data-row], [data-f2], [data-g], [data-gp]")) {
+      if (Bets.onFormInput(el)) rerenderKeepScroll();
+      return;
+    }
     const cb = e.target.closest("[data-pick]");
     if (!cb) return;
     cb.checked ? myLegs.add(cb.dataset.pick) : myLegs.delete(cb.dataset.pick);
@@ -553,11 +626,39 @@ function bindEvents() {
     setStat(b.dataset.stat);
   });
   $("#matchup").addEventListener("click", (e) => {
+    const t = e.target;
+    const follow = t.closest("[data-follow]");
+    if (follow) {
+      const on = Bets.toggleFollowGenerated(follow.dataset.follow, betsCtx());
+      follow.classList.toggle("on", on);
+      follow.textContent = on ? "★ Siguiendo" : "☆ Seguir";
+      liveCtl?.now();
+      return;
+    }
+    if (t.closest("[data-save-picked]")) { Bets.savePicked([...myLegs], betsCtx()); myLegs.clear(); rerenderKeepScroll(); return; }
+    if (t.closest("[data-open-bets]")) { selectView("apuestas"); return; }
+    if (t.closest("[data-open-live]")) { selectView("envivo"); return; }
+    const cg = t.closest("[data-custom-game]");
+    if (cg) { Bets.gen.scope = String(cg.dataset.customGame); Bets.gen.results = null; selectView("apuestas"); return; }
+    if (t.closest("[data-custom-day]")) { Bets.gen.scope = "day"; Bets.gen.results = null; selectView("apuestas"); return; }
+    if (t.closest("[data-row-add]")) { Bets.form.rows.push({ stat: "pts", side: "over" }); rerenderKeepScroll(); return; }
+    const rd = t.closest("[data-row-del]");
+    if (rd) { Bets.form.rows.splice(+rd.dataset.rowDel, 1); if (!Bets.form.rows.length) Bets.form.rows.push({ stat: "pts", side: "over" }); rerenderKeepScroll(); return; }
+    if (t.closest("[data-save-form]")) { Bets.saveForm(state.formLegs || []); liveCtl?.now(); rerenderKeepScroll(); return; }
+    const del = t.closest("[data-del-bet]");
+    if (del) { Bets.deleteBet(del.dataset.delBet); rerenderKeepScroll(); return; }
+    if (t.closest("[data-gen-run]")) {
+      // toma los valores escritos aunque no se haya disparado "change"
+      $("#matchup").querySelectorAll("[data-g]").forEach((el) => Bets.onFormInput(el));
+      Bets.gen.loading = true; rerenderKeepScroll();
+      Bets.runGenerator(betsCtx()).then(rerenderKeepScroll);
+      return;
+    }
     const legBtn = e.target.closest("[data-leg]");
     if (legBtn) {
       const l = findLeg(legBtn.dataset.leg);
       if (l) {
-        presetLine(l.player.id, l.stat, l.t - 0.5);
+        presetLine(l.player.id, l.stat, l.line ?? l.t - 0.5);
         document.querySelectorAll("#propTabs button").forEach((x) => x.classList.toggle("on", x.dataset.stat === l.stat));
         if (state.dayView || state.selectedId !== l.gameId) selectGame(l.gameId, { playerId: l.player.id });
         else selectPlayer(l.player.id);
@@ -582,7 +683,8 @@ function bindEvents() {
       const g = state.byId.get(state.selectedId);
       const ts = state.dayView ? dayGames(state.dayView).flatMap((x) => [x.away, x.home]) : g ? [g.away, g.home] : [];
       await Promise.all([...new Set(ts)].map((t) => loadTeam(t, { force: true })));
-      renderRoster(); renderSelection();
+      renderRoster();
+      if (!isTyping()) rerenderKeepScroll();
     }
     catch (err) { console.warn("No se pudo refrescar", err); }
   };
@@ -623,6 +725,7 @@ async function init() {
   // partido inicial: el del hash, o el primero pendiente de hoy en adelante
   const { id: hashId, pid, day: hashDay } = parseHash();
   if (location.hash === "#registro") { selectTracking({ fromHash: true }); return; }
+  if (location.hash === "#envivo" || location.hash === "#apuestas") { selectView(location.hash.slice(1), { fromHash: true }); return; }
   if (hashDay) { selectDay(hashDay, { fromHash: true }); return; }
   const fromHash = state.byId.get(hashId);
   const first = fromHash ||
@@ -633,12 +736,13 @@ async function init() {
 function startLiveScores() {
   liveCtl = startLive({
     getGames: () => state.games,
-    getWatched: () => state.selectedId,
+    getWatched: () => [state.selectedId, ...Bets.watchedGames()].filter((x) => x != null),
     onUpdate: (ids) => {
       applyLive();
       renderMeta();
       renderList({ keepScroll: true });
       // no redibujamos la ficha del jugador (cerraría el gráfico que estás mirando)
+      if (isTyping()) return; // no interrumpir mientras escribes en Mis apuestas
       if (!state.playerId && (state.dayView || ids.includes(state.selectedId))) {
         const sc = $(".col-analysis").scrollTop;
         renderSelection();
