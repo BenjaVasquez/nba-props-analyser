@@ -4,6 +4,7 @@ import { indexInjuries, injuryFor, injuryLabel, rosterSectionHTML, playerPanelHT
 import { mountPropView, unmountPropView, setStat, presetLine } from "./propview.js";
 import { parlaysHTML, dayParlaysHTML, myLegs, findLeg } from "./parlayview.js";
 import * as Bets from "./bets.js";
+import { winProbability } from "./engine.js";
 import { live, startLive, loadBox } from "./live.js";
 import { trackingHTML } from "./trackview.js";
 import { boxScoreHTML } from "./boxscore.js";
@@ -302,6 +303,8 @@ function renderSelection() {
   const rows = [];
   const row = (label, a, b, cls = ["", ""]) => rows.push(`<tr><td class="${cls[0]}">${a}</td><td>${label}</td><td class="${cls[1]}">${b}</td></tr>`);
   const pct = (t) => (t && t.gp ? t.w / t.gp : null);
+  const wp = winProbability(state.games, g);
+  row(st === "final" ? "Prob. de ganar (previa)" : "Prob. de ganar", `${Math.round(wp.away * 100)}%`, `${Math.round(wp.home * 100)}%`, better(wp.away, wp.home));
   row("Récord", rec(g.away), rec(g.home), better(pct(A), pct(H)));
   row("Visita / Local", A ? `${A.aw}-${A.al}` : "0-0", H ? `${H.hw}-${H.hl}` : "0-0");
   row("Pts anotados", f1(ppg(A)), f1(ppg(H)), better(ppg(A), ppg(H)));

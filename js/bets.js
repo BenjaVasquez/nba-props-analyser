@@ -7,7 +7,7 @@
 import { STATS } from "./propchart.js";
 import { TEAMS, logoHTML } from "./teams.js";
 import { injuryFor } from "./players.js";
-import { playerContext, statModel, legProb, legWon, legText, corrFactor, buildCandidates, generateParlays } from "./engine.js";
+import { playerContext, statModel, legProb, legWon, legText, corrFactor, buildCandidates, generateParlays, winProbability, winLegs } from "./engine.js";
 import { live, liveStat } from "./live.js";
 import { findParlay, findLeg, legStatus, pc, odds, shortName } from "./parlayview.js";
 
@@ -24,10 +24,15 @@ try { bets = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch { bets = [];
 const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(bets)); } catch { /* sin almacenamiento */ } };
 export const allBets = () => bets;
 
-const toSaved = (l, game) => ({
-  gameId: l.gameId, day: game?.day, pid: String(l.player.id), name: l.player.name, team: l.team, opp: l.opp,
-  isHome: l.isHome, stat: l.stat, line: l.line, side: l.side, prob: Math.round(l.prob * 1000) / 1000,
-});
+const toSaved = (l, game) => (l.kind === "ml"
+  ? { kind: "ml", gameId: l.gameId, day: game?.day, pid: `ml-${l.team}`, name: `Gana ${l.team}`, team: l.team, opp: l.opp,
+      isHome: l.isHome, stat: "ml", line: null, side: l.side, prob: Math.round(l.prob * 1000) / 1000 }
+  : { gameId: l.gameId, day: game?.day, pid: String(l.player.id), name: l.player.name, team: l.team, opp: l.opp,
+      isHome: l.isHome, stat: l.stat, line: l.line, side: l.side, prob: Math.round(l.prob * 1000) / 1000 });
+const teamName = (t) => TEAMS[t]?.name || t;
+const legName = (l) => (l.kind === "ml" ? teamName(l.team) : shortName(l.name || l.player?.name));
+// ganador del partido: v = diferencia de puntos a favor del equipo elegido
+const wonOf = (l, v) => (l.kind === "ml" ? v > 0 : legWon(l, v));
 const betKey = (b) => b.legs.map(legKey).sort().join("~");
 
 export function followedSet() {
@@ -66,6 +71,12 @@ export function savePicked(legIds, ctx) {
 function legNow(l, ctx) {
   const g = ctx.byId(l.gameId);
   const L = live.games.get(l.gameId);
+  if (l.kind === "ml") {
+    const margin = (hs, as) => (l.isHome ? hs - as : as - hs);
+    if (g && g.hs != null) return { v: margin(g.hs, g.as), state: "post" };
+    if (L && L.state !== "pre" && Number.isFinite(L.hs)) return { v: margin(L.hs, L.as), state: L.state };
+    return { v: null, state: g && ctx.status(g) === "live" ? "in" : "pre" };
+  }
   const get = STATS[l.stat].get;
   if (L && L.state !== "pre") {
     const v = liveStat(l.gameId, l.pid, get);
@@ -85,7 +96,7 @@ function legNow(l, ctx) {
 export function evalBet(b, ctx) {
   const legs = b.legs.map((l) => ({ ...l, now: legNow(l, ctx) }));
   let status = "pendiente";
-  const won = legs.map((l) => (l.now.state === "post" && !l.now.waiting ? (l.now.v == null ? "void" : legWon(l, l.now.v) ? "win" : "lose") : null));
+  const won = legs.map((l) => (l.now.state === "post" && !l.now.waiting ? (l.now.v == null ? "void" : wonOf(l, l.now.v) ? "win" : "lose") : null));
   const lostLive = legs.some((l) => l.now.state === "in" && l.side === "under" && l.now.v != null && l.now.v >= l.line);
   if (won.includes("lose") || lostLive) status = "perdida";
   else if (won.every((x) => x === "win")) status = "ganada";
@@ -100,11 +111,17 @@ function betCard(b, ctx, { compact = false } = {}) {
   const { legs, status } = evalBet(b, ctx);
   const ev = b.odds ? b.prob * b.odds - 1 : null;
   const rows = legs.map((l) => {
-    const st = l.now.state === "pre" ? null : legStatus(l, l.now.v, l.now.state === "post" && l.now.waiting ? undefined : l.now.state);
+    let st = l.now.state === "pre" ? null : legStatus(l, l.now.v, l.now.state === "post" && l.now.waiting ? undefined : l.now.state);
+    if (l.kind === "ml" && l.now.v != null) {
+      const v = l.now.v;
+      st = l.now.state === "post"
+        ? { cls: v > 0 ? "win" : "lose", txt: `${v > 0 ? "✓ Ganó" : "✗ Perdió"} ${v > 0 ? "+" : ""}${v}`, title: "Resultado final" }
+        : { cls: "live", txt: v > 0 ? `⏱ Gana +${v}` : v < 0 ? `⏱ Pierde ${v}` : "⏱ Empate", title: "Marcador en vivo" };
+    }
     const pct = l.now.v != null && l.side === "over" ? Math.min(100, Math.round((l.now.v / (l.line + 0.5)) * 100)) : 0;
     const g = ctx.byId(l.gameId);
     return `<div class="bl ${st?.cls || ""}">
-      <div class="bl-top"><span class="bl-name">${esc(shortName(l.name))} <small>${l.team} ${l.isHome ? "vs" : "@"} ${l.opp}</small></span>
+      <div class="bl-top"><span class="bl-name">${esc(legName(l))} <small>${l.team} ${l.isHome ? "vs" : "@"} ${l.opp}</small></span>
         <span class="bl-line">${legText(l)}</span><span class="bl-p">${pc(l.prob)}</span>
         ${st ? `<span class="rs ${st.cls}" title="${esc(st.title)}">${esc(st.txt)}</span>` : `<span class="bl-time">${g ? ctx.timeFmt(g) : ""}</span>`}</div>
       ${l.side === "over" && l.now.state !== "pre" ? `<div class="bl-bar"><i style="width:${pct}%"></i></div>` : ""}
@@ -126,6 +143,12 @@ export const form = { rows: [{ stat: "pts", side: "over" }], odds: "", stake: ""
 
 function formRowProb(r, ctx) {
   const g = ctx.byId(+r.gameId);
+  if (r.kind === "ml") {
+    if (!g || !r.pick) return null;
+    const wp = winProbability(ctx.games(), g);
+    const isHome = r.pick === "home";
+    return { ml: true, prob: isHome ? wp.home : wp.away, g, isHome, team: isHome ? g.home : g.away };
+  }
   if (!g || !r.pid || !r.stat || num(r.line) == null) return null;
   const team = r.team;
   const p = ctx.teamData(team)?.players?.find((x) => String(x.id) === String(r.pid));
@@ -149,21 +172,33 @@ function formHTML(ctx) {
       for (const t of [g.away, g.home]) {
         const d = ctx.teamData(t);
         if (!d) { ctx.loadTeam(t); playerOpts += `<option disabled>Cargando ${t}…</option>`; continue; }
-        playerOpts += `<optgroup label="${TEAMS[t]?.short || t}">` + (d.players || []).map((p) => {
+        // en orden alfabético para encontrarlos rápido
+        const sorted = [...(d.players || [])].sort((a, b) => (a.name || "").localeCompare(b.name || "", "es"));
+        playerOpts += `<optgroup label="${TEAMS[t]?.short || t}">` + sorted.map((p) => {
           const inj = injuryFor(p, ctx.injIdx);
           return `<option value="${t}|${p.id}" ${String(r.pid) === String(p.id) ? "selected" : ""}>${esc(p.name)}${inj ? (inj.status === "red" ? " (fuera)" : " (duda)") : ""}</option>`;
         }).join("") + `</optgroup>`;
       }
     }
     const pr = formRowProb(r, ctx);
-    if (pr?.prob != null) legsOk.push({ gameId: g.id, day: g.day, pid: String(r.pid), name: pr.p.name, team: r.team, opp: pr.isHome ? g.away : g.home, isHome: pr.isHome, stat: r.stat, line: num(r.line), side: r.side || "over", prob: Math.round(pr.prob * 1000) / 1000 });
-    rowsOut.push(`<div class="fr" data-row="${i}">
-      <select data-f="gameId">${gameOpts(r.gameId)}</select>
-      <select data-f="player" ${g ? "" : "disabled"}>${playerOpts}</select>
+    const ml = r.kind === "ml";
+    if (pr?.prob != null && pr.ml) legsOk.push({ kind: "ml", gameId: g.id, day: g.day, pid: `ml-${pr.team}`, name: `Gana ${pr.team}`, team: pr.team, opp: pr.isHome ? g.away : g.home, isHome: pr.isHome, stat: "ml", line: null, side: r.pick, prob: Math.round(pr.prob * 1000) / 1000 });
+    else if (pr?.prob != null) legsOk.push({ gameId: g.id, day: g.day, pid: String(r.pid), name: pr.p.name, team: r.team, opp: pr.isHome ? g.away : g.home, isHome: pr.isHome, stat: r.stat, line: num(r.line), side: r.side || "over", prob: Math.round(pr.prob * 1000) / 1000 });
+    const kindSel = `<select data-f="kind"><option value="player" ${ml ? "" : "selected"}>Jugador</option><option value="ml" ${ml ? "selected" : ""}>¿Quién gana?</option></select>`;
+    const fields = ml
+      ? `<select data-f="pick" ${g ? "" : "disabled"} class="fr-wide"><option value="">Elige ganador…</option>${g ? `
+          <option value="home" ${r.pick === "home" ? "selected" : ""}>Local · ${esc(teamName(g.home))}</option>
+          <option value="away" ${r.pick === "away" ? "selected" : ""}>Visita · ${esc(teamName(g.away))}</option>` : ""}</select>`
+      : `<select data-f="player" ${g ? "" : "disabled"}>${playerOpts}</select>
       <select data-f="stat">${PROPS.map((s) => `<option value="${s}" ${(r.stat || "pts") === s ? "selected" : ""}>${STATS[s].label}</option>`).join("")}</select>
       <select data-f="side"><option value="over" ${r.side !== "under" ? "selected" : ""}>Más de</option><option value="under" ${r.side === "under" ? "selected" : ""}>Menos de</option></select>
-      <input data-f="line" type="text" inputmode="decimal" placeholder="Línea ej. 24,5" value="${esc(r.line ?? "")}">
-      <span class="fr-p">${pr?.none ? `<small>sin datos</small>` : pr?.prob != null ? `<b class="${pr.prob >= 0.75 ? "ok" : pr.prob >= 0.55 ? "mid" : "ko"}">${pc(pr.prob)}</b><small>Proy. ${String(Math.round(pr.proj * 10) / 10).replace(".", ",")}${pr.inj ? ` · ${pr.inj.status === "red" ? "FUERA" : "DUDA"}` : ""}</small>` : ""}</span>
+      <input data-f="line" type="text" inputmode="decimal" placeholder="Línea ej. 24,5" value="${esc(r.line ?? "")}">`;
+    const info = pr?.none ? `<small>sin datos</small>` : pr?.prob != null
+      ? `<b class="${pr.prob >= 0.75 ? "ok" : pr.prob >= 0.55 ? "mid" : "ko"}">${pc(pr.prob)}</b><small>${pr.ml ? "prob. de ganar" : `Proy. ${String(Math.round(pr.proj * 10) / 10).replace(".", ",")}${pr.inj ? ` · ${pr.inj.status === "red" ? "FUERA" : "DUDA"}` : ""}`}</small>` : "";
+    rowsOut.push(`<div class="fr ${ml ? "fr-ml" : ""}" data-row="${i}">
+      ${kindSel}<select data-f="gameId">${gameOpts(r.gameId)}</select>
+      ${fields}
+      <span class="fr-p">${info}</span>
       <button type="button" class="lnk" data-row-del="${i}" title="Quitar pata">✕</button>
     </div>`);
   });
@@ -191,7 +226,7 @@ function formHTML(ctx) {
 }
 
 /* ---------------- generador con mis filtros ---------------- */
-export const gen = { scope: "day", gameId: null, minLegs: 2, maxLegs: 3, oddsMin: 1.3, oddsMax: 1.8, props: [...PROPS.slice(0, 8)], doubt: false, count: 15, results: null, ran: false };
+export const gen = { scope: "day", gameId: null, minLegs: 2, maxLegs: 3, oddsMin: 1.3, oddsMax: 1.8, props: [...PROPS.slice(0, 8)], doubt: false, ml: false, count: 15, results: null, ran: false };
 
 function genHTML(ctx, followed) {
   const games = ctx.upcoming();
@@ -200,7 +235,7 @@ function genHTML(ctx, followed) {
   const cards = res ? (res.length ? res.map((p, i) => {
     const k = p.legs.map((l) => l.id).sort().join("~");
     return `<div class="parlay"><div class="pz-head"><b>#${i + 1}</b><span class="pz-n">${p.legs.length} patas</span><span class="pz-odds">Cuota justa <b>${odds(p.prob)}</b></span></div>
-      <div class="pz-legs">${p.legs.map((l) => `<div class="leg static"><span class="lg-main"><span class="lg-name">${esc(shortName(l.player.name))} <small>${l.team} ${l.isHome ? "vs" : "@"} ${l.opp}</small></span></span><span class="lg-line">${legText(l)}</span><span class="lg-prob">${pc(l.prob)}</span></div>`).join("")}</div>
+      <div class="pz-legs">${p.legs.map((l) => `<div class="leg static"><span class="lg-main"><span class="lg-name">${esc(l.kind === "ml" ? teamName(l.team) : shortName(l.player.name))} <small>${l.team} ${l.isHome ? "vs" : "@"} ${l.opp}</small></span></span><span class="lg-line">${legText(l)}</span><span class="lg-prob">${pc(l.prob)}</span></div>`).join("")}</div>
       <div class="pz-foot2"><span>Prob. <b>${pc(p.prob)}</b></span><button type="button" class="follow ${followed.has(k) ? "on" : ""}" data-follow="${esc(k)}">${followed.has(k) ? "★ Siguiendo" : "☆ Seguir"}</button></div></div>`;
   }).join("") : `<div class="muted">No encontré combinaciones con esos filtros. Prueba ampliar la cuota o permitir más patas.</div>`) : "";
   return `
@@ -215,7 +250,8 @@ function genHTML(ctx, followed) {
         <label>Cuota justa <span class="rng"><input data-g="oddsMin" type="text" inputmode="decimal" value="${String(gen.oddsMin).replace(".", ",")}"> a <input data-g="oddsMax" type="text" inputmode="decimal" value="${String(gen.oddsMax).replace(".", ",")}"></span></label>
         <label>Cantidad <input data-g="count" type="number" min="1" max="40" value="${gen.count}"></label>
         <div class="gprops">${PROPS.map((s) => `<label class="chk"><input type="checkbox" data-gp="${s}" ${gen.props.includes(s) ? "checked" : ""}> ${STATS[s].short}</label>`).join("")}
-          <label class="chk"><input type="checkbox" data-g="doubt" ${gen.doubt ? "checked" : ""}> Incluir jugadores en duda</label></div>
+          <label class="chk"><input type="checkbox" data-g="doubt" ${gen.doubt ? "checked" : ""}> Incluir jugadores en duda</label>
+          <label class="chk ml-chk"><input type="checkbox" data-g="ml" ${gen.ml ? "checked" : ""}> 🏆 Incluir ganador del partido (Local/Visita)</label></div>
         <button type="button" class="btn-main" data-gen-run>Generar</button>
       </div>
       ${gen.loading ? `<div class="muted">Cargando jugadores…</div>` : res ? `<div class="pz-grid">${cards}</div>` : ""}
@@ -231,12 +267,14 @@ export async function runGenerator(ctx) {
   const teams = {};
   games.forEach((g) => [g.away, g.home].forEach((t) => (teams[t] = ctx.teamData(t))));
   const pool = games.flatMap((g) => buildCandidates({ teams, game: g, injIdx: ctx.injIdx, cutoffDay: g.day, isFinal: false, stats: gen.props.filter((s) => s !== "stl" && s !== "blk").length ? gen.props : ["pts"], minProb: 0.58 }));
+  if (gen.ml) games.forEach((g) => pool.push(...winLegs(ctx.games(), g)));
   pool.forEach((l) => findLegRegister(l));
   const oMin = Math.max(1.01, num(gen.oddsMin) || 1.3), oMax = Math.max(oMin + 0.01, num(gen.oddsMax) || 1.8);
   const lo = Math.max(1, Math.min(+gen.minLegs || 2, 8)), hi = Math.max(lo, Math.min(+gen.maxLegs || 3, 8));
   gen.results = generateParlays(pool, {
     count: Math.min(40, +gen.count || 15), minLegs: lo, maxLegs: hi, oddsMin: oMin, oddsMax: oMax,
     allowDoubt: gen.doubt, maxLegProb: 0.95, poolSize: hi > 4 ? 30 : 45, perGameMax: gen.scope === "day" ? 2 : 99, maxPerPlayer: 5,
+    require: gen.ml ? (l) => l.kind === "ml" : null,
   });
   gen.results.forEach((p) => registerParlay(p));
 }
@@ -317,7 +355,8 @@ export function onFormInput(el) {
     const r = form.rows[+row.dataset.row];
     const f = el.dataset.f;
     if (f === "player") { const [t, id] = el.value.split("|"); r.team = t; r.pid = id; }
-    else if (f === "gameId") { r.gameId = el.value; r.pid = null; r.team = null; }
+    else if (f === "gameId") { r.gameId = el.value; r.pid = null; r.team = null; r.pick = null; }
+    else if (f === "kind") { r.kind = el.value; r.pid = null; r.team = null; r.pick = null; }
     else r[f] = el.value;
     return true;
   }
