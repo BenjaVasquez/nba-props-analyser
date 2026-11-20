@@ -2,12 +2,12 @@
 // - Páginas, código y datos: primero la red (siempre lo más nuevo); si no hay
 //   internet, la última copia guardada.
 // - Logos y fotos de jugadores: primero la copia guardada (cambian muy poco).
-const VERSION = "v4";
+const VERSION = "v5";
 const APP = `app-${VERSION}`, IMG = `img-${VERSION}`;
 const SHELL = [
   "/", "/index.html", "/css/styles.css", "/manifest.webmanifest", "/icons/icon-192.png",
   "/js/app.js", "/js/config.js", "/js/teams.js", "/js/players.js", "/js/propchart.js",
-  "/js/propview.js", "/js/parlayview.js", "/js/live.js", "/js/trackview.js", "/js/engine.js", "/js/bets.js",
+  "/js/propview.js", "/js/parlayview.js", "/js/live.js", "/js/trackview.js", "/js/engine.js", "/js/bets.js", "/js/boxscore.js",
 ];
 
 self.addEventListener("install", (e) => {

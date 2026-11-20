@@ -4,8 +4,9 @@ import { indexInjuries, injuryFor, injuryLabel, rosterSectionHTML, playerPanelHT
 import { mountPropView, unmountPropView, setStat, presetLine } from "./propview.js";
 import { parlaysHTML, dayParlaysHTML, myLegs, findLeg } from "./parlayview.js";
 import * as Bets from "./bets.js";
-import { live, startLive } from "./live.js";
+import { live, startLive, loadBox } from "./live.js";
 import { trackingHTML } from "./trackview.js";
+import { boxScoreHTML } from "./boxscore.js";
 
 const DATA_URL = dataUrl("fixture.json");
 const REFRESH_MS = 10 * 60 * 1000;     // vuelve a leer los datos cada 10 min
@@ -32,6 +33,8 @@ const state = {
   injIdx: null,        // lesionados indexados por id y nombre
   model: null,         // rendimiento del modelo de parlays (data/model.json)
   tracking: null,      // registro real de picks (data/tracking.json)
+  boxTab: "away",      // pestaña del box score: away | home | stats
+  liveBoxGame: null,   // partido cuyo box score se ve en "En vivo"
   teamCache: new Map(),// abreviatura -> datos de data/players/XXX.json
   playerId: null,      // jugador abierto en la columna derecha
   query: "",           // búsqueda en la columna de plantillas
@@ -326,6 +329,7 @@ function renderSelection() {
       <div class="mu-mid">${mid}<div class="sub">${g.venue || ""}</div></div>
       <div class="mu-team">${logoHTML(g.home, 72)}<div class="nm">${TEAMS[g.home].short}</div><div class="rc">Local · ${rec(g.home)}</div></div>
     </div>
+    ${st === "live" || st === "final" ? boxFor(g) : ""}
     ${parlaysHTML({
       game: g, isFinal: st === "final", injIdx: state.injIdx,
       teams: { [g.away]: teamData(g.away), [g.home]: teamData(g.home) },
@@ -364,6 +368,21 @@ const firstSlateDay = () => {
   return state.games.find((g) => g.day >= t && g.home !== "TBD" && gameStatus(g) === "upcoming")?.day
       || state.games.find((g) => g.day >= t && g.home !== "TBD")?.day || t;
 };
+// Box score de un partido (en vivo o terminado). Si no está cargado, lo pide y redibuja.
+const boxErr = new Map();
+function boxFor(g, { title = true } = {}) {
+  if (!g) return "";
+  const espnId = live.games.get(g.id)?.espnId || g.espn_id;
+  if (!espnId) return "";
+  const full = live.full.get(espnId);
+  if (!full || (!full.final && gameStatus(g) === "final")) {
+    loadBox(espnId).then(() => { boxErr.delete(espnId); if (!isTyping() && !state.playerId) rerenderKeepScroll(); })
+      .catch(() => { if (!boxErr.has(espnId)) { boxErr.set(espnId, 1); rerenderKeepScroll(); } });
+  }
+  const highlight = new Set(Bets.allBets().flatMap((b) => b.legs.filter((l) => l.gameId === g.id).map((l) => String(l.pid))));
+  return boxScoreHTML(full, g, { tab: state.boxTab, highlight, loading: !full, error: boxErr.has(espnId), title });
+}
+
 function betsCtx() {
   return {
     byId: (id) => state.byId.get(+id),
@@ -380,12 +399,30 @@ function betsCtx() {
       return state.games.filter((g) => g.day >= t && g.home !== "TBD" && g.away !== "TBD" && gameStatus(g) !== "final").slice(0, 25);
     },
     genDay: firstSlateDay,
-    liveDay: () => {
-      const t = todayKey();
-      return dayGames(t).length ? t : firstSlateDay();
-    },
+    liveDay: firstLiveDay,
     setFormLegs: (legs) => (state.formLegs = legs),
+    liveBoxGame: () => {
+      const day = dayGames(firstLiveDay()).filter((g) => g.home !== "TBD");
+      if (!day.some((g) => g.id === state.liveBoxGame)) {
+        // por defecto: el primer partido en juego; si no hay, el último terminado
+        state.liveBoxGame = (day.find((g) => live.games.get(g.id)?.state === "in") || day.find((g) => gameStatus(g) === "live")
+          || [...day].reverse().find((g) => gameStatus(g) === "final"))?.id ?? null;
+      }
+      return state.liveBoxGame;
+    },
+    boxHTML: (id) => {
+      const g = state.byId.get(id);
+      if (!g) return "";
+      const st = gameStatus(g);
+      if (st !== "live" && st !== "final") return `<div class="card"><h3>Box score · ${g.away} @ ${g.home}</h3><div class="muted">Empieza a las ${timeFmt.format(g.start)}.</div></div>`;
+      return `<div class="lb-head"><b>${logoHTML(g.away, 22)} ${g.away} @ ${g.home} ${logoHTML(g.home, 22)}</b>
+        <button type="button" class="lnk" data-game="${g.id}">Abrir análisis y parlays ›</button></div>${boxFor(g)}`;
+    },
   };
+}
+function firstLiveDay() {
+  const t = todayKey();
+  return dayGames(t).length ? t : firstSlateDay();
 }
 const isTyping = () => !!document.activeElement?.closest?.("#matchup input[type=text], #matchup input[type=number]");
 function rerenderKeepScroll() {
@@ -396,6 +433,7 @@ function rerenderKeepScroll() {
 
 function selectView(name, { fromHash = false } = {}) {
   state.dayView = name;
+  state.boxTab = "away";
   state.selectedId = null;
   state.playerId = null;
   myLegs.clear();
@@ -469,7 +507,7 @@ function selectGame(id, { fromHash = false, playerId = null } = {}) {
   state.dayView = null;
   state.selectedId = id;
   state.playerId = playerId;
-  if (changed) { state.query = ""; $("#rosterSearch").value = ""; myLegs.clear(); }
+  if (changed) { state.query = ""; $("#rosterSearch").value = ""; myLegs.clear(); state.boxTab = "away"; }
   document.querySelectorAll(".game.selected").forEach((b) => b.classList.remove("selected"));
   document.querySelector(`.game[data-id="${id}"]`)?.classList.add("selected");
   if (!fromHash) setHash();
@@ -627,6 +665,10 @@ function bindEvents() {
   });
   $("#matchup").addEventListener("click", (e) => {
     const t = e.target;
+    const bt = t.closest("[data-boxtab]");
+    if (bt) { state.boxTab = bt.dataset.boxtab; rerenderKeepScroll(); return; }
+    const lb = t.closest("[data-livebox]");
+    if (lb) { state.liveBoxGame = +lb.dataset.livebox; state.boxTab = "away"; rerenderKeepScroll(); liveCtl?.now(); return; }
     const follow = t.closest("[data-follow]");
     if (follow) {
       const on = Bets.toggleFollowGenerated(follow.dataset.follow, betsCtx());
@@ -736,7 +778,7 @@ async function init() {
 function startLiveScores() {
   liveCtl = startLive({
     getGames: () => state.games,
-    getWatched: () => [state.selectedId, ...Bets.watchedGames()].filter((x) => x != null),
+    getWatched: () => [state.selectedId, state.dayView === "envivo" ? state.liveBoxGame : null, ...Bets.watchedGames()].filter((x) => x != null),
     onUpdate: (ids) => {
       applyLive();
       renderMeta();
