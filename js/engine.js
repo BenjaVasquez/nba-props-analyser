@@ -96,7 +96,37 @@ export function makeLeg(ctx, m, { game, team, line, side = "over", prob, inj, is
 
 export const legWon = (l, v = l.actual) => (v == null ? null : hits(v, l.line, l.side));
 export { corrFactor };
-export const legText = (l) => `${l.side === "under" ? "Menos de" : "Más de"} ${String(l.line).replace(".", ",")} ${STATS[l.stat].short}`;
+export const legText = (l) => (l.kind === "ml"
+  ? `Gana ${l.team} (${l.isHome ? "local" : "visita"})`
+  : `${l.side === "under" ? "Menos de" : "Más de"} ${String(l.line).replace(".", ",")} ${STATS[l.stat].short}`);
+
+/* ---------------- ganador del partido ---------------- */
+// Probabilidad de ganar a partir del diferencial de puntos por partido de la temporada
+// (70% temporada + 30% últimos 10, encogido hacia 0 con pocos partidos), +1,5 pts de
+// localía y desviación de 14 pts. Probado con 134 partidos (1–18 nov): acierta el
+// ganador el 67% y queda calibrado (dice 65% → ganó 64%; dice 75% → ganó 78%).
+const WIN = { k: 5, hca: 1.5, sd: 14, wr: 0.3 };
+export function winProbability(games, game) {
+  const net = (team) => {
+    const m = games.filter((g) => g.hs != null && g.day < game.day && (g.home === team || g.away === team))
+      .map((g) => (g.home === team ? g.hs - g.as : g.as - g.hs));
+    if (!m.length) return 0;
+    const avgOf = (a) => a.reduce((x, y) => x + y, 0) / a.length;
+    return ((1 - WIN.wr) * avgOf(m) + WIN.wr * avgOf(m.slice(-10))) * (m.length / (m.length + WIN.k));
+  };
+  const nh = net(game.home), na = net(game.away);
+  const home = Phi((nh - na + WIN.hca) / WIN.sd);
+  return { home, away: 1 - home, netHome: nh, netAway: na };
+}
+
+// Patas "Gana X" para el generador (ambos lados; el filtro de probabilidad elige)
+export function winLegs(games, game) {
+  const wp = winProbability(games, game);
+  return [["home", game.home, game.away, wp.home], ["away", game.away, game.home, wp.away]].map(([side, team, opp, prob]) => ({
+    id: `ml-${team}:ml:${side}:null`, kind: "ml", gameId: game.id, team, opp, isHome: side === "home", side, stat: "ml", line: null,
+    prob, player: { id: `ml-${game.id}`, name: `Gana ${team}`, team }, season: [0, 0], l10: [0, 0], proj: 0,
+  }));
+}
 
 /* ---------------- patas sugeridas ---------------- */
 // Para cada jugador y prop: la línea .5 más alta que alcanza cada nivel de probabilidad.
@@ -167,6 +197,7 @@ export function generateParlays(pool, opts = {}) {
     count = 15, minLegs = 2, maxLegs = 4, oddsMin = 1.3, oddsMax = 1.8,
     maxPerPlayer = 4, perGameMax = 99, allowDoubt = false, poolSize = 36,
     maxLegProb = 0.96, // fuera las patas "regaladas" (Más de 0,5…) que casi no suman cuota
+    require = null,    // función: cada parlay debe tener al menos una pata que la cumpla
   } = opts;
   const pMin = 1 / oddsMax, pMax = 1 / oddsMin;
   // probabilidad "ideal" por pata para llegar a la cuota pedida con la cantidad de patas pedida
@@ -192,6 +223,8 @@ export function generateParlays(pool, opts = {}) {
     for (const l of eligible) if (l.prob <= top && l.prob > bot - 1e-9 && n < per && take(l)) n++;
   }
   for (const l of eligible) { if (legs.length >= poolSize) break; take(l); } // completar
+  // patas obligatorias (ej. ganador del partido): entran siempre que tengan prob. razonable
+  if (require) for (const l of pool) if (require(l) && !l.out && l.prob >= 0.5 && l.prob <= Math.max(hi, 0.9)) take(l);
   legs.sort((a, b) => b.prob - a.prob);
   // búsqueda en profundidad con poda (la probabilidad solo baja al sumar patas)
   const found = [];
@@ -200,7 +233,7 @@ export function generateParlays(pool, opts = {}) {
   const perGameDistinct = () => [...perGame.values()].filter((v) => v > 0).length;
   (function dfs(start, raw) {
     const prob = raw * SAME_GAME ** (pick.length - perGameDistinct());
-    if (pick.length >= minLegs && prob >= pMin && prob <= pMax) found.push({ legs: [...pick], prob });
+    if (pick.length >= minLegs && prob >= pMin && prob <= pMax && (!require || pick.some(require))) found.push({ legs: [...pick], prob });
     if (pick.length >= maxLegs) return;
     for (let i = start; i < legs.length; i++) {
       const l = legs[i];
@@ -225,10 +258,11 @@ export function generateParlays(pool, opts = {}) {
   const ok = (f) => {
     const key = f.legs.map((l) => l.id).sort().join("|");
     if (keys.has(key)) return false;
-    if (f.legs.some((l) => (appear.get(l.player.id) || 0) >= maxPerPlayer)) return false;
+    const free = (l) => require && require(l); // las patas obligatorias pueden repetirse
+    if (f.legs.some((l) => !free(l) && (appear.get(l.player.id) || 0) >= maxPerPlayer)) return false;
     // que no comparta todas menos una pata con otro ya elegido
     for (const c of chosen) {
-      const shared = f.legs.filter((l) => c.legs.some((x) => x.player.id === l.player.id)).length;
+      const shared = f.legs.filter((l) => !free(l) && c.legs.some((x) => x.player.id === l.player.id)).length;
       if (shared >= Math.max(2, Math.min(f.legs.length, c.legs.length))) return false;
     }
     keys.add(key);
