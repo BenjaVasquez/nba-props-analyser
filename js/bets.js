@@ -283,7 +283,8 @@ export function liveViewHTML(ctx) {
     const st = ctx.status(g);
     const score = st === "live" && L?.state === "in" ? { a: L.as, h: L.hs, txt: L.detail || "En vivo", cls: "in" }
       : st === "final" ? { a: g.as, h: g.hs, txt: "Final", cls: "post" } : null;
-    return `<button type="button" class="sb ${score?.cls || "pre"}" data-game="${g.id}">
+    const sel = ctx.liveBoxGame() === g.id;
+    return `<button type="button" class="sb ${score?.cls || "pre"} ${sel ? "sel" : ""}" data-livebox="${g.id}" title="Ver su box score aquí">
       <div class="sb-t">${logoHTML(g.away, 26)}<b>${g.away}</b><span class="sb-s ${score && score.a > score.h ? "lead" : ""}">${score ? score.a : ""}</span></div>
       <div class="sb-t">${logoHTML(g.home, 26)}<b>${g.home}</b><span class="sb-s ${score && score.h > score.a ? "lead" : ""}">${score ? score.h : ""}</span></div>
       <div class="sb-st">${score ? (score.cls === "in" ? `● ${esc(score.txt)}` : score.txt) : ctx.timeFmt(g)}</div>
@@ -296,7 +297,8 @@ export function liveViewHTML(ctx) {
   return `
     <div class="day-hero"><div class="big">🔴 En vivo</div>
       <div class="sub">${ctx.dayLong(day)} · ${games.length} partidos${nLive ? ` · <b class="live-tag">${nLive} en juego</b>` : ""} · se actualiza solo cada 30 s</div></div>
-    <div class="card"><h3>Marcador</h3><div class="sb-grid">${tiles || `<div class="muted">No hay partidos este día.</div>`}</div></div>
+    <div class="card"><h3>Marcador <span class="h3-note">· toca un partido para ver su box score</span></h3><div class="sb-grid">${tiles || `<div class="muted">No hay partidos este día.</div>`}</div></div>
+    ${ctx.boxHTML(ctx.liveBoxGame())}
     <div class="card"><h3>Mis parlays de hoy (${mine.length}) <button type="button" class="lnk h3-act" data-open-bets>🎟 Mis apuestas</button></h3>
       ${mine.length ? `<div class="bets">${evals.map(({ b }) => betCard(b, ctx, { compact: true })).join("")}</div>`
         : `<div class="muted">No sigues parlays de esta jornada. Toca ☆ Seguir en cualquier parlay sugerido o carga el tuyo en 🎟 Mis apuestas.</div>`}
