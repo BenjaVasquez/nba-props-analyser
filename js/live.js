@@ -81,17 +81,23 @@ export function startLive({ getGames, getWatched, onUpdate }) {
             };
             const prev = live.games.get(g.id);
             if (!prev || prev.detail !== info.detail || prev.hs !== info.hs || prev.as !== info.as) {
+              if (prev?.boxFinal && info.state === "post") info.boxFinal = true;
               live.games.set(g.id, info);
               changed.push(g.id);
             }
           }
         }
-        // box score del partido abierto, si está en juego o recién terminó
-        const wid = getWatched();
-        const w = wid != null ? live.games.get(wid) : null;
-        if (w && w.state !== "pre") {
-          live.box.set(w.espnId, parseBox(await getJSON(`${ESPN}/summary?event=${w.espnId}`)));
-          if (!changed.includes(wid)) changed.push(wid);
+        // box score de los partidos abiertos o con patas seguidas (en juego o recién terminados)
+        const watched = [].concat(getWatched() ?? []);
+        for (const wid of [...new Set(watched)]) {
+          const w = live.games.get(wid);
+          if (!w || w.state === "pre") continue;
+          if (w.state === "post" && w.boxFinal) continue; // ya tenemos el final
+          try {
+            live.box.set(w.espnId, parseBox(await getJSON(`${ESPN}/summary?event=${w.espnId}`)));
+            if (w.state === "post") w.boxFinal = true;
+            if (!changed.includes(wid)) changed.push(wid);
+          } catch (err) { console.warn("Box score en vivo:", err.message); }
         }
         if (changed.length) onUpdate(changed);
         const anyIn = [...live.games.values()].some((x) => x.state === "in");

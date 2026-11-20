@@ -98,3 +98,15 @@ y mejores patas que la web recomienda para cada partido **antes** de que empiece
 re-guardan hasta el inicio con los lesionados al día; los parlays del día se fijan al
 empezar el primer partido). Cuando hay box score, los marca ganados/perdidos/nulos y
 resume todo en `data/tracking.json`, que la web muestra en **📈 Registro**.
+
+## Parlays v3, Mis apuestas y En vivo (nov-2026)
+
+- `js/engine.js`: probabilidad para cualquier línea de la casa ("Más/Menos de X.5") y generador
+  de parlays por rango de cuota con diversidad. La web muestra **15 parlays por partido** y
+  **10 del día** (una pata por partido), con cuota justa 1,3–1,8.
+- **🎟 Mis apuestas** (`js/bets.js`): cargar la apuesta tal cual la casa (jugador, línea, cuota,
+  monto) y ver probabilidad, cuota justa y valor esperado; armar parlays con filtros
+  (partidos, patas, cuota, props); ⭐ Seguir cualquier parlay. Se guardan en el teléfono.
+- **🔴 En vivo**: marcador de todos los partidos del día + avance en vivo de cada pata de
+  tus parlays (box score de ESPN cada 30 s).
+- `scripts/backtest.mjs` y `scripts/picks.mjs` usan el mismo motor que la web.

@@ -625,3 +625,108 @@ button:disabled { cursor: default; }
   .brand { font-size: 17px; line-height: 1.05; }
   .meta { font-size: 10px; }
 }
+
+/* ====================================================================
+   PARLAYS v3 · MIS APUESTAS · EN VIVO
+   ==================================================================== */
+.ok { color: var(--win); } .ko { color: #f87171; } .mid { color: var(--gold); }
+.small { font-size: 12px; }
+.h3-act { float: right; font-family: var(--sans); font-size: 12px; letter-spacing: 0; text-transform: none; color: var(--accent); }
+.pz-grid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.pz-odds { margin-left: auto; font-size: 11px; color: var(--muted-2); }
+.pz-odds b { font-family: var(--cond); font-size: 17px; color: var(--gold); }
+.pz-head .pz-res { margin-left: 6px; }
+.pz-foot2 { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 8px; font-size: 11.5px; color: var(--muted-2); }
+.pz-foot2 b { font-family: var(--cond); font-size: 17px; color: var(--text); }
+.follow {
+  margin-left: auto; background: transparent; border: 1px solid var(--line-2); border-radius: 8px;
+  padding: 4px 10px; font-size: 12px; font-weight: 700; color: var(--muted-2);
+}
+.follow:hover { border-color: var(--gold); color: var(--gold); }
+.follow.on { background: rgba(250, 204, 21, .14); border-color: rgba(250, 204, 21, .5); color: var(--gold); }
+.leg.static { cursor: default; }
+.leg.static:hover { border-color: var(--line); }
+.btn-sm { background: var(--panel-2); border: 1px solid var(--line-2); border-radius: 8px; padding: 5px 10px; font-size: 12px; font-weight: 600; }
+.btn-sm:hover { border-color: var(--accent); }
+.btn-main { background: var(--accent); color: #fff; border: 0; border-radius: 9px; padding: 9px 16px; font-weight: 700; font-size: 13px; }
+.btn-main:disabled { opacity: .4; cursor: default; }
+.btn-main:hover:not(:disabled) { filter: brightness(1.1); }
+.live-btn { background: rgba(249, 115, 22, .12); color: #fdba74; border-color: rgba(249, 115, 22, .45); }
+.live-btn:hover { background: rgba(249, 115, 22, .22); }
+
+/* formulario de apuesta */
+.frows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.fr { display: grid; grid-template-columns: 1.3fr 1.4fr 1fr .8fr .8fr 90px 20px; gap: 6px; align-items: center; }
+.fr select, .fr input, .fsum input, .gform select, .gform input {
+  width: 100%; background: var(--panel-2); color: var(--text); border: 1px solid var(--line-2); border-radius: 8px;
+  padding: 7px 8px; font: inherit; font-size: 12.5px; min-width: 0;
+}
+.fr-p { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; }
+.fr-p b { font-family: var(--cond); font-size: 20px; }
+.fr-p small { font-size: 10px; color: var(--muted); }
+.fsum { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.fsum label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; width: 150px; }
+.fres { display: flex; gap: 14px; font-size: 12px; color: var(--muted-2); flex-wrap: wrap; }
+.fres b { font-family: var(--cond); font-size: 20px; color: var(--text); }
+.fres b.ok { color: var(--win); } .fres b.ko { color: #f87171; }
+.vd { font-size: 12.5px; font-weight: 700; border-radius: 8px; padding: 6px 10px; }
+.vd.ok { background: rgba(34, 197, 94, .12); } .vd.ko { background: rgba(239, 68, 68, .12); } .vd.mid { background: rgba(250, 204, 21, .1); }
+.fsum .btn-main { margin-left: auto; }
+
+/* generador */
+.gform { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 14px; }
+.gform > label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+.gform > label:first-child { min-width: 220px; }
+.rng { display: flex; align-items: center; gap: 6px; color: var(--muted); text-transform: none; }
+.rng input { width: 64px; }
+.gform input[type=number] { width: 64px; }
+.gprops { display: flex; flex-wrap: wrap; gap: 6px 12px; width: 100%; }
+.chk { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted-2); cursor: pointer; }
+.chk input { width: auto; accent-color: var(--accent); }
+
+/* tarjetas de apuestas con avance */
+.bets { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.bet { background: var(--panel-2); border: 1px solid var(--line-2); border-radius: 12px; padding: 10px 12px; }
+.bet.st-en-vivo { border-color: rgba(249, 115, 22, .55); }
+.bet.st-ganada { border-color: rgba(34, 197, 94, .55); }
+.bet.st-perdida { border-color: rgba(239, 68, 68, .45); opacity: .85; }
+.bet-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 11.5px; color: var(--muted-2); margin-bottom: 6px; }
+.bet-st { font-weight: 800; font-size: 12px; }
+.st-en-vivo .bet-st { color: var(--live); } .st-ganada .bet-st { color: var(--win); } .st-perdida .bet-st { color: #f87171; }
+.bet-src { font-size: 10.5px; color: var(--muted); }
+.bet-n b { color: var(--text); }
+.bet-del { margin-left: auto; text-decoration: none; color: var(--muted); }
+.bet-legs { display: flex; flex-direction: column; gap: 6px; }
+.bl { background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 6px 8px; }
+.bl-top { display: flex; align-items: center; gap: 8px; }
+.bl-name { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bl-name small { color: var(--muted); font-weight: 500; font-size: 10px; }
+.bl-line { font-family: var(--cond); font-weight: 700; font-size: 15px; color: var(--gold); white-space: nowrap; }
+.bl-p { font-size: 11px; color: var(--muted-2); }
+.bl-time { font-size: 11px; color: var(--muted); }
+.bl-bar { height: 4px; background: var(--line); border-radius: 3px; margin-top: 5px; overflow: hidden; }
+.bl-bar i { display: block; height: 100%; background: var(--live); border-radius: 3px; transition: width .4s; }
+.bl.win .bl-bar i { background: var(--win); }
+.bl.lose .bl-bar i { background: var(--loss); }
+.bet-f { margin-top: 8px; font-size: 12px; color: var(--muted-2); }
+.bet-f b { color: var(--text); }
+
+/* marcador del día */
+.sb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+.sb { background: var(--panel-2); border: 1px solid var(--line-2); border-radius: 12px; padding: 10px 12px; text-align: left; display: flex; flex-direction: column; gap: 6px; }
+.sb:hover { border-color: var(--accent); }
+.sb.in { border-color: rgba(249, 115, 22, .6); background: linear-gradient(180deg, rgba(249, 115, 22, .08), var(--panel-2)); }
+.sb-t { display: flex; align-items: center; gap: 8px; }
+.sb-t b { font-size: 13px; }
+.sb-s { margin-left: auto; font-family: var(--cond); font-size: 24px; font-weight: 700; color: var(--muted-2); }
+.sb-s.lead { color: #fff; }
+.sb-st { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .4px; }
+.sb.in .sb-st { color: var(--live); }
+
+@media (max-width: 900px) {
+  .fr { grid-template-columns: 1fr 1fr; }
+  .fr-p { grid-column: 1; align-items: flex-start; }
+  .fsum label { width: calc(50% - 6px); }
+  .bets { grid-template-columns: 1fr; }
+  .top-right { flex-wrap: wrap; justify-content: flex-end; }
+}
