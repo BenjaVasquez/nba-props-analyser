@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T03:00:30Z",
+ "updated": "2026-11-21T03:30:33Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,37 +68,37 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 8,
-   "lose": 6,
-   "void": 0,
-   "real": 57.1,
-   "est": 74.2
+   "win": 29,
+   "lose": 11,
+   "void": 3,
+   "real": 72.5,
+   "est": 74
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 6,
-   "lose": 6,
+   "win": 27,
+   "lose": 13,
    "void": 0,
-   "real": 50,
-   "est": 64.6
+   "real": 67.5,
+   "est": 64.1
   },
   {
    "name": "Partido · 4 patas",
    "kind": "Partido",
-   "win": 3,
+   "win": 6,
    "lose": 1,
    "void": 0,
-   "real": 75,
+   "real": 85.7,
    "est": 61.2
   }
  ],
  "legs": [
   {
    "range": "85%+",
-   "n": 22,
-   "real": 90.9,
-   "est": 89.3
+   "n": 46,
+   "real": 93.5,
+   "est": 90.3
   },
   {
    "range": "80-85%",
@@ -203,6 +203,96 @@
     },
     {
      "name": "Partido · 2 patas",
+     "matchup": "ORL @ BKN",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ORL @ BKN",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ORL @ BKN",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ORL @ BKN",
+     "result": "lose",
+     "prob": 0.767
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ORL @ BKN",
+     "result": "lose",
+     "prob": 0.767
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ORL @ BKN",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ORL @ BKN",
+     "result": "void",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ORL @ BKN",
+     "result": "lose",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ORL @ BKN",
+     "result": "void",
+     "prob": 0.68
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ORL @ BKN",
+     "result": "void",
+     "prob": 0.679
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "ORL @ BKN",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "ORL @ BKN",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "ORL @ BKN",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "ORL @ BKN",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "ORL @ BKN",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 2 patas",
      "matchup": "IND @ CLE",
      "result": "lose",
      "prob": 0.768
@@ -289,6 +379,276 @@
      "name": "Partido · 3 patas",
      "matchup": "IND @ CLE",
      "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.766
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.764
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.763
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.758
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "TOR @ DET",
+     "result": "lose",
+     "prob": 0.757
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.677
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.677
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.676
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.675
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "TOR @ DET",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "TOR @ DET",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "TOR @ DET",
+     "result": "win",
+     "prob": 0.605
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "WAS @ CHI",
+     "result": "lose",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "WAS @ CHI",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "WAS @ CHI",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "WAS @ CHI",
+     "result": "lose",
+     "prob": 0.611
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "WAS @ CHI",
+     "result": "lose",
+     "prob": 0.61
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ OKC",
+     "result": "win",
      "prob": 0.612
     }
    ]
