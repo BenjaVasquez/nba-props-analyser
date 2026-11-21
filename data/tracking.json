@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T20:30:28Z",
+ "updated": "2026-11-21T21:00:35Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,20 +68,20 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 49,
-   "lose": 12,
+   "win": 53,
+   "lose": 15,
    "void": 3,
-   "real": 80.3,
+   "real": 77.9,
    "est": 74
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 39,
-   "lose": 19,
+   "win": 44,
+   "lose": 22,
    "void": 0,
-   "real": 67.2,
-   "est": 64.3
+   "real": 66.7,
+   "est": 64.2
   },
   {
    "name": "Partido · 4 patas",
@@ -105,9 +105,9 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 64,
-   "real": 93.8,
-   "est": 90.5
+   "n": 70,
+   "real": 92.9,
+   "est": 90.6
   },
   {
    "range": "80-85%",
@@ -117,6 +117,101 @@
   }
  ],
  "days": [
+  {
+   "day": "2026-11-21",
+   "parlays": [
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIL @ PHI",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIL @ PHI",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIL @ PHI",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIL @ PHI",
+     "result": "win",
+     "prob": 0.764
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIL @ PHI",
+     "result": "lose",
+     "prob": 0.763
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ PHI",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ PHI",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIL @ PHI",
+     "result": "lose",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ PHI",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIL @ PHI",
+     "result": "lose",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ PHI",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ PHI",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ PHI",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ PHI",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ PHI",
+     "result": "win",
+     "prob": 0.612
+    }
+   ]
+  },
   {
    "day": "2026-11-20",
    "parlays": [

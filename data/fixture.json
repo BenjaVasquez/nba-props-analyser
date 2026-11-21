@@ -1,4 +1,4 @@
-{"season":"2026-27","updated":"2026-11-21T20:30:19Z","games":[
+{"season":"2026-27","updated":"2026-11-21T21:00:22Z","games":[
 {"id":1,"round":1,"date":"2026-10-20T19:00:00Z","venue":"Little Caesars Arena","home":"DET","away":"BOS","hs":121,"as":113,"espn_id":"401909088"},
 {"id":2,"round":1,"date":"2026-10-20T23:00:00Z","venue":"Madison Square Garden","home":"NYK","away":"PHI","hs":100,"as":106,"espn_id":"401909089"},
 {"id":3,"round":1,"date":"2026-10-21T01:30:00Z","venue":"Frost Bank Center","home":"SAS","away":"OKC","hs":104,"as":116,"espn_id":"401909090"},
@@ -234,7 +234,7 @@
 {"id":233,"round":5,"date":"2026-11-21T02:30:00Z","venue":"Delta Center","home":"UTA","away":"PHX","hs":101,"as":111,"espn_id":"401909311"},
 {"id":234,"round":5,"date":"2026-11-21T03:00:00Z","venue":"Ball Arena","home":"DEN","away":"HOU","hs":133,"as":124,"espn_id":"401909312"},
 {"id":235,"round":5,"date":"2026-11-21T03:00:00Z","venue":"Crypto.com Arena","home":"LAL","away":"SAC","hs":106,"as":104,"espn_id":"401909313"},
-{"id":236,"round":5,"date":"2026-11-21T18:00:00Z","venue":"Xfinity Mobile Arena","home":"PHI","away":"MIL","hs":null,"as":null,"espn_id":"401910023"},
+{"id":236,"round":5,"date":"2026-11-21T18:00:00Z","venue":"Xfinity Mobile Arena","home":"PHI","away":"MIL","hs":132,"as":129,"espn_id":"401910023"},
 {"id":237,"round":5,"date":"2026-11-22T00:30:00Z","venue":"Madison Square Garden","home":"NYK","away":"POR","hs":null,"as":null,"espn_id":"401910024"},
 {"id":238,"round":5,"date":"2026-11-22T01:00:00Z","venue":"American Airlines Center","home":"DAL","away":"LAC","hs":null,"as":null,"espn_id":"401910025"},
 {"id":239,"round":5,"date":"2026-11-22T01:00:00Z","venue":"Target Center","home":"MIN","away":"MEM","hs":null,"as":null,"espn_id":"401910026"},
