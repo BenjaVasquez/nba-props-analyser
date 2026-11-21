@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T02:30:29Z",
+ "updated": "2026-11-21T03:00:30Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,37 +68,37 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 5,
-   "lose": 2,
+   "win": 8,
+   "lose": 6,
    "void": 0,
-   "real": 71.4,
+   "real": 57.1,
    "est": 74.2
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 4,
-   "lose": 3,
+   "win": 6,
+   "lose": 6,
    "void": 0,
-   "real": 57.1,
-   "est": 64.1
+   "real": 50,
+   "est": 64.6
   },
   {
    "name": "Partido · 4 patas",
    "kind": "Partido",
-   "win": 1,
-   "lose": 0,
+   "win": 3,
+   "lose": 1,
    "void": 0,
-   "real": 100,
+   "real": 75,
    "est": 61.2
   }
  ],
  "legs": [
   {
    "range": "85%+",
-   "n": 16,
-   "real": 93.8,
-   "est": 88.7
+   "n": 22,
+   "real": 90.9,
+   "est": 89.3
   },
   {
    "range": "80-85%",
@@ -200,6 +200,96 @@
      "matchup": "CHA @ ATL",
      "result": "lose",
      "prob": 0.609
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "IND @ CLE",
+     "result": "lose",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "IND @ CLE",
+     "result": "lose",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "IND @ CLE",
+     "result": "lose",
+     "prob": 0.767
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "IND @ CLE",
+     "result": "win",
+     "prob": 0.766
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "IND @ CLE",
+     "result": "win",
+     "prob": 0.765
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "IND @ CLE",
+     "result": "lose",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "IND @ CLE",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "IND @ CLE",
+     "result": "lose",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "IND @ CLE",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "IND @ CLE",
+     "result": "win",
+     "prob": 0.68
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "IND @ CLE",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "IND @ CLE",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "IND @ CLE",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "IND @ CLE",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "IND @ CLE",
+     "result": "lose",
+     "prob": 0.612
     }
    ]
   },
