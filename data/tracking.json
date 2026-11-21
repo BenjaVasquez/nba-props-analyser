@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T05:00:35Z",
+ "updated": "2026-11-21T05:30:30Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,37 +68,37 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 29,
+   "win": 42,
    "lose": 11,
    "void": 3,
-   "real": 72.5,
-   "est": 74
+   "real": 79.2,
+   "est": 74.1
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 27,
-   "lose": 13,
+   "win": 38,
+   "lose": 17,
    "void": 0,
-   "real": 67.5,
-   "est": 64.1
+   "real": 69.1,
+   "est": 64.2
   },
   {
    "name": "Partido · 4 patas",
    "kind": "Partido",
-   "win": 6,
+   "win": 8,
    "lose": 1,
    "void": 0,
-   "real": 85.7,
+   "real": 88.9,
    "est": 61.2
   }
  ],
  "legs": [
   {
    "range": "85%+",
-   "n": 46,
-   "real": 93.5,
-   "est": 90.3
+   "n": 58,
+   "real": 93.1,
+   "est": 90.4
   },
   {
    "range": "80-85%",
@@ -648,6 +648,186 @@
     {
      "name": "Partido · 3 patas",
      "matchup": "NOP @ OKC",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.767
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.766
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.764
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.763
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.749
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ UTA",
+     "result": "lose",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.676
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.663
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ UTA",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ LAL",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ LAL",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ LAL",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ LAL",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ LAL",
      "result": "win",
      "prob": 0.612
     }
