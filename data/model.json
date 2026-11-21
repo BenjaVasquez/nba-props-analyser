@@ -1,32 +1,32 @@
 {
- "updated": "2026-11-21T05:30:30Z",
+ "updated": "2026-11-21T06:00:31Z",
  "model": "v3",
  "from": "2026-11-01",
- "games": 146,
+ "games": 147,
  "days": 19,
  "note": "Jugadores que no jugaron se excluyen (en vivo los filtra el reporte de lesionados).",
  "legs": [
   {
    "range": "90%+",
-   "n": 6453,
+   "n": 6514,
    "real": 94.4,
    "est": 92.9
   },
   {
    "range": "85-90%",
-   "n": 8752,
-   "real": 88.8,
+   "n": 8824,
+   "real": 88.9,
    "est": 87.8
   },
   {
    "range": "80-85%",
-   "n": 9530,
+   "n": 9613,
    "real": 83.9,
    "est": 82.6
   },
   {
    "range": "78-80%",
-   "n": 4673,
+   "n": 4701,
    "real": 79.2,
    "est": 79
   }
@@ -42,34 +42,34 @@
   },
   {
    "name": "Día · 3 patas",
-   "win": 122,
-   "lose": 35,
+   "win": 123,
+   "lose": 34,
    "void": 0,
-   "real": 77.7,
+   "real": 78.3,
    "est": 68.4
   },
   {
    "name": "Partido · 2 patas",
-   "win": 770,
-   "lose": 189,
+   "win": 777,
+   "lose": 190,
    "void": 0,
-   "real": 80.3,
+   "real": 80.4,
    "est": 74.4
   },
   {
    "name": "Partido · 3 patas",
-   "win": 704,
-   "lose": 299,
+   "win": 705,
+   "lose": 301,
    "void": 0,
-   "real": 70.2,
+   "real": 70.1,
    "est": 64.7
   },
   {
    "name": "Partido · 4 patas",
-   "win": 149,
-   "lose": 53,
+   "win": 151,
+   "lose": 55,
    "void": 0,
-   "real": 73.8,
+   "real": 73.3,
    "est": 61.2
   }
  ]

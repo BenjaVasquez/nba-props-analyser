@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T05:30:30Z",
+ "updated": "2026-11-21T06:00:31Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,37 +68,46 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 42,
-   "lose": 11,
+   "win": 49,
+   "lose": 12,
    "void": 3,
-   "real": 79.2,
-   "est": 74.1
+   "real": 80.3,
+   "est": 74
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 38,
-   "lose": 17,
+   "win": 39,
+   "lose": 19,
    "void": 0,
-   "real": 69.1,
-   "est": 64.2
+   "real": 67.2,
+   "est": 64.3
   },
   {
    "name": "Partido · 4 patas",
    "kind": "Partido",
-   "win": 8,
+   "win": 10,
+   "lose": 3,
+   "void": 0,
+   "real": 76.9,
+   "est": 61.2
+  },
+  {
+   "name": "Día · 3 patas",
+   "kind": "Día",
+   "win": 9,
    "lose": 1,
    "void": 0,
-   "real": 88.9,
-   "est": 61.2
+   "real": 90,
+   "est": 69.5
   }
  ],
  "legs": [
   {
    "range": "85%+",
-   "n": 58,
-   "real": 93.1,
-   "est": 90.4
+   "n": 64,
+   "real": 93.8,
+   "est": 90.5
   },
   {
    "range": "80-85%",
@@ -743,6 +752,96 @@
     },
     {
      "name": "Partido · 2 patas",
+     "matchup": "HOU @ DEN",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "HOU @ DEN",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "HOU @ DEN",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "HOU @ DEN",
+     "result": "win",
+     "prob": 0.766
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "HOU @ DEN",
+     "result": "lose",
+     "prob": 0.764
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "HOU @ DEN",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "HOU @ DEN",
+     "result": "lose",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "HOU @ DEN",
+     "result": "win",
+     "prob": 0.68
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "HOU @ DEN",
+     "result": "win",
+     "prob": 0.678
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "HOU @ DEN",
+     "result": "win",
+     "prob": 0.676
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "HOU @ DEN",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "HOU @ DEN",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "HOU @ DEN",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "HOU @ DEN",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "HOU @ DEN",
+     "result": "lose",
+     "prob": 0.609
+    },
+    {
+     "name": "Partido · 2 patas",
      "matchup": "SAC @ LAL",
      "result": "win",
      "prob": 0.769
@@ -829,6 +928,66 @@
      "name": "Partido · 3 patas",
      "matchup": "SAC @ LAL",
      "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.678
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.678
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.677
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "lose",
      "prob": 0.612
     }
    ]
