@@ -7,7 +7,7 @@
 import { STATS } from "./propchart.js";
 import { TEAMS, logoHTML } from "./teams.js";
 import { injuryFor } from "./players.js";
-import { playerContext, statModel, legProb, legWon, legText, corrFactor, buildCandidates, generateParlays, winProbability, winLegs } from "./engine.js";
+import { playerContext, statModel, legProb, legWon, legText, corrFactor, buildCandidates, generateParlays, winProbability, winLegs, needFor } from "./engine.js";
 import { live, liveStat } from "./live.js";
 import { findParlay, findLeg, legStatus, pc, odds, shortName } from "./parlayview.js";
 
@@ -42,7 +42,7 @@ export function followedSet() {
 function addBet(legs, { source, odds: o = null, stake = null, byId }) {
   const saved = legs.map((l) => (l.player ? toSaved(l, byId(l.gameId)) : l));
   const prob = saved.reduce((a, l) => a * l.prob, 1) * corrFactor(saved);
-  const b = { id: `b${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`, created: new Date().toISOString(), source, legs: saved, prob, odds: o, stake };
+  const b = { id: `b${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`, created: new Date().toISOString(), source, legs: saved, prob, odds: o, stake, v2: true };
   const k = betKey(b);
   bets = bets.filter((x) => betKey(x) !== k);
   bets.unshift(b);
@@ -118,7 +118,7 @@ function betCard(b, ctx, { compact = false } = {}) {
         ? { cls: v > 0 ? "win" : "lose", txt: `${v > 0 ? "✓ Ganó" : "✗ Perdió"} ${v > 0 ? "+" : ""}${v}`, title: "Resultado final" }
         : { cls: "live", txt: v > 0 ? `⏱ Gana +${v}` : v < 0 ? `⏱ Pierde ${v}` : "⏱ Empate", title: "Marcador en vivo" };
     }
-    const pct = l.now.v != null && l.side === "over" ? Math.min(100, Math.round((l.now.v / (l.line + 0.5)) * 100)) : 0;
+    const pct = l.now.v != null && l.side === "over" ? Math.min(100, Math.round((l.now.v / needFor(l.line)) * 100)) : 0;
     const g = ctx.byId(l.gameId);
     return `<div class="bl ${st?.cls || ""}">
       <div class="bl-top"><span class="bl-name">${esc(legName(l))} <small>${l.team} ${l.isHome ? "vs" : "@"} ${l.opp}</small></span>
@@ -192,7 +192,7 @@ function formHTML(ctx) {
       : `<select data-f="player" ${g ? "" : "disabled"}>${playerOpts}</select>
       <select data-f="stat">${PROPS.map((s) => `<option value="${s}" ${(r.stat || "pts") === s ? "selected" : ""}>${STATS[s].label}</option>`).join("")}</select>
       <select data-f="side"><option value="over" ${r.side !== "under" ? "selected" : ""}>Más de</option><option value="under" ${r.side === "under" ? "selected" : ""}>Menos de</option></select>
-      <input data-f="line" type="text" inputmode="decimal" placeholder="Línea ej. 24,5" value="${esc(r.line ?? "")}">`;
+      <input data-f="line" type="text" inputmode="decimal" placeholder="Ej. 24,5 o 1 (= 1+)" title="Entero = X o más (1 = 1+). Con ,5 = Más de X,5" value="${esc(r.line ?? "")}">`;
     const info = pr?.none ? `<small>sin datos</small>` : pr?.prob != null
       ? `<b class="${pr.prob >= 0.75 ? "ok" : pr.prob >= 0.55 ? "mid" : "ko"}">${pc(pr.prob)}</b><small>${pr.ml ? "prob. de ganar" : `Proy. ${String(Math.round(pr.proj * 10) / 10).replace(".", ",")}${pr.inj ? ` · ${pr.inj.status === "red" ? "FUERA" : "DUDA"}` : ""}`}</small>` : "";
     rowsOut.push(`<div class="fr ${ml ? "fr-ml" : ""}" data-row="${i}">
@@ -291,8 +291,33 @@ export function toggleFollowGenerated(id, ctx) {
   return true;
 }
 
+/* ---------------- corrección de apuestas antiguas ---------------- */
+// Antes una línea entera ("1 triple") se leía como "más de 1". Ahora es "1 o más":
+// recalculamos la probabilidad de esas patas cuando los datos del equipo están cargados.
+function migrate(ctx) {
+  let changed = false;
+  for (const b of bets) {
+    if (b.v2) continue;
+    const fix = b.legs.filter((l) => l.kind !== "ml" && l.side === "over" && Number.isInteger(l.line));
+    let ok = true;
+    for (const l of fix) {
+      const g = ctx.byId(l.gameId);
+      const p = ctx.teamData(l.team)?.players?.find((x) => String(x.id) === l.pid);
+      if (!g || !p) { ok = false; break; }
+      const c = playerContext(p, { cutoffDay: l.day || g.day, isHome: l.isHome, opp: l.opp, minMin: 0 });
+      if (c) l.prob = Math.round(legProb(statModel(c, l.stat), l.line, "over") * 1000) / 1000;
+    }
+    if (!ok) continue;
+    if (fix.length) b.prob = b.legs.reduce((a, l) => a * l.prob, 1) * corrFactor(b.legs);
+    b.v2 = true;
+    changed = true;
+  }
+  if (changed) persist();
+}
+
 /* ---------------- vista: Mis apuestas ---------------- */
 export function betsViewHTML(ctx) {
+  migrate(ctx);
   const followed = followedSet();
   const f = formHTML(ctx);
   ctx.setFormLegs(f.legsOk);
@@ -314,6 +339,7 @@ export function betsViewHTML(ctx) {
 
 /* ---------------- vista: En vivo (marcador de todo el día) ---------------- */
 export function liveViewHTML(ctx) {
+  migrate(ctx);
   const day = ctx.liveDay();
   const games = ctx.games().filter((g) => g.day === day && g.home !== "TBD");
   const tiles = games.map((g) => {

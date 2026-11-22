@@ -91,7 +91,7 @@ function evalLeg(l, day) {
   if (!(g.min > 0)) return { ...l, actual: null, result: "void" };
   const v = STATS[l.stat].get(g);
   const line = l.line ?? l.t - 0.5;                 // registros v2 usaban "t" (X+)
-  const won = l.side === "under" ? v < line : v > line;
+  const won = l.side === "under" ? v < line : Number.isInteger(line) ? v >= line : v > line; // entero = "X o más"
   return { ...l, actual: v, result: won ? "win" : "lose" };
 }
 function evalParlay(p, day) {
