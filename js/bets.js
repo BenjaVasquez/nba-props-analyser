@@ -9,7 +9,7 @@ import { TEAMS, logoHTML } from "./teams.js";
 import { injuryFor } from "./players.js";
 import { playerContext, statModel, legProb, legWon, legText, corrFactor, buildCandidates, generateParlays, winProbability, winLegs, needFor } from "./engine.js";
 import { live, liveStat } from "./live.js";
-import { findParlay, findLeg, legStatus, pc, odds, shortName } from "./parlayview.js";
+import { findParlay, findLeg, legStatus, pc, odds, shortName, LEVELS } from "./parlayview.js";
 
 const KEY = "nba-bets-v1";
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -226,7 +226,8 @@ function formHTML(ctx) {
 }
 
 /* ---------------- generador con mis filtros ---------------- */
-export const gen = { scope: "day", gameId: null, minLegs: 2, maxLegs: 3, oddsMin: 1.3, oddsMax: 1.8, props: [...PROPS.slice(0, 8)], doubt: false, ml: false, count: 15, results: null, ran: false };
+const GEN_ODDS = { segura: [1.3, 1.8], realista: [1.6, 3], promedio: [2.2, 6] };
+export const gen = { scope: "day", gameId: null, level: "realista", minLegs: 2, maxLegs: 3, oddsMin: 1.6, oddsMax: 3, props: [...PROPS.slice(0, 8)], doubt: false, ml: false, count: 15, results: null, ran: false };
 
 function genHTML(ctx, followed) {
   const games = ctx.upcoming();
@@ -246,6 +247,7 @@ function genHTML(ctx, followed) {
           <option value="day" ${gen.scope === "day" ? "selected" : ""}>Todos los de ${day ? ctx.dayLong(day) : "hoy"}</option>
           ${games.map((g) => `<option value="${g.id}" ${gen.scope === String(g.id) ? "selected" : ""}>Solo ${g.away} @ ${g.home}</option>`).join("")}
         </select></label>
+        <label>Nivel de línea <select data-g="level">${Object.entries(LEVELS).map(([k, L]) => `<option value="${k}" ${gen.level === k ? "selected" : ""}>${L.label}</option>`).join("")}</select></label>
         <label>Patas <span class="rng"><input data-g="minLegs" type="number" min="1" max="8" value="${gen.minLegs}"> a <input data-g="maxLegs" type="number" min="1" max="8" value="${gen.maxLegs}"></span></label>
         <label>Cuota justa <span class="rng"><input data-g="oddsMin" type="text" inputmode="decimal" value="${String(gen.oddsMin).replace(".", ",")}"> a <input data-g="oddsMax" type="text" inputmode="decimal" value="${String(gen.oddsMax).replace(".", ",")}"></span></label>
         <label>Cantidad <input data-g="count" type="number" min="1" max="40" value="${gen.count}"></label>
@@ -266,7 +268,7 @@ export async function runGenerator(ctx) {
   gen.loading = false;
   const teams = {};
   games.forEach((g) => [g.away, g.home].forEach((t) => (teams[t] = ctx.teamData(t))));
-  const pool = games.flatMap((g) => buildCandidates({ teams, game: g, injIdx: ctx.injIdx, cutoffDay: g.day, isFinal: false, stats: gen.props.filter((s) => s !== "stl" && s !== "blk").length ? gen.props : ["pts"], minProb: 0.58 }));
+  const pool = games.flatMap((g) => buildCandidates({ teams, game: g, injIdx: ctx.injIdx, cutoffDay: g.day, isFinal: false, stats: gen.props.filter((s) => s !== "stl" && s !== "blk").length ? gen.props : ["pts"], minProb: 0.52, minRatio: LEVELS[gen.level]?.cand.minRatio || 0 }));
   if (gen.ml) games.forEach((g) => pool.push(...winLegs(ctx.games(), g)));
   pool.forEach((l) => findLegRegister(l));
   const oMin = Math.max(1.01, num(gen.oddsMin) || 1.3), oMax = Math.max(oMin + 0.01, num(gen.oddsMax) || 1.8);
@@ -387,6 +389,7 @@ export function onFormInput(el) {
     return true;
   }
   if (el.dataset.f2) { form[el.dataset.f2] = el.value; return true; }
+  if (el.dataset.g === "level") { gen.level = el.value; [gen.oddsMin, gen.oddsMax] = GEN_ODDS[el.value] || GEN_ODDS.realista; return true; }
   if (el.dataset.g) { gen[el.dataset.g] = el.type === "checkbox" ? el.checked : el.value; return false; }
   if (el.dataset.gp) {
     const s = el.dataset.gp;

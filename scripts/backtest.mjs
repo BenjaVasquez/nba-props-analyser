@@ -7,7 +7,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { buildCandidates, generateParlays } from "../js/engine.js";
-import { GAME_OPTS, DAY_OPTS } from "../js/parlayview.js";
+import { LEVELS } from "../js/parlayview.js";
 import { indexInjuries } from "../js/players.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -30,7 +30,7 @@ const add = (name, p) => {
   r[p.result]++; r.est += p.prob; r.n++;
 };
 let games = 0;
-const byDay = new Map();
+const byDay = Object.fromEntries(Object.keys(LEVELS).map((k) => [k, new Map()]));
 
 for (const g of fx.games) {
   if (g.hs == null || g.home === "TBD" || g.away === "TBD") continue;
@@ -38,6 +38,12 @@ for (const g of fx.games) {
   if (day < FROM) continue;
   games++;
   // jugadores que no jugaron fuera (en la web real los descarta el reporte de lesionados)
+  for (const [lk, L] of Object.entries(LEVELS)) {
+    const cand = buildCandidates({ teams, game: { ...g, day }, injIdx: noInj, cutoffDay: day, isFinal: true, ...L.cand })
+      .filter((l) => l.actual !== null);
+    for (const p of generateParlays(cand, L.game)) add(`${L.prefix}Partido · ${p.legs.length} patas`, p);
+    (byDay[lk].get(day) || byDay[lk].set(day, []).get(day)).push(...cand);
+  }
   const cand = buildCandidates({ teams, game: { ...g, day }, injIdx: noInj, cutoffDay: day, isFinal: true })
     .filter((l) => l.actual !== null);
   for (const l of cand) {
@@ -45,15 +51,15 @@ for (const g of fx.games) {
     const k = BUCKETS.find(([min]) => l.prob >= min)[1];
     legs[k].n++; legs[k].est += l.prob; legs[k].hit += l.actual > l.line ? 1 : 0;
   }
-  for (const p of generateParlays(cand, GAME_OPTS)) add(`Partido · ${p.legs.length} patas`, p);
-  (byDay.get(day) || byDay.set(day, []).get(day)).push(...cand);
 }
-for (const [, pool] of byDay) for (const p of generateParlays(pool, DAY_OPTS)) add(`Día · ${p.legs.length} patas`, p);
+for (const [lk, L] of Object.entries(LEVELS)) {
+  for (const [, pool] of byDay[lk]) for (const p of generateParlays(pool, L.day)) add(`${L.prefix}Día · ${p.legs.length} patas`, p);
+}
 
 const pct = (a, b) => (b ? Math.round((1000 * a) / b) / 10 : null);
 const out = {
   updated: new Date().toISOString().slice(0, 19) + "Z",
-  model: "v3", from: FROM, games, days: byDay.size,
+  model: "v3", from: FROM, games, days: byDay.segura.size,
   note: "Jugadores que no jugaron se excluyen (en vivo los filtra el reporte de lesionados).",
   legs: BUCKETS.map(([, k]) => ({ range: k, n: legs[k].n, real: pct(legs[k].hit, legs[k].n), est: pct(legs[k].est, legs[k].n) })),
   parlays: Object.entries(parlays).sort().map(([name, r]) => ({
@@ -61,6 +67,6 @@ const out = {
   })),
 };
 fs.writeFileSync(path.join(D, "model.json"), JSON.stringify(out, null, 1) + "\n");
-console.log(`Backtest v3: ${games} partidos, ${byDay.size} días`);
+console.log(`Backtest v3: ${games} partidos, ${byDay.segura.size} días`);
 for (const l of out.legs) console.log(`  patas ${l.range}: real ${l.real}% (est ${l.est}%) n=${l.n}`);
 for (const p of out.parlays) console.log(`  ${p.name}: ${p.real}% (${p.win}/${p.win + p.lose}, est ${p.est}%)`);

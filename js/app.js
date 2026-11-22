@@ -2,7 +2,7 @@ import { TEAMS, logoHTML } from "./teams.js";
 import { dataUrl } from "./config.js";
 import { indexInjuries, injuryFor, injuryLabel, rosterSectionHTML, playerPanelHTML } from "./players.js";
 import { mountPropView, unmountPropView, setStat, presetLine } from "./propview.js";
-import { parlaysHTML, dayParlaysHTML, myLegs, findLeg } from "./parlayview.js";
+import { parlaysHTML, dayParlaysHTML, myLegs, findLeg, setLevel } from "./parlayview.js";
 import * as Bets from "./bets.js";
 import { winProbability } from "./engine.js";
 import { live, startLive, loadBox } from "./live.js";
@@ -675,6 +675,8 @@ function bindEvents() {
     if (bt) { state.boxTab = bt.dataset.boxtab; rerenderKeepScroll(); return; }
     const lb = t.closest("[data-livebox]");
     if (lb) { state.liveBoxGame = +lb.dataset.livebox; state.liveBoxPicked = true; state.boxTab = "away"; rerenderKeepScroll(); liveCtl?.now(); return; }
+    const lv = t.closest("[data-level]");
+    if (lv) { setLevel(lv.dataset.level); rerenderKeepScroll(); return; }
     const follow = t.closest("[data-follow]");
     if (follow) {
       const on = Bets.toggleFollowGenerated(follow.dataset.follow, betsCtx());

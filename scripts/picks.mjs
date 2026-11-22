@@ -14,7 +14,8 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { buildCandidates, generateParlays } from "../js/engine.js";
-import { GAME_OPTS, DAY_OPTS } from "../js/parlayview.js";
+import { LEVELS } from "../js/parlayview.js";
+const TRACKED = ["segura", "realista"]; // niveles que se registran
 import { indexInjuries } from "../js/players.js";
 import { STATS } from "../js/propchart.js";
 
@@ -53,7 +54,7 @@ const legOut = (l) => ({
   pid: String(l.player.id), name: l.player.name, team: l.team, opp: l.opp,
   stat: l.stat, line: l.line, side: l.side, prob: Math.round(l.prob * 1000) / 1000, proj: Math.round(l.proj * 10) / 10,
 });
-const parlayOut = (p, kind) => ({ name: `${kind} · ${p.legs.length} patas`, kind, prob: Math.round(p.prob * 1000) / 1000, legs: p.legs.map(legOut) });
+const parlayOut = (p, kind, L) => ({ name: `${L.prefix}${kind} · ${p.legs.length} patas`, kind, prob: Math.round(p.prob * 1000) / 1000, legs: p.legs.map(legOut) });
 
 const upcomingDays = [...new Set(games.filter((g) => g.start > now).map((g) => g.day))].sort().slice(0, 2);
 let frozen = 0;
@@ -61,22 +62,23 @@ for (const day of upcomingDays) {
   const file = path.join(PICKS, `${day}.json`);
   const rec = read(file, { day, created: stamp, games: {}, day_parlays: null });
   const slate = games.filter((g) => g.day === day);
-  const dayPool = [];
+  const dayPool = Object.fromEntries(TRACKED.map((k) => [k, []]));
   for (const g of slate) {
-    const cand = buildCandidates({ teams, game: g, injIdx, cutoffDay: day, isFinal: false });
-    dayPool.push(...cand);
+    const byLevel = Object.fromEntries(TRACKED.map((k) => [k, buildCandidates({ teams, game: g, injIdx, cutoffDay: day, isFinal: false, ...LEVELS[k].cand })]));
+    TRACKED.forEach((k) => dayPool[k].push(...byLevel[k]));
     if (g.start <= now) continue; // ya empezó: lo guardado queda fijo
+    const cand = byLevel.segura;
     const seen = new Set();
     rec.games[g.id] = {
       id: g.id, matchup: `${g.away} @ ${g.home}`, start: g.date, saved: stamp, model: "v3",
-      parlays: generateParlays(cand, GAME_OPTS).map((p) => parlayOut(p, "Partido")),
+      parlays: TRACKED.flatMap((k) => generateParlays(byLevel[k], LEVELS[k].game).map((p) => parlayOut(p, "Partido", LEVELS[k]))),
       legs: cand.filter((l) => !l.doubt && l.prob <= 0.93 && !seen.has(l.player.id) && seen.add(l.player.id)).slice(0, TOP_LEGS).map(legOut),
     };
     frozen++;
   }
   const firstStart = Math.min(...slate.map((g) => +g.start));
   if (firstStart > +now) {
-    rec.day_parlays = { saved: stamp, model: "v3", parlays: generateParlays(dayPool, DAY_OPTS).map((p) => parlayOut(p, "Día")) };
+    rec.day_parlays = { saved: stamp, model: "v3", parlays: TRACKED.flatMap((k) => generateParlays(dayPool[k], LEVELS[k].day).map((p) => parlayOut(p, "Día", LEVELS[k]))) };
   }
   rec.updated = stamp;
   fs.writeFileSync(file, JSON.stringify(rec) + "\n");
