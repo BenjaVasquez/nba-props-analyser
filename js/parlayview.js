@@ -6,12 +6,13 @@ import { avatarHTML } from "./players.js";
 import { buildCandidates, generateParlays, combine, legText, legWon, needFor } from "./engine.js";
 import { live, liveStat } from "./live.js";
 
-export const GAME_OPTS = { count: 15, minLegs: 2, maxLegs: 4, oddsMin: 1.3, oddsMax: 1.8, maxLegProb: 0.93 };
-export const DAY_OPTS = { count: 10, minLegs: 2, maxLegs: 3, oddsMin: 1.3, oddsMax: 1.8, maxLegProb: 0.92, perGameMax: 1, poolSize: 60, maxPerPlayer: 3 };
+// maxPerPlayer: 1 → cada jugador aparece en un solo parlay de la lista (no se repiten patas)
+export const GAME_OPTS = { count: 15, minLegs: 2, maxLegs: 4, oddsMin: 1.3, oddsMax: 1.8, maxLegProb: 0.93, maxPerPlayer: 1 };
+export const DAY_OPTS = { count: 10, minLegs: 2, maxLegs: 3, oddsMin: 1.3, oddsMax: 1.8, maxLegProb: 0.92, perGameMax: 1, poolSize: 60, maxPerPlayer: 1 };
 
 // Nivel de línea: cuánto de lo que el jugador suele hacer pide cada pata.
 // ratio = la línea debe pedir al menos ese % de su promedio (media temporada + proyección).
-const DAY_BASE = { count: 10, perGameMax: 1, poolSize: 60, maxPerPlayer: 3 };
+const DAY_BASE = { count: 10, perGameMax: 1, poolSize: 60, maxPerPlayer: 1 };
 export const LEVELS = {
   segura: {
     label: "Segura", prefix: "", odds: "1,3–1,8", hint: "Líneas bajas (≈ la mitad de su promedio): aciertan mucho, pagan poco.",
@@ -20,13 +21,13 @@ export const LEVELS = {
   realista: {
     label: "Realista", prefix: "Realista · ", odds: "1,6–3,0", hint: "Cada pata pide al menos el 80% de su promedio: líneas como las de la casa.",
     cand: { minProb: 0.52, minRatio: 0.8 },
-    game: { count: 15, minLegs: 2, maxLegs: 3, oddsMin: 1.6, oddsMax: 3.0, maxLegProb: 0.95 },
+    game: { count: 15, minLegs: 2, maxLegs: 3, oddsMin: 1.6, oddsMax: 3.0, maxLegProb: 0.95, maxPerPlayer: 1 },
     day: { ...DAY_BASE, minLegs: 2, maxLegs: 3, oddsMin: 1.6, oddsMax: 3.0, maxLegProb: 0.95 },
   },
   promedio: {
     label: "Al promedio", prefix: "Promedio · ", odds: "2,2–6,0", hint: "Cada pata pide su promedio o más: pagan bien, se cumplen pocas veces.",
     cand: { minProb: 0.52, minRatio: 1.0 },
-    game: { count: 15, minLegs: 2, maxLegs: 3, oddsMin: 2.2, oddsMax: 6.0, maxLegProb: 0.95 },
+    game: { count: 15, minLegs: 2, maxLegs: 3, oddsMin: 2.2, oddsMax: 6.0, maxLegProb: 0.95, maxPerPlayer: 1 },
     day: { ...DAY_BASE, minLegs: 2, maxLegs: 3, oddsMin: 2.2, oddsMax: 6.0, maxLegProb: 0.95 },
   },
 };
@@ -167,6 +168,7 @@ export function parlaysHTML(ctx, model, followed) {
     ${levelBar()}
     ${parlays.length ? `<div class="pz-grid">${parlays.map((p, i) => parlayCard(p, i, "Partido", model, followed)).join("")}</div>`
       : `<div class="muted">No hay combinaciones en ese rango de cuota para este partido.</div>`}
+    ${parlays.length ? `<p class="note">Cada jugador aparece en un solo parlay, para que no se repitan patas entre ellos.</p>` : ""}
   </div>
   <div class="card">
     <h3>Mejores props del partido</h3>
@@ -223,7 +225,7 @@ export function dayParlaysHTML(ctx, model, followed) {
       <thead><tr><th></th><th>Partido</th><th>Jugador</th><th>Línea</th><th>Prom.</th><th>Proy.</th><th>Temp</th><th>L10</th><th>Prob.</th><th>Cuota justa</th>${finals ? "<th>Real</th>" : ""}</tr></thead>
       <tbody>${rows}</tbody></table></div>
     ${builderHTML(picked)}
-    <p class="note">Los parlays del día usan una pata por partido (se influyen menos entre sí). Toca un partido para ver sus 15 parlays, o un jugador para abrir su gráfico con esa línea.</p>
+    <p class="note">Los parlays del día usan una pata por partido (se influyen menos entre sí). Cada jugador aparece en un solo parlay. Toca un partido para ver sus parlays, o un jugador para abrir su gráfico con esa línea.</p>
   </div>`;
 }
 let dayCache = { key: null, parlays: [] };

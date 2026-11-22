@@ -227,7 +227,7 @@ function formHTML(ctx) {
 
 /* ---------------- generador con mis filtros ---------------- */
 const GEN_ODDS = { segura: [1.3, 1.8], realista: [1.6, 3], promedio: [2.2, 6] };
-export const gen = { scope: "day", gameId: null, level: "realista", minLegs: 2, maxLegs: 3, oddsMin: 1.6, oddsMax: 3, props: [...PROPS.slice(0, 8)], doubt: false, ml: false, count: 15, results: null, ran: false };
+export const gen = { scope: "day", gameId: null, level: "realista", minLegs: 2, maxLegs: 3, oddsMin: 1.6, oddsMax: 3, props: [...PROPS.slice(0, 8)], doubt: false, ml: false, repeat: false, count: 15, results: null, ran: false };
 
 function genHTML(ctx, followed) {
   const games = ctx.upcoming();
@@ -253,6 +253,7 @@ function genHTML(ctx, followed) {
         <label>Cantidad <input data-g="count" type="number" min="1" max="40" value="${gen.count}"></label>
         <div class="gprops">${PROPS.map((s) => `<label class="chk"><input type="checkbox" data-gp="${s}" ${gen.props.includes(s) ? "checked" : ""}> ${STATS[s].short}</label>`).join("")}
           <label class="chk"><input type="checkbox" data-g="doubt" ${gen.doubt ? "checked" : ""}> Incluir jugadores en duda</label>
+          <label class="chk"><input type="checkbox" data-g="repeat" ${gen.repeat ? "checked" : ""}> Repetir jugadores entre parlays (salen más)</label>
           <label class="chk ml-chk"><input type="checkbox" data-g="ml" ${gen.ml ? "checked" : ""}> 🏆 Incluir ganador del partido (Local/Visita)</label></div>
         <button type="button" class="btn-main" data-gen-run>Generar</button>
       </div>
@@ -275,7 +276,7 @@ export async function runGenerator(ctx) {
   const lo = Math.max(1, Math.min(+gen.minLegs || 2, 8)), hi = Math.max(lo, Math.min(+gen.maxLegs || 3, 8));
   gen.results = generateParlays(pool, {
     count: Math.min(40, +gen.count || 15), minLegs: lo, maxLegs: hi, oddsMin: oMin, oddsMax: oMax,
-    allowDoubt: gen.doubt, maxLegProb: 0.95, poolSize: hi > 4 ? 30 : 45, perGameMax: gen.scope === "day" ? 2 : 99, maxPerPlayer: 5,
+    allowDoubt: gen.doubt, maxLegProb: 0.95, poolSize: hi > 4 ? 30 : 45, perGameMax: gen.scope === "day" ? 2 : 99, maxPerPlayer: gen.repeat ? 5 : 1,
     require: gen.ml ? (l) => l.kind === "ml" : null,
   });
   gen.results.forEach((p) => registerParlay(p));
