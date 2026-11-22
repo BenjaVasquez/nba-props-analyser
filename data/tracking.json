@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T02:41:08Z",
+ "updated": "2026-11-22T03:00:36Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,28 +68,28 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 53,
-   "lose": 15,
+   "win": 59,
+   "lose": 16,
    "void": 3,
-   "real": 77.9,
+   "real": 78.7,
    "est": 74
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 44,
-   "lose": 22,
+   "win": 47,
+   "lose": 26,
    "void": 0,
-   "real": 66.7,
+   "real": 64.4,
    "est": 64.2
   },
   {
    "name": "Partido · 4 patas",
    "kind": "Partido",
-   "win": 10,
+   "win": 11,
    "lose": 3,
    "void": 0,
-   "real": 76.9,
+   "real": 78.6,
    "est": 61.2
   },
   {
@@ -105,8 +105,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 70,
-   "real": 92.9,
+   "n": 76,
+   "real": 92.1,
    "est": 90.6
   },
   {
@@ -209,6 +209,96 @@
      "matchup": "MIL @ PHI",
      "result": "win",
      "prob": 0.612
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "POR @ NYK",
+     "result": "win",
+     "prob": 0.762
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "POR @ NYK",
+     "result": "win",
+     "prob": 0.762
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "POR @ NYK",
+     "result": "win",
+     "prob": 0.762
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "POR @ NYK",
+     "result": "lose",
+     "prob": 0.76
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "POR @ NYK",
+     "result": "win",
+     "prob": 0.756
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "POR @ NYK",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "POR @ NYK",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "POR @ NYK",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "POR @ NYK",
+     "result": "win",
+     "prob": 0.68
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "POR @ NYK",
+     "result": "win",
+     "prob": 0.676
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "POR @ NYK",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "POR @ NYK",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "POR @ NYK",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "POR @ NYK",
+     "result": "lose",
+     "prob": 0.611
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "POR @ NYK",
+     "result": "lose",
+     "prob": 0.609
     }
    ]
   },
