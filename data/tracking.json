@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T03:00:36Z",
+ "updated": "2026-11-22T03:30:30Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,28 +68,28 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 59,
+   "win": 76,
    "lose": 16,
-   "void": 3,
-   "real": 78.7,
-   "est": 74
+   "void": 4,
+   "real": 82.6,
+   "est": 74.2
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 47,
-   "lose": 26,
-   "void": 0,
-   "real": 64.4,
-   "est": 64.2
+   "win": 61,
+   "lose": 32,
+   "void": 3,
+   "real": 65.6,
+   "est": 64.3
   },
   {
    "name": "Partido · 4 patas",
    "kind": "Partido",
-   "win": 11,
-   "lose": 3,
+   "win": 12,
+   "lose": 6,
    "void": 0,
-   "real": 78.6,
+   "real": 66.7,
    "est": 61.2
   },
   {
@@ -105,9 +105,9 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 76,
-   "real": 92.1,
-   "est": 90.6
+   "n": 93,
+   "real": 90.3,
+   "est": 90.7
   },
   {
    "range": "80-85%",
@@ -299,6 +299,276 @@
      "matchup": "POR @ NYK",
      "result": "lose",
      "prob": 0.609
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.766
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.763
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.68
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "LAC @ DAL",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ DAL",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ DAL",
+     "result": "lose",
+     "prob": 0.611
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MEM @ MIN",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MEM @ MIN",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MEM @ MIN",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MEM @ MIN",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MEM @ MIN",
+     "result": "win",
+     "prob": 0.765
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MEM @ MIN",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MEM @ MIN",
+     "result": "lose",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MEM @ MIN",
+     "result": "lose",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MEM @ MIN",
+     "result": "win",
+     "prob": 0.679
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MEM @ MIN",
+     "result": "win",
+     "prob": 0.679
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MEM @ MIN",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MEM @ MIN",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "MEM @ MIN",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MEM @ MIN",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MEM @ MIN",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ SAS",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ SAS",
+     "result": "void",
+     "prob": 0.766
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ SAS",
+     "result": "win",
+     "prob": 0.765
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ SAS",
+     "result": "win",
+     "prob": 0.764
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ SAS",
+     "result": "win",
+     "prob": 0.76
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ SAS",
+     "result": "void",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ SAS",
+     "result": "void",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ SAS",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ SAS",
+     "result": "void",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ SAS",
+     "result": "win",
+     "prob": 0.664
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "NOP @ SAS",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "NOP @ SAS",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ SAS",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ SAS",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ SAS",
+     "result": "win",
+     "prob": 0.611
     }
    ]
   },
