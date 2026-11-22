@@ -73,10 +73,12 @@ function probAtLeast(m, t) {
 // Probabilidad de que una pata se cumpla. side: "over" (Más de) | "under" (Menos de)
 export function legProb(m, line, side = "over") {
   if (side === "under") return 1 - probAtLeast(m, Math.ceil(line));   // 24.5 → ≤24 ; 24 → ≤23
-  return probAtLeast(m, Math.floor(line) + 1);                        // 24.5 → ≥25 ; 24 → ≥25
+  return probAtLeast(m, needFor(line));                               // 24.5 → ≥25 ; 1 → ≥1 ("1+")
 }
 
-export const hits = (v, line, side) => (side === "under" ? v < line : v > line);
+// Línea entera = "X o más" (como "1+ triples" en las casas); línea ,5 = "Más de X,5".
+export const needFor = (line) => (Number.isInteger(line) ? line : Math.floor(line) + 1);
+export const hits = (v, line, side) => (side === "under" ? v < line : v >= needFor(line));
 const countHits = (vals, line, side) => vals.reduce((a, v) => a + (hits(v, line, side) ? 1 : 0), 0);
 
 // Arma el objeto "pata" (lo usan sugerencias, apuestas propias y el registro)
@@ -98,6 +100,7 @@ export const legWon = (l, v = l.actual) => (v == null ? null : hits(v, l.line, l
 export { corrFactor };
 export const legText = (l) => (l.kind === "ml"
   ? `Gana ${l.team} (${l.isHome ? "local" : "visita"})`
+  : l.side !== "under" && Number.isInteger(l.line) ? `${l.line}+ ${STATS[l.stat].short}`
   : `${l.side === "under" ? "Menos de" : "Más de"} ${String(l.line).replace(".", ",")} ${STATS[l.stat].short}`);
 
 /* ---------------- ganador del partido ---------------- */

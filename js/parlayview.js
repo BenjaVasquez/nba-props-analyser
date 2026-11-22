@@ -3,7 +3,7 @@
 // mejores props con armador propio.
 import { STATS } from "./propchart.js";
 import { avatarHTML } from "./players.js";
-import { buildCandidates, generateParlays, combine, legText, legWon } from "./engine.js";
+import { buildCandidates, generateParlays, combine, legText, legWon, needFor } from "./engine.js";
 import { live, liveStat } from "./live.js";
 
 export const GAME_OPTS = { count: 15, minLegs: 2, maxLegs: 4, oddsMin: 1.3, oddsMax: 1.8, maxLegProb: 0.93 };
@@ -54,7 +54,7 @@ export function legStatus(l, v, state) {
   const won = legWon(l, v);
   if (state === "in") {
     if (l.side === "under") return won ? { cls: "live", txt: `⏱ ${v}`, title: `Lleva ${v}; debe quedar bajo ${l.line}` } : { cls: "lose", txt: `✗ ${v}`, title: `Ya pasó ${l.line}` };
-    return won ? { cls: "win", txt: `✓ ${v}`, title: `Ya la cumplió: lleva ${v}` } : { cls: "live", txt: `⏱ ${v}/${String(l.line).replace(".", ",")}`, title: `En vivo: lleva ${v}` };
+    return won ? { cls: "win", txt: `✓ ${v}`, title: `Ya la cumplió: lleva ${v}` } : { cls: "live", txt: `⏱ ${v}/${needFor(l.line)}`, title: `En vivo: lleva ${v}, necesita ${needFor(l.line)}` };
   }
   return won ? { cls: "win", txt: `✓ ${v}`, title: `Hizo ${v}` } : { cls: "lose", txt: `✗ ${v}`, title: `Hizo ${v}` };
 }
