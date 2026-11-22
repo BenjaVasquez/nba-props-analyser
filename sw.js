@@ -2,7 +2,7 @@
 // - Páginas, código y datos: primero la red (siempre lo más nuevo); si no hay
 //   internet, la última copia guardada.
 // - Logos y fotos de jugadores: primero la copia guardada (cambian muy poco).
-const VERSION = "v7";
+const VERSION = "v8";
 const APP = `app-${VERSION}`, IMG = `img-${VERSION}`;
 const SHELL = [
   "/", "/index.html", "/css/styles.css", "/manifest.webmanifest", "/icons/icon-192.png",
