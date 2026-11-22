@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T22:30:31Z",
+ "updated": "2026-11-22T23:00:33Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,20 +68,20 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 81,
-   "lose": 17,
+   "win": 83,
+   "lose": 18,
    "void": 4,
-   "real": 82.7,
-   "est": 74.3
+   "real": 82.2,
+   "est": 74.2
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 68,
-   "lose": 33,
+   "win": 69,
+   "lose": 34,
    "void": 3,
-   "real": 67.3,
-   "est": 64.3
+   "real": 67,
+   "est": 64.4
   },
   {
    "name": "Partido · 4 patas",
@@ -109,14 +109,32 @@
    "void": 1,
    "real": 100,
    "est": 76.9
+  },
+  {
+   "name": "Realista · Partido · 2 patas",
+   "kind": "Partido",
+   "win": 2,
+   "lose": 3,
+   "void": 0,
+   "real": 40,
+   "est": 46.5
+  },
+  {
+   "name": "Realista · Partido · 3 patas",
+   "kind": "Partido",
+   "win": 1,
+   "lose": 0,
+   "void": 0,
+   "real": 100,
+   "est": 39.4
   }
  ],
  "legs": [
   {
    "range": "85%+",
-   "n": 99,
-   "real": 90.9,
-   "est": 90.7
+   "n": 105,
+   "real": 91.4,
+   "est": 90.8
   },
   {
    "range": "80-85%",
@@ -126,6 +144,77 @@
   }
  ],
  "days": [
+  {
+   "day": "2026-11-22",
+   "parlays": [
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DET @ ATL",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DET @ ATL",
+     "result": "lose",
+     "prob": 0.752
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "DET @ ATL",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DET @ ATL",
+     "result": "win",
+     "prob": 0.633
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "DET @ ATL",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DET @ ATL",
+     "result": "lose",
+     "prob": 0.621
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DET @ ATL",
+     "result": "lose",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DET @ ATL",
+     "result": "lose",
+     "prob": 0.467
+    },
+    {
+     "name": "Realista · Partido · 3 patas",
+     "matchup": "DET @ ATL",
+     "result": "win",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DET @ ATL",
+     "result": "win",
+     "prob": 0.385
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DET @ ATL",
+     "result": "win",
+     "prob": 0.369
+    }
+   ]
+  },
   {
    "day": "2026-11-21",
    "parlays": [
