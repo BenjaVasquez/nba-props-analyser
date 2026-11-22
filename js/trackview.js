@@ -15,6 +15,7 @@ export function trackingHTML(t) {
       y los primeros resultados aparecen la mañana siguiente (actualización de las 06:20).</p></div>`;
   }
   const order = ["Partido · 2 patas", "Partido · 3 patas", "Partido · 4 patas", "Día · 2 patas", "Día · 3 patas",
+    "Realista · Partido · 2 patas", "Realista · Partido · 3 patas", "Realista · Día · 2 patas", "Realista · Día · 3 patas",
     "Doble seguro", "Triple", "Cuádruple", "Ambos equipos", "Valor", "Día 2 patas", "Día 3 patas", "Día 4 patas"];
   const parlays = [...t.parlays].sort((a, b) => (order.indexOf(a.name) + 99) % 99 - (order.indexOf(b.name) + 99) % 99);
   const rows = parlays.map((p) => {
@@ -26,7 +27,7 @@ export function trackingHTML(t) {
       <b>${num(b.real)}</b><small>${b.n} patas · est. ${num(b.est)}</small></div>`).join("");
   const days = (t.days || []).slice(0, 14).map((d) => {
     const w = d.parlays.filter((p) => p.result === "win").length, l = d.parlays.filter((p) => p.result === "lose").length;
-    const chips = d.parlays.map((p) => `<span class="tk ${p.result}" title="${p.matchup} · ${p.name} · prob ${Math.round(p.prob * 100)}%">${ICON[p.result]} ${p.matchup === "Día" ? "🎯 " : ""}${p.name.replace("Día ", "")}${p.matchup !== "Día" ? ` <small>${p.matchup}</small>` : ""}</span>`).join("");
+    const chips = d.parlays.map((p) => `<span class="tk ${p.result}" title="${p.matchup} · ${p.name} · prob ${Math.round(p.prob * 100)}%">${ICON[p.result]} ${p.matchup === "Día" ? "🎯 " : ""}${p.name.replace("Día · ", "")}${p.matchup !== "Día" ? ` <small>${p.matchup}</small>` : ""}</span>`).join("");
     return `<div class="tk-day"><div class="tk-h"><b>${fecha(d.day)}</b><span>${w} ganados · ${l} perdidos</span></div><div class="tk-list">${chips}</div></div>`;
   }).join("");
 

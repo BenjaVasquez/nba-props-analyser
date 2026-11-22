@@ -100,7 +100,7 @@ export const legWon = (l, v = l.actual) => (v == null ? null : hits(v, l.line, l
 export { corrFactor };
 export const legText = (l) => (l.kind === "ml"
   ? `Gana ${l.team} (${l.isHome ? "local" : "visita"})`
-  : l.side !== "under" && Number.isInteger(l.line) ? `${l.line}+ ${STATS[l.stat].short}`
+  : l.side !== "under" ? `${needFor(l.line)}+ ${STATS[l.stat].short}`
   : `${l.side === "under" ? "Menos de" : "Más de"} ${String(l.line).replace(".", ",")} ${STATS[l.stat].short}`);
 
 /* ---------------- ganador del partido ---------------- */
@@ -133,9 +133,11 @@ export function winLegs(games, game) {
 
 /* ---------------- patas sugeridas ---------------- */
 // Para cada jugador y prop: la línea .5 más alta que alcanza cada nivel de probabilidad.
-const TIERS = [0.93, 0.88, 0.83, 0.78, 0.72, 0.65, 0.58]; // los 3 últimos solo para cuotas altas (personalizado)
+const TIERS = [0.93, 0.88, 0.83, 0.78, 0.72, 0.65, 0.58, 0.52]; // los últimos solo para líneas realistas / cuotas altas
 
-export function buildCandidates({ teams, game, injIdx, cutoffDay, isFinal, stats = SUGGEST_STATS, minProb = 0.78 }) {
+// minRatio: la línea debe pedir al menos ese % de lo que el jugador suele hacer
+// (promedio entre su media de temporada y su proyección). 0 = sin mínimo (líneas "seguras").
+export function buildCandidates({ teams, game, injIdx, cutoffDay, isFinal, stats = SUGGEST_STATS, minProb = 0.78, minRatio = 0 }) {
   const out = [];
   for (const abbr of [game.away, game.home]) {
     const data = teams[abbr];
@@ -150,13 +152,15 @@ export function buildCandidates({ teams, game, injIdx, cutoffDay, isFinal, stats
       for (const stat of stats) {
         const m = statModel(ctx, stat);
         const [lo, hi] = GRID[stat];
+        const ref = (m.mean + m.proj) / 2;
+        const minNeed = minRatio > 0 ? Math.max(1, Math.ceil(minRatio * ref - 1e-9)) : 0;
         const seen = new Set();
         for (const tier of TIERS.filter((x) => x >= minProb)) {
           let best = null;
           for (let line = lo; line <= hi; line += 1) {
             const pr = legProb(m, line, "over");
             if (pr < tier) break;
-            best = { line, pr };
+            if (needFor(line) >= minNeed) best = { line, pr };
           }
           if (best && !seen.has(best.line)) {
             seen.add(best.line);

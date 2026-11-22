@@ -789,3 +789,11 @@ button:disabled { cursor: default; }
   .fr, .fr.fr-ml { grid-template-columns: 1fr 1fr; }
   .fr .fr-wide { grid-column: span 2; }
 }
+
+/* ---------- nivel de línea (Segura / Realista / Al promedio) ---------- */
+.lvl-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 2px 0 12px; }
+.lvl { border: 1px solid var(--line-2); background: transparent; color: inherit; font: inherit; font-size: 12px;
+  padding: 5px 12px; border-radius: 999px; cursor: pointer; }
+.lvl:hover { border-color: var(--accent); }
+.lvl.on { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.lvl-hint { font-size: 12px; color: var(--muted-2); flex: 1 1 220px; }
