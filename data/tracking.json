@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T01:00:34Z",
+ "updated": "2026-11-23T01:30:33Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 83,
+   "win": 84,
    "lose": 18,
-   "void": 4,
-   "real": 82.2,
-   "est": 74.2
+   "void": 5,
+   "real": 82.4,
+   "est": 74.3
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 69,
-   "lose": 34,
+   "win": 70,
+   "lose": 35,
    "void": 3,
-   "real": 67,
+   "real": 66.7,
    "est": 64.4
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 2,
-   "lose": 3,
-   "void": 0,
-   "real": 40,
-   "est": 46.5
+   "win": 5,
+   "lose": 5,
+   "void": 1,
+   "real": 50,
+   "est": 46.7
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -132,8 +132,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 105,
-   "real": 91.4,
+   "n": 110,
+   "real": 90.9,
    "est": 90.8
   },
   {
@@ -212,6 +212,66 @@
      "matchup": "DET @ ATL",
      "result": "win",
      "prob": 0.369
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "OKC @ MIA",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "OKC @ MIA",
+     "result": "void",
+     "prob": 0.76
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "OKC @ MIA",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "OKC @ MIA",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ MIA",
+     "result": "lose",
+     "prob": 0.591
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ MIA",
+     "result": "lose",
+     "prob": 0.495
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ MIA",
+     "result": "void",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ MIA",
+     "result": "win",
+     "prob": 0.475
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ MIA",
+     "result": "win",
+     "prob": 0.389
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ MIA",
+     "result": "win",
+     "prob": 0.382
     }
    ]
   },
