@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T03:30:31Z",
+ "updated": "2026-11-23T04:00:34Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 94,
-   "lose": 20,
+   "win": 97,
+   "lose": 21,
    "void": 5,
-   "real": 82.5,
+   "real": 82.2,
    "est": 74.1
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 72,
+   "win": 76,
    "lose": 35,
    "void": 3,
-   "real": 67.3,
+   "real": 68.5,
    "est": 64.4
   },
   {
@@ -95,45 +95,63 @@
   {
    "name": "Día · 3 patas",
    "kind": "Día",
-   "win": 13,
-   "lose": 2,
-   "void": 2,
-   "real": 86.7,
-   "est": 68.1
+   "win": 17,
+   "lose": 3,
+   "void": 4,
+   "real": 85,
+   "est": 67.5
   },
   {
    "name": "Día · 2 patas",
    "kind": "Día",
-   "win": 2,
+   "win": 5,
    "lose": 0,
    "void": 1,
    "real": 100,
-   "est": 76.9
+   "est": 76.8
   },
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 14,
-   "lose": 18,
+   "win": 19,
+   "lose": 22,
    "void": 1,
-   "real": 43.8,
-   "est": 46.7
+   "real": 46.3,
+   "est": 47
   },
   {
    "name": "Realista · Partido · 3 patas",
    "kind": "Partido",
    "win": 1,
-   "lose": 0,
+   "lose": 1,
    "void": 0,
-   "real": 100,
-   "est": 39.4
+   "real": 50,
+   "est": 38.6
+  },
+  {
+   "name": "Realista · Día · 2 patas",
+   "kind": "Día",
+   "win": 1,
+   "lose": 6,
+   "void": 0,
+   "real": 14.3,
+   "est": 55.6
+  },
+  {
+   "name": "Realista · Día · 3 patas",
+   "kind": "Día",
+   "win": 1,
+   "lose": 2,
+   "void": 0,
+   "real": 33.3,
+   "est": 39.5
   }
  ],
  "legs": [
   {
    "range": "85%+",
-   "n": 128,
-   "real": 90.6,
+   "n": 140,
+   "real": 91.4,
    "est": 90.8
   },
   {
@@ -500,6 +518,234 @@
      "matchup": "DAL @ UTA",
      "result": "lose",
      "prob": 0.393
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "IND @ NYK",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "IND @ NYK",
+     "result": "win",
+     "prob": 0.75
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "IND @ NYK",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "IND @ NYK",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "IND @ NYK",
+     "result": "win",
+     "prob": 0.621
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "IND @ NYK",
+     "result": "win",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "IND @ NYK",
+     "result": "lose",
+     "prob": 0.45
+    },
+    {
+     "name": "Realista · Partido · 3 patas",
+     "matchup": "IND @ NYK",
+     "result": "lose",
+     "prob": 0.377
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BOS @ GSW",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BOS @ GSW",
+     "result": "lose",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BOS @ GSW",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BOS @ GSW",
+     "result": "win",
+     "prob": 0.611
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ GSW",
+     "result": "win",
+     "prob": 0.557
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ GSW",
+     "result": "lose",
+     "prob": 0.496
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ GSW",
+     "result": "win",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ GSW",
+     "result": "lose",
+     "prob": 0.463
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ GSW",
+     "result": "win",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ GSW",
+     "result": "lose",
+     "prob": 0.363
+    },
+    {
+     "name": "Día · 2 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Día · 2 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.767
+    },
+    {
+     "name": "Día · 2 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.762
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "void",
+     "prob": 0.676
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.675
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "void",
+     "prob": 0.67
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.608
+    },
+    {
+     "name": "Realista · Día · 2 patas",
+     "matchup": "Día",
+     "result": "lose",
+     "prob": 0.625
+    },
+    {
+     "name": "Realista · Día · 2 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.625
+    },
+    {
+     "name": "Realista · Día · 2 patas",
+     "matchup": "Día",
+     "result": "lose",
+     "prob": 0.614
+    },
+    {
+     "name": "Realista · Día · 2 patas",
+     "matchup": "Día",
+     "result": "lose",
+     "prob": 0.577
+    },
+    {
+     "name": "Realista · Día · 2 patas",
+     "matchup": "Día",
+     "result": "lose",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Día · 2 patas",
+     "matchup": "Día",
+     "result": "lose",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Día · 2 patas",
+     "matchup": "Día",
+     "result": "lose",
+     "prob": 0.482
+    },
+    {
+     "name": "Realista · Día · 3 patas",
+     "matchup": "Día",
+     "result": "win",
+     "prob": 0.395
+    },
+    {
+     "name": "Realista · Día · 3 patas",
+     "matchup": "Día",
+     "result": "lose",
+     "prob": 0.395
+    },
+    {
+     "name": "Realista · Día · 3 patas",
+     "matchup": "Día",
+     "result": "lose",
+     "prob": 0.394
     }
    ]
   },
