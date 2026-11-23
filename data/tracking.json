@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T02:30:31Z",
+ "updated": "2026-11-23T02:47:21Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 91,
-   "lose": 19,
+   "win": 94,
+   "lose": 20,
    "void": 5,
-   "real": 82.7,
+   "real": 82.5,
    "est": 74.1
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 71,
+   "win": 72,
    "lose": 35,
    "void": 3,
-   "real": 67,
+   "real": 67.3,
    "est": 64.4
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 9,
-   "lose": 16,
+   "win": 14,
+   "lose": 18,
    "void": 1,
-   "real": 36,
-   "est": 46.6
+   "real": 43.8,
+   "est": 46.7
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -132,8 +132,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 122,
-   "real": 90.2,
+   "n": 128,
+   "real": 90.6,
    "est": 90.8
   },
   {
@@ -348,6 +348,78 @@
     {
      "name": "Realista · Partido · 2 patas",
      "matchup": "ORL @ WAS",
+     "result": "lose",
+     "prob": 0.384
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DEN @ CHI",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DEN @ CHI",
+     "result": "win",
+     "prob": 0.763
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DEN @ CHI",
+     "result": "lose",
+     "prob": 0.679
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DEN @ CHI",
+     "result": "win",
+     "prob": 0.675
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "DEN @ CHI",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ CHI",
+     "result": "win",
+     "prob": 0.588
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ CHI",
+     "result": "win",
+     "prob": 0.53
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ CHI",
+     "result": "win",
+     "prob": 0.482
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ CHI",
+     "result": "win",
+     "prob": 0.47
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ CHI",
+     "result": "win",
+     "prob": 0.458
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ CHI",
+     "result": "lose",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ CHI",
      "result": "lose",
      "prob": 0.384
     },
