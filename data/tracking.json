@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T02:30:40Z",
+ "updated": "2026-11-24T03:00:35Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 103,
+   "win": 110,
    "lose": 22,
    "void": 5,
-   "real": 82.4,
+   "real": 83.3,
    "est": 74.1
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 79,
+   "win": 83,
    "lose": 36,
    "void": 3,
-   "real": 68.7,
+   "real": 69.7,
    "est": 64.4
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 26,
-   "lose": 28,
+   "win": 37,
+   "lose": 30,
    "void": 1,
-   "real": 48.1,
-   "est": 47.1
+   "real": 55.2,
+   "est": 47.3
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -150,8 +150,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 152,
-   "real": 92.1,
+   "n": 164,
+   "real": 92.7,
    "est": 90.9
   },
   {
@@ -314,6 +314,150 @@
      "matchup": "POR @ PHI",
      "result": "win",
      "prob": 0.347
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "OKC @ IND",
+     "result": "win",
+     "prob": 0.767
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "OKC @ IND",
+     "result": "win",
+     "prob": 0.756
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "OKC @ IND",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "OKC @ IND",
+     "result": "win",
+     "prob": 0.643
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "OKC @ IND",
+     "result": "win",
+     "prob": 0.611
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ IND",
+     "result": "win",
+     "prob": 0.623
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ IND",
+     "result": "win",
+     "prob": 0.524
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ IND",
+     "result": "win",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ IND",
+     "result": "win",
+     "prob": 0.477
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ IND",
+     "result": "win",
+     "prob": 0.449
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "OKC @ IND",
+     "result": "lose",
+     "prob": 0.386
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.765
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.696
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.677
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.601
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.539
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.492
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "lose",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.48
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.39
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIN",
+     "result": "win",
+     "prob": 0.378
     }
    ]
   },
