@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T03:00:35Z",
+ "updated": "2026-11-24T03:30:33Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,28 +68,28 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 110,
-   "lose": 22,
+   "win": 114,
+   "lose": 25,
    "void": 5,
-   "real": 83.3,
-   "est": 74.1
+   "real": 82,
+   "est": 74
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 83,
-   "lose": 36,
+   "win": 86,
+   "lose": 37,
    "void": 3,
-   "real": 69.7,
-   "est": 64.4
+   "real": 69.9,
+   "est": 64.3
   },
   {
    "name": "Partido · 4 patas",
    "kind": "Partido",
    "win": 15,
-   "lose": 6,
+   "lose": 7,
    "void": 0,
-   "real": 71.4,
+   "real": 68.2,
    "est": 61.2
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 37,
-   "lose": 30,
+   "win": 47,
+   "lose": 36,
    "void": 1,
-   "real": 55.2,
-   "est": 47.3
+   "real": 56.6,
+   "est": 47
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -150,9 +150,9 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 164,
-   "real": 92.7,
-   "est": 90.9
+   "n": 176,
+   "real": 92,
+   "est": 91
   },
   {
    "range": "80-85%",
@@ -383,6 +383,90 @@
     },
     {
      "name": "Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "win",
+     "prob": 0.763
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ TOR",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "lose",
+     "prob": 0.673
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ TOR",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIL @ TOR",
+     "result": "win",
+     "prob": 0.563
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "lose",
+     "prob": 0.541
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "win",
+     "prob": 0.482
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "win",
+     "prob": 0.47
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "win",
+     "prob": 0.457
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "win",
+     "prob": 0.423
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "win",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "win",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIL @ TOR",
+     "result": "lose",
+     "prob": 0.393
+    },
+    {
+     "name": "Partido · 2 patas",
      "matchup": "BKN @ MIN",
      "result": "win",
      "prob": 0.769
@@ -458,6 +542,90 @@
      "matchup": "BKN @ MIN",
      "result": "win",
      "prob": 0.378
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "win",
+     "prob": 0.753
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "lose",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "lose",
+     "prob": 0.68
+    },
+    {
+     "name": "Partido · 4 patas",
+     "matchup": "CLE @ CHI",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "CLE @ CHI",
+     "result": "win",
+     "prob": 0.591
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "win",
+     "prob": 0.579
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "lose",
+     "prob": 0.525
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "lose",
+     "prob": 0.488
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "win",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "win",
+     "prob": 0.481
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "win",
+     "prob": 0.405
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "lose",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ CHI",
+     "result": "lose",
+     "prob": 0.393
     }
    ]
   },
