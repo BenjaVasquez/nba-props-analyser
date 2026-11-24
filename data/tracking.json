@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T05:00:36Z",
+ "updated": "2026-11-24T05:30:37Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 118,
+   "win": 120,
    "lose": 28,
    "void": 5,
-   "real": 80.8,
+   "real": 81.1,
    "est": 73.9
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 90,
+   "win": 92,
    "lose": 38,
    "void": 3,
-   "real": 70.3,
+   "real": 70.8,
    "est": 64.3
   },
   {
@@ -113,20 +113,20 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 54,
-   "lose": 44,
+   "win": 56,
+   "lose": 45,
    "void": 1,
-   "real": 55.1,
-   "est": 47.1
+   "real": 55.4,
+   "est": 47.2
   },
   {
    "name": "Realista · Partido · 3 patas",
    "kind": "Partido",
-   "win": 2,
+   "win": 3,
    "lose": 1,
    "void": 0,
-   "real": 66.7,
-   "est": 37.3
+   "real": 75,
+   "est": 36.8
   },
   {
    "name": "Realista · Día · 2 patas",
@@ -150,8 +150,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 188,
-   "real": 92,
+   "n": 194,
+   "real": 92.3,
    "est": 91
   },
   {
@@ -788,6 +788,54 @@
      "matchup": "LAC @ HOU",
      "result": "lose",
      "prob": 0.393
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "SAS @ SAC",
+     "result": "win",
+     "prob": 0.767
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "SAS @ SAC",
+     "result": "win",
+     "prob": 0.755
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAS @ SAC",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAS @ SAC",
+     "result": "win",
+     "prob": 0.61
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "SAS @ SAC",
+     "result": "lose",
+     "prob": 0.578
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "SAS @ SAC",
+     "result": "win",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "SAS @ SAC",
+     "result": "win",
+     "prob": 0.457
+    },
+    {
+     "name": "Realista · Partido · 3 patas",
+     "matchup": "SAS @ SAC",
+     "result": "win",
+     "prob": 0.355
     }
    ]
   },
