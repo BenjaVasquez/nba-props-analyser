@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T03:30:33Z",
+ "updated": "2026-11-24T04:00:38Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 114,
-   "lose": 25,
+   "win": 118,
+   "lose": 28,
    "void": 5,
-   "real": 82,
-   "est": 74
+   "real": 80.8,
+   "est": 73.9
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 86,
-   "lose": 37,
+   "win": 90,
+   "lose": 38,
    "void": 3,
-   "real": 69.9,
+   "real": 70.3,
    "est": 64.3
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 47,
-   "lose": 36,
+   "win": 54,
+   "lose": 44,
    "void": 1,
-   "real": 56.6,
-   "est": 47
+   "real": 55.1,
+   "est": 47.1
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -150,7 +150,7 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 176,
+   "n": 188,
    "real": 92,
    "est": 91
   },
@@ -624,6 +624,168 @@
     {
      "name": "Realista · Partido · 2 patas",
      "matchup": "CLE @ CHI",
+     "result": "lose",
+     "prob": 0.393
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ NOP",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "win",
+     "prob": 0.667
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ NOP",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "lose",
+     "prob": 0.609
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "win",
+     "prob": 0.597
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "win",
+     "prob": 0.543
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "win",
+     "prob": 0.486
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "lose",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "win",
+     "prob": 0.481
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "lose",
+     "prob": 0.395
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "win",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ NOP",
+     "result": "lose",
+     "prob": 0.385
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ HOU",
+     "result": "lose",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ HOU",
+     "result": "lose",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ HOU",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ HOU",
+     "result": "win",
+     "prob": 0.669
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ HOU",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ HOU",
+     "result": "lose",
+     "prob": 0.562
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ HOU",
+     "result": "win",
+     "prob": 0.602
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ HOU",
+     "result": "win",
+     "prob": 0.544
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ HOU",
+     "result": "lose",
+     "prob": 0.488
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ HOU",
+     "result": "lose",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ HOU",
+     "result": "lose",
+     "prob": 0.473
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ HOU",
+     "result": "lose",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ HOU",
      "result": "lose",
      "prob": 0.393
     }
