@@ -1,4 +1,4 @@
-{"season":"2026-27","updated":"2026-11-24T02:00:23Z","games":[
+{"season":"2026-27","updated":"2026-11-24T02:30:31Z","games":[
 {"id":1,"round":1,"date":"2026-10-20T19:00:00Z","venue":"Little Caesars Arena","home":"DET","away":"BOS","hs":121,"as":113,"espn_id":"401909088"},
 {"id":2,"round":1,"date":"2026-10-20T23:00:00Z","venue":"Madison Square Garden","home":"NYK","away":"PHI","hs":100,"as":106,"espn_id":"401909089"},
 {"id":3,"round":1,"date":"2026-10-21T01:30:00Z","venue":"Frost Bank Center","home":"SAS","away":"OKC","hs":104,"as":116,"espn_id":"401909090"},
@@ -247,8 +247,8 @@
 {"id":246,"round":5,"date":"2026-11-23T00:00:00Z","venue":"Delta Center","home":"UTA","away":"DAL","hs":114,"as":116,"espn_id":"401910033"},
 {"id":247,"round":5,"date":"2026-11-23T01:00:00Z","venue":"Madison Square Garden","home":"NYK","away":"IND","hs":113,"as":106,"espn_id":"401910034"},
 {"id":248,"round":5,"date":"2026-11-23T01:30:00Z","venue":"Chase Center","home":"GSW","away":"BOS","hs":88,"as":87,"espn_id":"401910035"},
-{"id":249,"round":6,"date":"2026-11-24T00:00:00Z","venue":"Spectrum Center","home":"CHA","away":"MEM","hs":null,"as":null,"espn_id":"401910036"},
-{"id":250,"round":6,"date":"2026-11-24T00:00:00Z","venue":"Xfinity Mobile Arena","home":"PHI","away":"POR","hs":null,"as":null,"espn_id":"401910037"},
+{"id":249,"round":6,"date":"2026-11-24T00:00:00Z","venue":"Spectrum Center","home":"CHA","away":"MEM","hs":111,"as":117,"espn_id":"401910036"},
+{"id":250,"round":6,"date":"2026-11-24T00:00:00Z","venue":"Xfinity Mobile Arena","home":"PHI","away":"POR","hs":111,"as":128,"espn_id":"401910037"},
 {"id":251,"round":6,"date":"2026-11-24T00:30:00Z","venue":"Gainbridge Fieldhouse","home":"IND","away":"OKC","hs":null,"as":null,"espn_id":"401910038"},
 {"id":252,"round":6,"date":"2026-11-24T00:30:00Z","venue":"Scotiabank Arena","home":"TOR","away":"MIL","hs":null,"as":null,"espn_id":"401910039"},
 {"id":253,"round":6,"date":"2026-11-24T00:30:00Z","venue":"Target Center","home":"MIN","away":"BKN","hs":null,"as":null,"espn_id":"401910040"},
