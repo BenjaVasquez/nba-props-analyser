@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T03:30:34Z",
+ "updated": "2026-11-25T04:00:34Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 125,
+   "win": 128,
    "lose": 29,
    "void": 5,
-   "real": 81.2,
+   "real": 81.5,
    "est": 73.9
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 95,
+   "win": 97,
    "lose": 39,
    "void": 3,
-   "real": 70.9,
+   "real": 71.3,
    "est": 64.3
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 62,
-   "lose": 53,
+   "win": 66,
+   "lose": 55,
    "void": 1,
-   "real": 53.9,
-   "est": 47.2
+   "real": 54.5,
+   "est": 47.3
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -150,8 +150,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 206,
-   "real": 92.7,
+   "n": 212,
+   "real": 92.9,
    "est": 91
   },
   {
@@ -230,6 +230,72 @@
      "matchup": "DET @ ORL",
      "result": "lose",
      "prob": 0.394
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BOS @ WAS",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BOS @ WAS",
+     "result": "win",
+     "prob": 0.761
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BOS @ WAS",
+     "result": "win",
+     "prob": 0.736
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BOS @ WAS",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BOS @ WAS",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ WAS",
+     "result": "win",
+     "prob": 0.589
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ WAS",
+     "result": "win",
+     "prob": 0.543
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ WAS",
+     "result": "win",
+     "prob": 0.497
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ WAS",
+     "result": "win",
+     "prob": 0.482
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ WAS",
+     "result": "lose",
+     "prob": 0.467
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BOS @ WAS",
+     "result": "lose",
+     "prob": 0.391
     }
    ]
   },
