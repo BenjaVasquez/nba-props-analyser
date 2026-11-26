@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T02:00:33Z",
+ "updated": "2026-11-26T02:30:38Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 135,
+   "win": 138,
    "lose": 31,
    "void": 5,
-   "real": 81.3,
+   "real": 81.7,
    "est": 73.8
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 100,
+   "win": 102,
    "lose": 39,
    "void": 3,
-   "real": 71.9,
+   "real": 72.3,
    "est": 64.2
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 71,
-   "lose": 65,
+   "win": 74,
+   "lose": 68,
    "void": 1,
-   "real": 52.2,
-   "est": 47.3
+   "real": 52.1,
+   "est": 47.2
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -150,8 +150,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 224,
-   "real": 92.4,
+   "n": 230,
+   "real": 92.6,
    "est": 91.1
   },
   {
@@ -248,6 +248,72 @@
      "matchup": "MIA @ PHI",
      "result": "lose",
      "prob": 0.385
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CHI @ CHA",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CHI @ CHA",
+     "result": "win",
+     "prob": 0.706
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "CHI @ CHA",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CHI @ CHA",
+     "result": "win",
+     "prob": 0.665
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "CHI @ CHA",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CHI @ CHA",
+     "result": "win",
+     "prob": 0.537
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CHI @ CHA",
+     "result": "win",
+     "prob": 0.509
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CHI @ CHA",
+     "result": "lose",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CHI @ CHA",
+     "result": "win",
+     "prob": 0.448
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CHI @ CHA",
+     "result": "lose",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CHI @ CHA",
+     "result": "lose",
+     "prob": 0.389
     }
    ]
   },
