@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T04:00:35Z",
+ "updated": "2026-11-26T04:30:34Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,20 +68,20 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 148,
-   "lose": 35,
+   "win": 150,
+   "lose": 36,
    "void": 5,
-   "real": 80.9,
+   "real": 80.6,
    "est": 73.7
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 110,
-   "lose": 41,
+   "win": 111,
+   "lose": 43,
    "void": 3,
-   "real": 72.8,
-   "est": 64.2
+   "real": 72.1,
+   "est": 64.1
   },
   {
    "name": "Partido · 4 patas",
@@ -113,10 +113,10 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 83,
-   "lose": 89,
+   "win": 86,
+   "lose": 93,
    "void": 2,
-   "real": 48.3,
+   "real": 48,
    "est": 47.2
   },
   {
@@ -150,8 +150,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 254,
-   "real": 92.1,
+   "n": 260,
+   "real": 92.3,
    "est": 91.1
   },
   {
@@ -644,6 +644,84 @@
      "matchup": "BKN @ MIL",
      "result": "lose",
      "prob": 0.391
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ HOU",
+     "result": "lose",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ HOU",
+     "result": "win",
+     "prob": 0.766
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ HOU",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "PHX @ HOU",
+     "result": "win",
+     "prob": 0.664
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ HOU",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "PHX @ HOU",
+     "result": "lose",
+     "prob": 0.564
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ HOU",
+     "result": "lose",
+     "prob": 0.552
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ HOU",
+     "result": "win",
+     "prob": 0.539
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ HOU",
+     "result": "win",
+     "prob": 0.498
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ HOU",
+     "result": "lose",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ HOU",
+     "result": "win",
+     "prob": 0.482
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ HOU",
+     "result": "lose",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "PHX @ HOU",
+     "result": "lose",
+     "prob": 0.393
     }
    ]
   },

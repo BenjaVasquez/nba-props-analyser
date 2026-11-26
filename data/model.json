@@ -1,32 +1,32 @@
 {
- "updated": "2026-11-26T04:00:35Z",
+ "updated": "2026-11-26T04:30:34Z",
  "model": "v3",
  "from": "2026-11-01",
- "games": 179,
+ "games": 180,
  "days": 24,
  "note": "Jugadores que no jugaron se excluyen (en vivo los filtra el reporte de lesionados).",
  "legs": [
   {
    "range": "90%+",
-   "n": 7894,
-   "real": 94.5,
+   "n": 7949,
+   "real": 94.4,
    "est": 92.9
   },
   {
    "range": "85-90%",
-   "n": 10748,
+   "n": 10825,
    "real": 89.3,
    "est": 87.8
   },
   {
    "range": "80-85%",
-   "n": 11761,
+   "n": 11834,
    "real": 84.2,
    "est": 82.6
   },
   {
    "range": "78-80%",
-   "n": 5752,
+   "n": 5793,
    "real": 79.6,
    "est": 79
   }
@@ -34,34 +34,34 @@
  "parlays": [
   {
    "name": "Día · 2 patas",
-   "win": 43,
+   "win": 42,
    "lose": 14,
    "void": 0,
-   "real": 75.4,
+   "real": 75,
    "est": 75.9
   },
   {
    "name": "Día · 3 patas",
-   "win": 134,
+   "win": 135,
    "lose": 49,
    "void": 0,
-   "real": 73.2,
-   "est": 67.4
+   "real": 73.4,
+   "est": 67.5
   },
   {
    "name": "Partido · 2 patas",
-   "win": 438,
-   "lose": 124,
+   "win": 440,
+   "lose": 125,
    "void": 0,
    "real": 77.9,
    "est": 72.9
   },
   {
    "name": "Partido · 3 patas",
-   "win": 238,
-   "lose": 91,
+   "win": 239,
+   "lose": 93,
    "void": 0,
-   "real": 72.3,
+   "real": 72,
    "est": 64.2
   },
   {
@@ -82,26 +82,26 @@
   },
   {
    "name": "Promedio · Día · 3 patas",
-   "win": 21,
-   "lose": 102,
+   "win": 22,
+   "lose": 101,
    "void": 0,
-   "real": 17.1,
-   "est": 21.5
+   "real": 17.9,
+   "est": 21.6
   },
   {
    "name": "Promedio · Partido · 2 patas",
-   "win": 244,
-   "lose": 599,
+   "win": 246,
+   "lose": 601,
    "void": 0,
-   "real": 28.9,
+   "real": 29,
    "est": 30.4
   },
   {
    "name": "Promedio · Partido · 3 patas",
    "win": 19,
-   "lose": 125,
+   "lose": 126,
    "void": 0,
-   "real": 13.2,
+   "real": 13.1,
    "est": 18.4
   },
   {
@@ -122,8 +122,8 @@
   },
   {
    "name": "Realista · Partido · 2 patas",
-   "win": 538,
-   "lose": 623,
+   "win": 541,
+   "lose": 627,
    "void": 0,
    "real": 46.3,
    "est": 47.5
