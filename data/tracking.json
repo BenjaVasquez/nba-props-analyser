@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T05:00:35Z",
+ "updated": "2026-11-26T05:30:33Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 150,
+   "win": 152,
    "lose": 36,
    "void": 5,
-   "real": 80.6,
+   "real": 80.9,
    "est": 73.7
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 111,
+   "win": 113,
    "lose": 43,
    "void": 3,
-   "real": 72.1,
+   "real": 72.4,
    "est": 64.1
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 86,
+   "win": 92,
    "lose": 93,
    "void": 2,
-   "real": 48,
-   "est": 47.2
+   "real": 49.7,
+   "est": 47.1
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -150,8 +150,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 260,
-   "real": 92.3,
+   "n": 266,
+   "real": 92.5,
    "est": 91.1
   },
   {
@@ -722,6 +722,66 @@
      "matchup": "PHX @ HOU",
      "result": "lose",
      "prob": 0.393
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "SAC @ GSW",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "SAC @ GSW",
+     "result": "win",
+     "prob": 0.725
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ GSW",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "SAC @ GSW",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "SAC @ GSW",
+     "result": "win",
+     "prob": 0.532
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "SAC @ GSW",
+     "result": "win",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "SAC @ GSW",
+     "result": "win",
+     "prob": 0.477
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "SAC @ GSW",
+     "result": "win",
+     "prob": 0.457
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "SAC @ GSW",
+     "result": "win",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "SAC @ GSW",
+     "result": "win",
+     "prob": 0.389
     }
    ]
   },
