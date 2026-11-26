@@ -1,32 +1,32 @@
 {
- "updated": "2026-11-26T03:00:34Z",
+ "updated": "2026-11-26T03:30:32Z",
  "model": "v3",
  "from": "2026-11-01",
- "games": 176,
+ "games": 179,
  "days": 24,
  "note": "Jugadores que no jugaron se excluyen (en vivo los filtra el reporte de lesionados).",
  "legs": [
   {
    "range": "90%+",
-   "n": 7771,
+   "n": 7894,
    "real": 94.5,
    "est": 92.9
   },
   {
    "range": "85-90%",
-   "n": 10544,
-   "real": 89.4,
+   "n": 10748,
+   "real": 89.3,
    "est": 87.8
   },
   {
    "range": "80-85%",
-   "n": 11529,
-   "real": 84.3,
+   "n": 11761,
+   "real": 84.2,
    "est": 82.6
   },
   {
    "range": "78-80%",
-   "n": 5641,
+   "n": 5752,
    "real": 79.6,
    "est": 79
   }
@@ -34,10 +34,10 @@
  "parlays": [
   {
    "name": "Día · 2 patas",
-   "win": 42,
-   "lose": 15,
+   "win": 43,
+   "lose": 14,
    "void": 0,
-   "real": 73.7,
+   "real": 75.4,
    "est": 75.9
   },
   {
@@ -50,19 +50,19 @@
   },
   {
    "name": "Partido · 2 patas",
-   "win": 430,
-   "lose": 122,
+   "win": 438,
+   "lose": 124,
    "void": 0,
    "real": 77.9,
    "est": 72.9
   },
   {
    "name": "Partido · 3 patas",
-   "win": 232,
-   "lose": 89,
+   "win": 238,
+   "lose": 91,
    "void": 0,
    "real": 72.3,
-   "est": 64.3
+   "est": 64.2
   },
   {
    "name": "Partido · 4 patas",
@@ -75,57 +75,57 @@
   {
    "name": "Promedio · Día · 2 patas",
    "win": 41,
-   "lose": 78,
+   "lose": 75,
    "void": 0,
-   "real": 34.5,
-   "est": 35.6
+   "real": 35.3,
+   "est": 35.8
   },
   {
    "name": "Promedio · Día · 3 patas",
    "win": 21,
-   "lose": 99,
+   "lose": 102,
    "void": 0,
-   "real": 17.5,
+   "real": 17.1,
    "est": 21.5
   },
   {
    "name": "Promedio · Partido · 2 patas",
-   "win": 240,
-   "lose": 586,
+   "win": 244,
+   "lose": 599,
    "void": 0,
-   "real": 29.1,
+   "real": 28.9,
    "est": 30.4
   },
   {
    "name": "Promedio · Partido · 3 patas",
    "win": 19,
-   "lose": 122,
+   "lose": 125,
    "void": 0,
-   "real": 13.5,
+   "real": 13.2,
    "est": 18.4
   },
   {
    "name": "Realista · Día · 2 patas",
-   "win": 74,
-   "lose": 74,
+   "win": 77,
+   "lose": 71,
    "void": 0,
-   "real": 50,
-   "est": 56.2
+   "real": 52,
+   "est": 56.3
   },
   {
    "name": "Realista · Día · 3 patas",
-   "win": 38,
-   "lose": 54,
+   "win": 37,
+   "lose": 55,
    "void": 0,
-   "real": 41.3,
+   "real": 40.2,
    "est": 41.6
   },
   {
    "name": "Realista · Partido · 2 patas",
-   "win": 530,
-   "lose": 608,
+   "win": 538,
+   "lose": 623,
    "void": 0,
-   "real": 46.6,
+   "real": 46.3,
    "est": 47.5
   },
   {

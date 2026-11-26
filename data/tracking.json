@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T03:00:34Z",
+ "updated": "2026-11-26T03:30:32Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,8 +68,8 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 140,
-   "lose": 33,
+   "win": 148,
+   "lose": 35,
    "void": 5,
    "real": 80.9,
    "est": 73.7
@@ -77,10 +77,10 @@
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 104,
-   "lose": 39,
+   "win": 110,
+   "lose": 41,
    "void": 3,
-   "real": 72.7,
+   "real": 72.8,
    "est": 64.2
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 75,
-   "lose": 74,
-   "void": 1,
-   "real": 50.3,
-   "est": 47.3
+   "win": 83,
+   "lose": 89,
+   "void": 2,
+   "real": 48.3,
+   "est": 47.2
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -150,8 +150,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 236,
-   "real": 92.4,
+   "n": 254,
+   "real": 92.1,
    "est": 91.1
   },
   {
@@ -392,6 +392,258 @@
      "matchup": "CLE @ NYK",
      "result": "lose",
      "prob": 0.39
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "win",
+     "prob": 0.753
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "win",
+     "prob": 0.701
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIN @ OKC",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIN @ OKC",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "win",
+     "prob": 0.623
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "lose",
+     "prob": 0.534
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "win",
+     "prob": 0.504
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "lose",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "win",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "lose",
+     "prob": 0.395
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "void",
+     "prob": 0.393
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIN @ OKC",
+     "result": "win",
+     "prob": 0.388
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "lose",
+     "prob": 0.765
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ MEM",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "win",
+     "prob": 0.673
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ MEM",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "LAC @ MEM",
+     "result": "lose",
+     "prob": 0.572
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "lose",
+     "prob": 0.595
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "win",
+     "prob": 0.535
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "lose",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "lose",
+     "prob": 0.482
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "lose",
+     "prob": 0.459
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "lose",
+     "prob": 0.395
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "win",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "LAC @ MEM",
+     "result": "lose",
+     "prob": 0.378
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "lose",
+     "prob": 0.766
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BKN @ MIL",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "win",
+     "prob": 0.68
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BKN @ MIL",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BKN @ MIL",
+     "result": "win",
+     "prob": 0.593
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "lose",
+     "prob": 0.565
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "lose",
+     "prob": 0.487
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "lose",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "lose",
+     "prob": 0.461
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "win",
+     "prob": 0.45
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "win",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "lose",
+     "prob": 0.392
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ MIL",
+     "result": "lose",
+     "prob": 0.391
     }
    ]
   },
