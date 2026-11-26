@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T00:30:32Z",
+ "updated": "2026-11-26T01:00:32Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,20 +68,20 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 132,
-   "lose": 30,
+   "win": 135,
+   "lose": 31,
    "void": 5,
-   "real": 81.5,
-   "est": 73.9
+   "real": 81.3,
+   "est": 73.8
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 98,
+   "win": 100,
    "lose": 39,
    "void": 3,
-   "real": 71.5,
-   "est": 64.3
+   "real": 71.9,
+   "est": 64.2
   },
   {
    "name": "Partido · 4 patas",
@@ -113,10 +113,10 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 69,
-   "lose": 59,
+   "win": 71,
+   "lose": 65,
    "void": 1,
-   "real": 53.9,
+   "real": 52.2,
    "est": 47.3
   },
   {
@@ -150,9 +150,9 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 218,
-   "real": 92.7,
-   "est": 91
+   "n": 224,
+   "real": 92.4,
+   "est": 91.1
   },
   {
    "range": "80-85%",
@@ -162,6 +162,95 @@
   }
  ],
  "days": [
+  {
+   "day": "2026-11-25",
+   "parlays": [
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "lose",
+     "prob": 0.761
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "win",
+     "prob": 0.681
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "win",
+     "prob": 0.678
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIA @ PHI",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "MIA @ PHI",
+     "result": "win",
+     "prob": 0.595
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "win",
+     "prob": 0.624
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "lose",
+     "prob": 0.587
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "win",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "lose",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "lose",
+     "prob": 0.467
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "lose",
+     "prob": 0.395
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "lose",
+     "prob": 0.388
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "MIA @ PHI",
+     "result": "lose",
+     "prob": 0.385
+    }
+   ]
+  },
   {
    "day": "2026-11-24",
    "parlays": [
