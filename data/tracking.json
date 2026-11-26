@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T02:30:38Z",
+ "updated": "2026-11-26T03:00:34Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 138,
-   "lose": 31,
+   "win": 140,
+   "lose": 33,
    "void": 5,
-   "real": 81.7,
-   "est": 73.8
+   "real": 80.9,
+   "est": 73.7
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 102,
+   "win": 104,
    "lose": 39,
    "void": 3,
-   "real": 72.3,
+   "real": 72.7,
    "est": 64.2
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 74,
-   "lose": 68,
+   "win": 75,
+   "lose": 74,
    "void": 1,
-   "real": 52.1,
-   "est": 47.2
+   "real": 50.3,
+   "est": 47.3
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -150,8 +150,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 230,
-   "real": 92.6,
+   "n": 236,
+   "real": 92.4,
    "est": 91.1
   },
   {
@@ -314,6 +314,84 @@
      "matchup": "CHI @ CHA",
      "result": "lose",
      "prob": 0.389
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "lose",
+     "prob": 0.742
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "CLE @ NYK",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "win",
+     "prob": 0.676
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "lose",
+     "prob": 0.638
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "CLE @ NYK",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "lose",
+     "prob": 0.622
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "lose",
+     "prob": 0.532
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "lose",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "lose",
+     "prob": 0.479
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "lose",
+     "prob": 0.471
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "win",
+     "prob": 0.408
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "CLE @ NYK",
+     "result": "lose",
+     "prob": 0.39
     }
    ]
   },
