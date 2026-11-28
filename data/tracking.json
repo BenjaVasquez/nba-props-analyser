@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-28T03:00:36Z",
+ "updated": "2026-11-28T03:30:30Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 163,
-   "lose": 39,
+   "win": 168,
+   "lose": 41,
    "void": 5,
-   "real": 80.7,
+   "real": 80.4,
    "est": 73.6
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
    "win": 118,
-   "lose": 43,
+   "lose": 47,
    "void": 3,
-   "real": 73.3,
+   "real": 71.5,
    "est": 64.1
   },
   {
@@ -113,20 +113,20 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 104,
-   "lose": 104,
+   "win": 109,
+   "lose": 111,
    "void": 2,
-   "real": 50,
+   "real": 49.5,
    "est": 47.3
   },
   {
    "name": "Realista · Partido · 3 patas",
    "kind": "Partido",
    "win": 3,
-   "lose": 2,
+   "lose": 3,
    "void": 0,
-   "real": 60,
-   "est": 37.3
+   "real": 50,
+   "est": 37.7
   },
   {
    "name": "Realista · Día · 2 patas",
@@ -150,8 +150,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 290,
-   "real": 92.8,
+   "n": 302,
+   "real": 91.7,
    "est": 91.1
   },
   {
@@ -360,6 +360,150 @@
     {
      "name": "Realista · Partido · 3 patas",
      "matchup": "PHI @ IND",
+     "result": "lose",
+     "prob": 0.394
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "win",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "win",
+     "prob": 0.765
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "win",
+     "prob": 0.696
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BKN @ TOR",
+     "result": "lose",
+     "prob": 0.679
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "BKN @ TOR",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "win",
+     "prob": 0.59
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "lose",
+     "prob": 0.496
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "lose",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "lose",
+     "prob": 0.458
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "win",
+     "prob": 0.428
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "win",
+     "prob": 0.395
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "BKN @ TOR",
+     "result": "lose",
+     "prob": 0.394
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ATL @ BOS",
+     "result": "lose",
+     "prob": 0.768
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ATL @ BOS",
+     "result": "win",
+     "prob": 0.765
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "ATL @ BOS",
+     "result": "lose",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "ATL @ BOS",
+     "result": "lose",
+     "prob": 0.67
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "ATL @ BOS",
+     "result": "lose",
+     "prob": 0.612
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "ATL @ BOS",
+     "result": "win",
+     "prob": 0.614
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "ATL @ BOS",
+     "result": "lose",
+     "prob": 0.556
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "ATL @ BOS",
+     "result": "lose",
+     "prob": 0.484
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "ATL @ BOS",
+     "result": "lose",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "ATL @ BOS",
+     "result": "win",
+     "prob": 0.432
+    },
+    {
+     "name": "Realista · Partido · 3 patas",
+     "matchup": "ATL @ BOS",
      "result": "lose",
      "prob": 0.394
     }
