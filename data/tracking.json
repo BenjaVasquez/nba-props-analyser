@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-28T04:30:31Z",
+ "updated": "2026-11-28T05:00:36Z",
  "since": "2026-11-19",
  "parlays": [
   {
@@ -68,19 +68,19 @@
   {
    "name": "Partido · 2 patas",
    "kind": "Partido",
-   "win": 172,
-   "lose": 41,
+   "win": 177,
+   "lose": 44,
    "void": 5,
-   "real": 80.8,
+   "real": 80.1,
    "est": 73.6
   },
   {
    "name": "Partido · 3 patas",
    "kind": "Partido",
-   "win": 118,
-   "lose": 47,
+   "win": 125,
+   "lose": 48,
    "void": 3,
-   "real": 71.5,
+   "real": 72.3,
    "est": 64.1
   },
   {
@@ -113,11 +113,11 @@
   {
    "name": "Realista · Partido · 2 patas",
    "kind": "Partido",
-   "win": 112,
-   "lose": 115,
+   "win": 127,
+   "lose": 123,
    "void": 2,
-   "real": 49.3,
-   "est": 47.3
+   "real": 50.8,
+   "est": 47.2
   },
   {
    "name": "Realista · Partido · 3 patas",
@@ -150,8 +150,8 @@
  "legs": [
   {
    "range": "85%+",
-   "n": 308,
-   "real": 91.9,
+   "n": 326,
+   "real": 92,
    "est": 91.1
   },
   {
@@ -578,6 +578,240 @@
      "matchup": "MEM @ MIN",
      "result": "lose",
      "prob": 0.392
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "lose",
+     "prob": 0.75
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "DAL @ PHX",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "win",
+     "prob": 0.67
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "DAL @ PHX",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "DAL @ PHX",
+     "result": "win",
+     "prob": 0.605
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "win",
+     "prob": 0.552
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "lose",
+     "prob": 0.508
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "win",
+     "prob": 0.483
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "win",
+     "prob": 0.469
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "lose",
+     "prob": 0.453
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "lose",
+     "prob": 0.425
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "win",
+     "prob": 0.395
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DAL @ PHX",
+     "result": "lose",
+     "prob": 0.394
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DEN @ UTA",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "DEN @ UTA",
+     "result": "win",
+     "prob": 0.753
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "DEN @ UTA",
+     "result": "lose",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "DEN @ UTA",
+     "result": "win",
+     "prob": 0.61
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ UTA",
+     "result": "win",
+     "prob": 0.575
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ UTA",
+     "result": "win",
+     "prob": 0.482
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ UTA",
+     "result": "win",
+     "prob": 0.47
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ UTA",
+     "result": "lose",
+     "prob": 0.456
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ UTA",
+     "result": "win",
+     "prob": 0.395
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ UTA",
+     "result": "win",
+     "prob": 0.391
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "DEN @ UTA",
+     "result": "lose",
+     "prob": 0.383
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "lose",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "win",
+     "prob": 0.769
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ LAC",
+     "result": "win",
+     "prob": 0.682
+    },
+    {
+     "name": "Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "lose",
+     "prob": 0.679
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ LAC",
+     "result": "win",
+     "prob": 0.612
+    },
+    {
+     "name": "Partido · 3 patas",
+     "matchup": "NOP @ LAC",
+     "result": "win",
+     "prob": 0.599
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "win",
+     "prob": 0.599
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "lose",
+     "prob": 0.549
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "win",
+     "prob": 0.495
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "lose",
+     "prob": 0.482
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "win",
+     "prob": 0.481
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "win",
+     "prob": 0.45
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "win",
+     "prob": 0.394
+    },
+    {
+     "name": "Realista · Partido · 2 patas",
+     "matchup": "NOP @ LAC",
+     "result": "win",
+     "prob": 0.384
     }
    ]
   },
